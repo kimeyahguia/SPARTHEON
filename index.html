@@ -36,7 +36,8 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .lfoot{margin-top:30px;font-size:.7rem;color:#9aa4b2}
 /* 4. TOP BAR */
 #dash{display:none;max-width:1400px;margin:0 auto;padding:14px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:12px;align-items:start}
+.layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;align-items:start}
+.s4{grid-column:span 4}.s8{grid-column:span 8}.s12{grid-column:1/-1}
 .full{grid-column:1/-1}
 .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(255,255,255,.9);border-radius:20px;padding:8px 16px;box-shadow:var(--shadow)}
 .top img.logo{height:40px;width:auto}
@@ -47,11 +48,9 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .hero h1{font-size:1.15rem;color:var(--navy)}.hero h1 em{font-style:normal;color:var(--red)}
 .hero p{font-size:.78rem;color:#44566d;margin-top:2px}
 /* 5. KPI CARDS */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
 .kpi{position:relative;text-align:left;border:0;background:rgba(255,255,255,.92);border-radius:var(--rad);padding:12px 14px;box-shadow:var(--shadow);transition:.18s;width:100%}
-.kpi:hover,.kpi:focus-visible{transform:translateY(-3px);z-index:100}
-.kpis{position:relative;z-index:10}
-.tip{z-index:101}
+.kpi:hover,.kpi:focus-visible{transform:translateY(-3px)}
 .kpi.on{outline:2px solid var(--navy);outline-offset:2px}
 .kpi .ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:.9rem;margin-bottom:6px;background:#e4f4ea;color:var(--g)}
 .kpi.y .ic{background:#fff3cf;color:#9a6f00}.kpi.r .ic{background:#fbe4e4;color:var(--red)}.kpi.n .ic{background:#eceff3;color:var(--mute)}
@@ -61,10 +60,10 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .kpi .st:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--g)}
 .kpi.y .st:before{background:var(--y)}.kpi.r .st:before{background:var(--red)}.kpi.n .st:before{background:#9aa4b2}
 .kpi.g .st{color:var(--g)}.kpi.y .st{color:#9a6f00}.kpi.r .st{color:var(--red)}
-.tip{position:absolute;z-index:6;left:0;top:calc(100% + 8px);width:240px;background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;font-size:.72rem;box-shadow:0 14px 34px rgba(20,30,45,.3);opacity:0;visibility:hidden;transition:.15s;pointer-events:none}
-.tip b{display:block;font-size:.78rem;margin-bottom:4px}.tip p{margin-top:5px;color:#d3dcea}.tip u{text-decoration:none;color:#fff;font-weight:600}
-.kpi:hover .tip,.kpi:focus-visible .tip{opacity:1;visibility:visible}
-.kpi:last-child .tip,.kpi:nth-last-child(2) .tip{left:auto;right:0}
+/* one floating tooltip on <body>: always above every card and chart, kept inside the screen by JS */
+#tipBox{position:fixed;z-index:1000;left:0;top:0;width:250px;background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;font-size:.72rem;box-shadow:0 14px 34px rgba(20,30,45,.3);opacity:0;visibility:hidden;transition:opacity .12s;pointer-events:none}
+#tipBox.show{opacity:1;visibility:visible}
+#tipBox b{display:block;font-size:.78rem;margin-bottom:4px}#tipBox p{margin-top:5px;color:#d3dcea}#tipBox u{text-decoration:none;color:#fff;font-weight:600}
 /* 6. CARDS, TABS, LISTS */
 .card{background:rgba(255,255,255,.92);border-radius:var(--rad);padding:14px 16px;min-width:0;box-shadow:var(--shadow)}
 .card h4{font-size:.92rem;color:var(--navy);font-weight:700}
@@ -75,9 +74,10 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .tabs button{border:0;background:none;padding:5px 13px;border-radius:16px;font-size:.74rem;color:var(--mute);font-weight:600}
 .tabs button.on{background:#fff;color:var(--navy);box-shadow:0 2px 8px rgba(34,54,79,.1)}
 .caption{font-size:.76rem;color:var(--mute);margin-bottom:4px;min-height:1.2em}
-.chart-box{height:260px;position:relative}
-.html-box{height:260px;overflow:auto;display:none}
-.list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.chart-box{height:300px;position:relative}
+.html-box{height:300px;overflow:auto;display:none}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:6px}
+.list>.none{grid-column:1/-1}
 .item{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:14px;background:var(--soft);cursor:pointer;border:0;text-align:left;width:100%}
 .item:hover{background:#e9eff8}
 .item .txt{flex:1;min-width:0}.item b{display:block;font-size:.83rem;color:var(--navy)}.item span.sub{font-size:.72rem;color:var(--mute)}
@@ -98,12 +98,12 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .bell b{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border-radius:10px;min-width:18px;padding:0 5px;font-size:.66rem;line-height:18px}
 #filterRow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:rgba(255,255,255,.9);border-radius:16px;padding:9px 14px;box-shadow:var(--shadow)}
 /* 7. HEATMAP / MATRIX */
-.hm{width:100%;border-collapse:separate;border-spacing:3px;font-size:.74rem}
+.hm{width:100%;border-collapse:separate;border-spacing:2px 3px;font-size:.72rem}
 .hm th{color:var(--mute);font-weight:600;padding:2px 4px;text-align:center}.hm th.cur{color:var(--navy)}
 .hm td{border:0;padding:0}.hm td.lab{text-align:left;font-weight:600;color:var(--navy);white-space:nowrap;padding-right:8px}
-.hm td.c{text-align:center;border-radius:8px;padding:6px 2px;font-weight:600}
+.hm td.c{text-align:center;border-radius:8px;padding:4px 2px;font-weight:600}
 .c.g{background:#e4f4ea;color:var(--g)}.c.y{background:#fff3cf;color:#9a6f00}.c.r{background:#fbe4e4;color:var(--red)}.c.n{background:var(--soft);color:var(--mute)}
-.legend{font-size:.68rem;color:var(--mute);margin-top:6px}
+.legend{font-size:.66rem;color:var(--mute);margin-top:4px}
 .flag{font-size:.64rem;background:#fbe4e4;color:var(--red);border-radius:8px;padding:1px 7px;margin-left:6px;font-weight:600}
 /* 8. MODAL */
 #modal{display:none;position:fixed;inset:0;background:rgba(20,30,45,.45);align-items:center;justify-content:center;z-index:20;padding:14px}
@@ -139,6 +139,28 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .rep ul{padding-left:18px;font-size:.8rem}.rep li{margin:5px 0}
 .rep .foot{font-size:.68rem;color:var(--mute);margin-top:14px;border-top:1px solid var(--line);padding-top:8px}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+/* 10. SLOTS, MINI CHARTS, READ STATE */
+.html-box.auto{height:auto;overflow:visible}
+.mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:10px;height:100%}
+.mini{background:var(--soft);border-radius:14px;padding:6px 10px 4px;min-width:0;min-height:0;display:flex;flex-direction:column}
+.mini-h{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--navy);margin-bottom:2px}
+.mini-c{position:relative;flex:1;min-height:70px}
+.head-links{display:flex;gap:12px}
+.mk{margin-left:auto;flex:none;border:1px solid var(--line);background:#fff;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;color:var(--g);padding:0}
+.mk:hover{background:#e4f4ea}
+.al.read{opacity:.55;border-left-color:#cbd3de}
+.btn:disabled{opacity:.5;cursor:default}
+@media(max-width:700px){.mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 11. VISUALIZATION CARDS: every chart card has the same height; the chart fills what is left under title + caption */
+.viz{display:flex;flex-direction:column;height:372px}
+.viz .card-head,.viz .caption{flex:none}
+.viz .caption{margin-bottom:6px}
+.viz .chart-box,.viz .html-box{flex:1;min-height:0;height:auto}
+.viz .html-box{overflow:auto}
+.viz .hm td.c{padding:3px 2px}
+.viz.s4 .hm td.c{padding:2px 2px}
+.viz .hm th{white-space:nowrap;font-size:.68rem}
+.viz #alertList{flex:1;min-height:0;overflow:auto;padding-right:2px}
 @page{margin:14mm}
 @media print{
   body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -148,7 +170,10 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
   .noprint{display:none!important}
   .rep tr,.rep li{break-inside:avoid}
 }
-@media(max-width:1100px){.layout{grid-template-columns:1fr}}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.s4,.s8,.s12{grid-column:1/-1}
+  .viz{height:auto}.viz .chart-box{flex:none;height:300px}.viz .html-box{flex:none;height:auto;max-height:420px}
+  .mini-grid{height:auto;grid-template-rows:none}.mini-c{flex:none;height:110px}}
+@media(max-width:900px){.list{grid-template-columns:1fr}}
 @media(max-width:700px){.who{border:0;padding:0;width:100%}.spacer{display:none}}
 </style>
 </head>
@@ -184,27 +209,33 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 
     <div class="kpis full" id="kpiRow"></div>
 
-    <div class="col">
-      <section class="card">
-        <div class="card-head"><h4 id="chartTitle">Chart</h4><div class="tabs" id="chartTabs" role="tablist"></div></div>
-        <p class="caption" id="chartCaption"></p>
-        <div class="chart-box" id="canvasBox"><canvas id="mainCanvas" role="img" aria-label="Chart"></canvas></div>
-        <div class="html-box" id="htmlBox"></div>
-      </section>
-      <section class="card">
-        <div class="card-head"><h4 id="panelTitle">Panel</h4></div>
-        <p class="caption" id="panelHint"></p>
-        <div class="list" id="panelBody"></div>
-      </section>
-    </div>
-
-    <div class="card">
-      <h4>Overall Health</h4>
-      <div class="ring" id="ring"><div><span><b id="ringValue">0/0</b><small>KPIs on target</small></span></div></div>
-      <p class="center" id="ringText"></p>
-      <div class="card-head" style="margin-top:14px"><h4>Top Alerts</h4><button class="link" onclick="openAlerts()">See all</button></div>
+    <section class="card viz s8">
+      <div class="card-head"><h4 id="mainTitle"></h4></div>
+      <p class="caption" id="mainCaption"></p>
+      <div class="chart-box" id="mainBox"><canvas id="mainCanvas" role="img"></canvas></div>
+      <div class="html-box" id="mainHtml"></div>
+    </section>
+    <section class="card viz s4">
+      <div class="card-head"><h4 id="sideTitle"></h4></div>
+      <p class="caption" id="sideCaption"></p>
+      <div class="chart-box" id="sideBox"><canvas id="sideCanvas" role="img"></canvas></div>
+      <div class="html-box" id="sideHtml"></div>
+    </section>
+    <section class="card viz s8">
+      <div class="card-head"><h4 id="secondTitle"></h4></div>
+      <p class="caption" id="secondCaption"></p>
+      <div class="chart-box" id="secondBox"><canvas id="secondCanvas" role="img"></canvas></div>
+      <div class="html-box" id="secondHtml"></div>
+    </section>
+    <section class="card viz s4">
+      <div class="card-head"><h4>Top Alerts</h4><div class="head-links"><button class="link" onclick="markAll(true)">Mark all read</button><button class="link" onclick="openAlerts()">See all</button></div></div>
       <div id="alertList"></div>
-    </div>
+    </section>
+    <section class="card s12">
+      <div class="card-head"><h4 id="panelTitle">Panel</h4></div>
+      <p class="caption" id="panelHint"></p>
+      <div class="list" id="panelBody"></div>
+    </section>
 
     <p class="note full">Sample data only · Each college has its own subjects · Hover a KPI for its objective and formula; click it to filter the list below · Section code 1106 = Year 1 · 1st Sem · Section 06
       <span title="SETE results should not be the sole measure of teaching effectiveness. Consider response rate, context, and other evidence." data-ico="info" style="cursor:help;color:var(--red);display:inline-flex;align-items:center;gap:4px"> SETE use note</span></p>
@@ -212,6 +243,7 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 </section>
 
 <div id="modal" onclick="if(event.target===this)closeModal()"><div class="box" id="modalBox"></div></div>
+<div id="tipBox" role="tooltip"></div>
 
 <script>
 /* =====================================================================
@@ -222,6 +254,7 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 
 /* 1. CONFIG */
 const SEM=['2nd Sem 2024-25','1st Sem 2025-26','2nd Sem 2025-26','1st Sem 2026-27'];
+const shortSem=s=>s.replace(' Sem','').replace(/20(\d\d)-(\d\d)/,'$1-$2');
 const COLLEGE_NAME={CICS:'College of Informatics and Computing Sciences',CCJE:'College of Criminal Justice Education',CTE:'College of Teacher Education',CAS:'College of Arts and Sciences',CHS:'College of Health and Sciences',CABEIHM:'College of Accountancy, Business, Economics, and International Hospitality Management'};
 const SECTION_PLAN={1:{Core:8},2:{Core:7},3:{BA:4,NT:3},4:{BA:3,NT:2}};
 const SUBJECTS={1:{all:['IT 101','IT 102']},2:{all:['IT 201','IT 202']},3:{all:['IT 303'],BA:['BAT 301'],NT:['NET 301']},4:{all:['IT 401'],BA:['BAT 405'],NT:['NET 401']}};
@@ -344,29 +377,30 @@ const ROLES={
     decision:'Which tracks and subjects need curriculum or faculty support, and where compliance slips.',
     filter:d=>d.col==='CICS',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:'prog',
     kpis:['hr','late','pass','imp','load'],kpiNames:{hr:'High-Risk Course Rate (College)'},
-    charts:['heatmap','yearLines','riskBubble'],panel:'groups'},
+    slots:{main:'yearLines',second:'riskBubble',side:'heatmap'},panel:'groups'},
   chair:{title:'Program Chair',greetName:'Program Chair',type:'Tactical dashboard',
     blurb:'Whole IT program: late grades, SETE response, passing rates',
     decision:'Which sections and subjects need follow-up now.',
     filter:d=>d.col==='CICS',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:null,
     kpis:['late','resp','pass','imp','load'],kpiNames:{},
-    charts:['respLollipop','lateMatrix','respVsSete'],panel:'topSections'},
+    slots:{main:'respLollipop',second:'lateMatrix',side:'respQuad'},panel:'topSections'},
   faculty:{title:'Faculty Member',greetName:'Prof. Reyes',type:'Operational dashboard',
     blurb:'My IT classes: SETE improvement, response, class results',
     decision:'How my classes stand and what to improve next.',
     filter:d=>d.col==='CICS'&&d.fac==='Prof. Reyes',groupFilter:null,rollupBy:null,
     kpis:['imp','resp','pass','late','load'],
     kpiNames:{late:'My Late Grade Submissions',resp:'SETE Response Rate (My Sections)',load:'My Teaching Load Compliance',imp:'My SETE Improvement Rate'},
-    charts:['radar','seteTrend','classOutcome'],panel:'myClasses'},
+    slots:{main:'classOutcome',second:'seteTrend',side:'radar'},panel:'myClasses'},
   admin:{title:'Academic Administrator',greetName:'VCAA',type:'Strategic dashboard',
     blurb:'Vice Chancellor for Academic Affairs: campus-wide quality assurance',
     decision:'Which colleges need curriculum review, tutoring funds, and faculty development.',
     filter:()=>true,groupFilter:'col',groupLabel:'All Colleges',rollupBy:'col',
     kpis:['hr','pass','imp','late','load'],kpiNames:{hr:'High-Risk Course Rate (Campus-wide)'},
-    charts:['hrRanking','slope','heatmap'],panel:'groups'}};
+    slots:{main:'hrRanking',second:'collegeTrends',side:'slope'},panel:'groups'}};
 
-const state={roleKey:'',sem:3,group:'all',subject:'all',drill:null,chartId:null};
-let role=null,current=null,alertsList=[],charts={main:null};
+const state={roleKey:'',sem:3,group:'all',subject:'all',drill:null};
+let role=null,current=null,alertsList=[],slot='main';
+const charts={main:null,second:null,side:null,extra:[]};
 const $=id=>document.getElementById(id);
 const sum=(a,f)=>a.reduce((x,d)=>x+f(d),0);
 
@@ -443,7 +477,7 @@ const valueLabels={id:'valueLabels',afterDatasetsDraw(c){
   c.data.datasets.forEach((ds,i)=>{const pts=c.getDatasetMeta(i).data;
     if(ds.lollipop){pts.forEach((p,j)=>{x.fillStyle=ds.backgroundColor[j];x.beginPath();x.arc(p.x,p.y,6,0,Math.PI*2);x.fill();
         x.fillStyle='#1c2733';x.textAlign='left';x.fillText(ds.fmt(ds.data[j]),p.x+10,p.y+3)})}
-    else if(ds.endLabel){const p=pts[pts.length-1];if(p){x.textAlign='left';x.fillStyle=ds.borderColor;x.fillText(ds.endLabel,p.x+8,p.y+3)}}
+    else if(ds.endLabel){}
     else if(ds.targetLabel&&pts.length){const p=pts[pts.length-1];x.textAlign='right';x.fillStyle='#6b7685';x.fillText(ds.targetLabel,p.x,p.y-4)}
     else if(!ds.noLabels&&ds.fmt){x.textAlign='center';pts.forEach((p,j)=>{const v=ds.data[j];if(v!=null)x.fillText(ds.fmt(v),p.x,p.y-6)})}
     else if(ds.pointLabels){x.textAlign='left';pts.forEach((p,j)=>{if(ds.pointLabels[j])x.fillText(ds.pointLabels[j],p.x+10,p.y+3)})}});
@@ -463,9 +497,22 @@ const zone={id:'zone',beforeDatasetsDraw(c,_a,o){
 const axisTitle=t=>({display:true,text:t,font:{size:10}});
 const tickFont={font:{size:9}},gridStyle={color:'#eef2f7'};
 const baseOptions=(extra={})=>({animation:false,maintainAspectRatio:false,responsive:true,...extra,plugins:{legend:{display:false},...(extra.plugins||{})}});
-function destroyCharts(){if(charts.main){charts.main.destroy();charts.main=null}}
-function drawCanvas(config){$('canvasBox').style.display='block';$('htmlBox').style.display='none';charts.main=new Chart($('mainCanvas'),config)}
-function drawHtml(html){$('canvasBox').style.display='none';$('htmlBox').style.display='block';$('htmlBox').innerHTML=html}
+/* labels at the end of slope lines, pushed apart so they never overlap */
+const endLabels={id:'endLabels',afterDatasetsDraw(c){
+  const items=[];c.data.datasets.forEach((ds,i)=>{if(!ds.endLabel)return;const pts=c.getDatasetMeta(i).data,p=pts[pts.length-1];if(p)items.push({x:p.x,y:p.y,t:ds.endLabel,col:ds.borderColor})});
+  items.sort((a,b)=>a.y-b.y);for(let i=1;i<items.length;i++)if(items[i].y-items[i-1].y<11)items[i].y=items[i-1].y+11;
+  const floor=c.chartArea.bottom+2,n=items.length;
+  if(n&&items[n-1].y>floor){items[n-1].y=floor;for(let i=n-2;i>=0;i--)if(items[i+1].y-items[i].y<11)items[i].y=items[i+1].y-11}
+  const x=c.ctx;x.save();x.font='10px system-ui,sans-serif';x.textAlign='left';items.forEach(it=>{x.fillStyle=it.col;x.fillText(it.t,it.x+8,it.y+3)});x.restore()}};
+/* big number in the middle of a doughnut */
+const centerText={id:'centerText',afterDraw(c,_a,o){
+  if(!o||!o.big)return;const m=c.getDatasetMeta(0).data[0];if(!m)return;const x=c.ctx;
+  x.save();x.textAlign='center';x.fillStyle='#22364f';x.font='700 20px system-ui,sans-serif';x.fillText(o.big,m.x,m.y+4);
+  x.fillStyle='#6b7685';x.font='10px system-ui,sans-serif';x.fillText(o.small,m.x,m.y+19);x.restore()}};
+/* three chart slots per role: main, second, side. Each has its own canvas (xxxCanvas / xxxBox) and html area (xxxHtml). */
+function destroyCharts(){['main','second','side'].forEach(s=>{if(charts[s]){charts[s].destroy();charts[s]=null}});charts.extra.forEach(c=>c.destroy());charts.extra=[]}
+function drawCanvas(config){$(slot+'Box').style.display='block';$(slot+'Html').style.display='none';charts[slot]=new Chart($(slot+'Canvas'),config)}
+function drawHtml(html,auto){$(slot+'Box').style.display='none';const h=$(slot+'Html');h.style.display='block';h.className='html-box'+(auto?' auto':'');h.innerHTML=html}
 function drawLollipop({labels,values,colors,fmt,max,lines,xTitle}){
   drawCanvas({type:'bar',data:{labels,datasets:[{data:values,backgroundColor:colors,barThickness:4,lollipop:true,fmt}]},
     options:baseOptions({indexAxis:'y',layout:{padding:{right:40}},plugins:{refLines:{lines}},
@@ -480,9 +527,9 @@ const CHARTS={
       const cls=v=>v==null?'n':v<TH.pass[1]?'r':v<TH.pass[0]?'y':'g';
       const below=grid.filter(g=>g.vals[state.sem]!=null&&g.vals[state.sem]<85).length;
       const repeat=grid.filter(g=>state.sem>0&&g.vals[state.sem]!=null&&g.vals[state.sem-1]!=null&&g.vals[state.sem]<85&&g.vals[state.sem-1]<85).length;
-      drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${s.replace(' Sem','')}</th>`).join('')}</tr></thead><tbody>${
+      drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${shortSem(s)}</th>`).join('')}</tr></thead><tbody>${
         grid.map(g=>`<tr><td class="lab" title="${COURSE_INFO[g.code].name}">${g.code}${state.roleKey==='admin'?` <span style="color:var(--mute);font-weight:500">${CODE_COL[g.code]}</span>`:''}</td>${g.vals.map(v=>`<td class="c ${cls(v)}">${v==null?'–':v.toFixed(0)}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        <p class="legend">Green ≥ 85% · Amber 75–84% · Red &lt; 75% · Lowest subjects first for the selected semester</p>`);
+        <p class="legend">Green ≥ 85% · Amber 75–84% · Red &lt; 75% · Lowest first</p>`,true);
       return `${below} of ${grid.length} ${subjWord()} are below the 85% target this semester; ${repeat} stayed below it two semesters in a row.`}},
 
   yearLines:{label:'Year levels',title:()=>'Passing Rate by Year Level, per Track',
@@ -521,20 +568,25 @@ const CHARTS={
         return{f,cells,total:cells.filter(c=>c==='late').length,repeat:state.sem>0&&cells[state.sem]==='late'&&cells[state.sem-1]==='late'}});
       grid.sort((a,b)=>b.total-a.total||(a.f<b.f?-1:1));
       const label={late:['r',ico('x',11)+' Late'],ok:['g',ico('tick',11)+' OK'],none:['n','–']};
-      drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${s.replace(' Sem','')}</th>`).join('')}</tr></thead><tbody>${
+      drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${shortSem(s)}</th>`).join('')}</tr></thead><tbody>${
         grid.map(g=>`<tr><td class="lab">${g.f}${g.repeat?'<span class="flag">2 sems in a row</span>':''}</td>${g.cells.map(c=>`<td class="c ${label[c][0]}">${label[c][1]}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        <p class="legend">A cell is “Late” if any of the faculty’s sections submitted grades late that semester.</p>`);
+        <p class="legend">A cell is “Late” if any of the faculty’s sections submitted grades late that semester.</p>`,true);
       const n=grid.filter(g=>g.repeat).length;
       return n?`${n} faculty member${n>1?'s were':' was'} late two semesters in a row: escalate to the Dean/VCAA.`:'No faculty member was late two semesters in a row.'}},
 
-  respVsSete:{label:'Response vs SETE',title:()=>'SETE Response Rate vs SETE Rating',
+  respQuad:{label:'Response vs SETE',title:()=>'SETE Response vs SETE Rating',
     draw(cur){
-      const rows=cur.rows,low=rows.filter(d=>d.resp<80).length;
-      drawCanvas({type:'scatter',data:{datasets:[{data:rows.map(d=>({x:d.resp,y:d.sete})),pointRadius:5,backgroundColor:rows.map(d=>d.resp<80?'#c62b30':'#22364f'),pointLabels:rows.map(d=>d.resp<60?d.lbl:null)}]},
-        options:baseOptions({plugins:{zone:{xTo:80,label:'Low response – read with caution'},
-          tooltip:{callbacks:{label:p=>{const d=rows[p.dataIndex];return `${d.lbl} (${d.fac}): response ${d.resp}%, SETE ${d.sete}`}}}},
-          scales:{x:{min:40,max:100,title:axisTitle('SETE response rate (%)'),ticks:tickFont,grid:gridStyle},y:{min:2.5,max:5,title:axisTitle('SETE rating (1–5)'),ticks:tickFont,grid:gridStyle}}}),plugins:[zone,valueLabels]});
-      return `${low} section-subjects have a response rate below 80%, so their SETE rating should be read with caution.`}},
+      const rows=cur.rows,hiR=d=>d.resp>=80,hiS=d=>d.sete>=4;
+      const q=[['Good response, good SETE',rows.filter(d=>hiR(d)&&hiS(d)).length,'#2e9e5b'],
+        ['Good response, low SETE',rows.filter(d=>hiR(d)&&!hiS(d)).length,'#e3a600'],
+        ['Low response, good SETE',rows.filter(d=>!hiR(d)&&hiS(d)).length,'#6b9ac4'],
+        ['Low response, low SETE',rows.filter(d=>!hiR(d)&&!hiS(d)).length,'#c62b30']];
+      const goodR=q[0][1]+q[1][1];
+      drawCanvas({type:'doughnut',data:{labels:q.map(x=>x[0]),datasets:[{data:q.map(x=>x[1]),backgroundColor:q.map(x=>x[2]),borderWidth:2,borderColor:'#fff'}]},
+        options:baseOptions({cutout:'58%',plugins:{centerText:{big:Math.round(100*goodR/rows.length)+'%',small:'response ≥ 80%'},
+          legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}},
+          tooltip:{callbacks:{label:p=>`${p.label}: ${p.raw} section-subjects (${(100*p.raw/rows.length).toFixed(0)}%)`}}}}),plugins:[centerText]});
+      return `${goodR} of ${rows.length} reach the 80% response target; ${q[3][1]} have low response and low SETE.`}},
 
   radar:{label:'SETE criteria',title:()=>'My SETE per Criterion',
     draw(cur){
@@ -568,7 +620,7 @@ const CHARTS={
           {label:'Failed',data:rows.map(d=>+failed(d).toFixed(1)),backgroundColor:'#e3a600'},
           {label:'Dropped',data:rows.map(d=>+dropped(d).toFixed(1)),backgroundColor:'#c62b30'}]},
         options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}}},
-          scales:{x:{stacked:true,title:axisTitle('Class (subject-section)'),ticks:{...tickFont,maxRotation:60},grid:{display:false}},y:{stacked:true,min:0,max:100,title:axisTitle('% of students'),ticks:tickFont,grid:gridStyle}}})});
+          datasets:{bar:{maxBarThickness:56,barPercentage:.7}},scales:{x:{stacked:true,title:axisTitle('Class (subject-section)'),ticks:{...tickFont,maxRotation:60},grid:{display:false}},y:{stacked:true,min:0,max:100,title:axisTitle('% of students'),ticks:tickFont,grid:gridStyle}}})});
       return `On average ${rows.length?(sum(rows,failed)/rows.length).toFixed(0):0}% of students fail and ${rows.length?(sum(rows,dropped)/rows.length).toFixed(0):0}% drop. (Failed/dropped split is estimated in sample data.)`}},
 
   hrRanking:{label:'College ranking',title:()=>'High-Risk Course Rate per College',
@@ -588,9 +640,25 @@ const CHARTS={
         if(df>0.5)worse++;else if(df<-0.5)better++;
         const color=df>0.5?'#c62b30':df<-0.5?'#2e9e5b':'#22364f';
         return{label:c,data:[+a.toFixed(1),+b.toFixed(1)],borderColor:color,backgroundColor:color,pointRadius:5,tension:0,noLabels:true,endLabel:`${c} ${b.toFixed(0)}%`}});
-      drawCanvas({type:'line',data:{labels:[SEM[state.sem-1].replace(' Sem',''),SEM[state.sem].replace(' Sem','')],datasets:sets},
-        options:baseOptions({layout:{padding:{right:110}},scales:{y:{min:0,title:axisTitle('High-risk courses (%)'),ticks:tickFont,grid:gridStyle},x:{ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
-      return `${worse} college${worse===1?'':'s'} got worse (red), ${better} improved (green) vs the previous semester. Grey = unchanged.`}}
+      drawCanvas({type:'line',data:{labels:[shortSem(SEM[state.sem-1]),shortSem(SEM[state.sem])],datasets:sets},
+        options:baseOptions({layout:{padding:{right:92}},scales:{y:{min:0,title:axisTitle('High-risk courses (%)'),ticks:tickFont,grid:gridStyle},x:{ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels,endLabels]});
+      return `${worse} college${worse===1?'':'s'} got worse (red), ${better} improved (green) vs the previous semester. Grey = unchanged.`}},
+
+  collegeTrends:{label:'College trends',title:()=>'Passing Rate Trend per College',
+    draw(){
+      const cols=Object.keys(COLLEGE_NAME);let below=0;
+      drawHtml(`<div class="mini-grid">${cols.map(c=>`<div class="mini"><div class="mini-h"><b>${c}</b><span id="mv_${c}"></span></div><div class="mini-c" id="mw_${c}"><canvas id="mc_${c}" role="img" aria-label="${c} passing rate trend"></canvas></div></div>`).join('')}</div>`,true);
+      cols.forEach(c=>{
+        const vals=SEM.map((_,i)=>passOf(rowsFor(i).filter(d=>d.col===c)));
+        if(vals.every(v=>v==null)){$('mw_'+c).innerHTML='<p class="none">No data for this filter</p>';return}
+        const now=vals[state.sem],color=now==null?'#9aa4b2':now<TH.pass[1]?'#c62b30':now<TH.pass[0]?'#e3a600':'#2e9e5b';
+        if(now!=null&&now<TH.pass[0])below++;
+        $('mv_'+c).innerHTML=now==null?'–':`<span class="pill ${now<TH.pass[1]?'r':now<TH.pass[0]?'y':''}">${now.toFixed(0)}%</span>`;
+        charts.extra.push(new Chart($('mc_'+c),{type:'line',data:{labels:SEM.map(shortSem),datasets:[
+          {data:vals.map(v=>v==null?null:+v.toFixed(1)),borderColor:color,backgroundColor:color,tension:.3,pointRadius:3,spanGaps:true,fmt:v=>v.toFixed(0)},
+          {data:SEM.map(()=>85),borderColor:'#9aa4b2',borderDash:[4,3],pointRadius:0,noLabels:true}]},
+          options:baseOptions({layout:{padding:{top:12,right:8}},scales:{y:{min:60,max:100,ticks:{font:{size:8},stepSize:20},grid:gridStyle},x:{ticks:{font:{size:8},maxRotation:0,autoSkip:false},grid:{display:false}}}}),plugins:[valueLabels]}))});
+      return `${below} of ${cols.length} colleges are below the 85% passing target this semester (dashed line = target).`}}
 };
 
 /* 8. LIST PANELS (role-specific list under the chart) */
@@ -615,17 +683,18 @@ const PANELS={
 };
 
 /* 9. RENDER */
+const kpiTips={};
 function render(){
-  const cur=computeKpis(state.sem),prev=state.sem>0?computeKpis(state.sem-1):null;current=cur;
+  const cur=computeKpis(state.sem),prev=state.sem>0?computeKpis(state.sem-1):null;current=cur;hideTip();
   const hour=new Date().getHours(),part=hour<12?'morning':hour<18?'afternoon':'evening';
   $('greeting').innerHTML=`Good ${part}, <em>${role.greetName}</em>`;
   $('decisionText').textContent='Decision supported: '+role.decision;
-  destroyCharts();renderChartTabs();
+  destroyCharts();
   if(!cur){
     $('kpiRow').innerHTML='<p class="card" style="grid-column:1/-1;color:var(--mute)">No data for this filter combination. Press Reset.</p>';
-    ['alertList','panelBody','panelHint','chartCaption','htmlBox'].forEach(id=>$(id).innerHTML='');
-    $('alertCount').textContent=0;return}
-  renderKpiCards(cur,prev);renderHealth(cur);renderChart(cur);renderPanel(cur);
+    ['alertList','panelBody','panelHint','mainCaption','secondCaption','sideCaption','mainHtml','secondHtml','sideHtml'].forEach(id=>$(id).innerHTML='');
+    alertsList=[];$('alertCount').style.display='none';return}
+  renderKpiCards(cur,prev);renderSlots(cur);renderPanel(cur);
   alertsList=buildAlerts(cur);renderAlerts()}
 
 function renderKpiCards(cur,prev){
@@ -634,47 +703,61 @@ function renderKpiCards(cur,prev){
     let trend='';
     if(prev&&v!=null&&prev[key]!=null){const df=v-prev[key],good=def.lowerIsBetter?df<=0:df>=0;
       trend=`<p><u>Vs previous sem:</u> ${Math.abs(df)<0.05?'No change':`${ico(df>=0?'up':'down',11)} ${Math.abs(df).toFixed(1)} (${good?'improving':'worsening'})`}</p>`}
+    kpiTips[key]=`<b>${name}</b><p>${def.objective}</p><p><u>Formula:</u> ${def.formula}</p><p><u>Target:</u> ${def.targetText}</p>${trend}<p style="color:#9fb3cf">Click to list the sections behind this KPI.</p>`;
     return`<button class="kpi ${st}${state.drill===key?' on':''}" data-kpi="${key}" aria-pressed="${state.drill===key}">
-      <div class="ic">${ico(def.icon,17)}</div><h3>${name}</h3><div class="v">${v==null?'N/A':def.fmt(v)}</div><div class="st">${STATUS_TEXT[st]}</div>
-      <div class="tip" role="tooltip"><b>${name}</b><p>${def.objective}</p><p><u>Formula:</u> ${def.formula}</p><p><u>Target:</u> ${def.targetText}</p>${trend}
-      <p style="color:#9fb3cf">Click to list the sections behind this KPI.</p></div></button>`}).join('')}
+      <div class="ic">${ico(def.icon,17)}</div><h3>${name}</h3><div class="v">${v==null?'N/A':def.fmt(v)}</div><div class="st">${STATUS_TEXT[st]}</div></button>`}).join('')}
 
-function renderHealth(cur){
-  const onTarget=role.kpis.filter(k=>kpiStatus(k,cur[k],state.sem)==='g').length,pct=Math.round(100*onTarget/role.kpis.length);
-  $('ring').style.setProperty('--p',pct);$('ring').className='ring '+(pct>=80?'':pct>=50?'y':'r');
-  $('ringValue').textContent=`${onTarget}/${role.kpis.length}`;
-  $('ringText').textContent=`${SEM[state.sem]} · ${cur.rows.length} section-subjects in view`}
-
-function renderChartTabs(){
-  if(!role.charts.includes(state.chartId))state.chartId=role.charts[0];
-  $('chartTabs').innerHTML=role.charts.map(id=>`<button class="${id===state.chartId?'on':''}" onclick="selectChart('${id}')">${CHARTS[id].label}</button>`).join('')}
-function selectChart(id){state.chartId=id;if(current){destroyCharts();renderChartTabs();renderChart(current)}}
-function renderChart(cur){
-  const def=CHARTS[state.chartId],caption=def.draw(cur);
-  $('chartTitle').textContent=def.title(cur);$('chartCaption').textContent=caption;
-  $('mainCanvas').setAttribute('aria-label',def.title(cur)+'. '+caption)}
+/* draws the 3 visualizations of the current role: main, second, side */
+function renderSlots(cur){
+  ['main','second','side'].forEach(s=>{
+    slot=s;const def=CHARTS[role.slots[s]],caption=def.draw(cur);
+    $(s+'Title').textContent=def.title(cur);$(s+'Caption').textContent=caption;
+    $(s+'Canvas').setAttribute('aria-label',def.title(cur)+'. '+caption)});
+  slot='main'}
 function renderPanel(cur){
   const p=PANELS[role.panel];
   $('panelTitle').textContent=p.title();$('panelHint').textContent=p.hint(cur);
   $('panelBody').innerHTML=p.html(cur)||'<p class="none">Nothing matches this filter.</p>'}
 
-const alertHtml=(x,i)=>`<div class="al ${x.l}" data-alert="${i}" tabindex="0"><b>${ico(x.l==='r'?'alert':'info',13)}<span>${x.t}</span></b><i>Recommended: ${x.a}</i></div>`;
+/* notifications: each alert can be marked as read; the bell only counts the unread ones */
+const READ_KEY='spartheon-read-alerts';
+const readSet=new Set((()=>{try{return JSON.parse(localStorage.getItem(READ_KEY)||'[]')}catch(e){return[]}})());
+const saveRead=()=>{try{localStorage.setItem(READ_KEY,JSON.stringify([...readSet]))}catch(e){}};
+const alertKey=x=>`${state.roleKey}|${state.sem}|${x.t}`;
+const isRead=x=>readSet.has(alertKey(x));
+let modalMode='';
+const alertHtml=(x,i)=>{const rd=isRead(x);
+  return`<div class="al ${x.l}${rd?' read':''}" data-alert="${i}" tabindex="0"><b>${ico(x.l==='r'?'alert':'info',13)}<span>${x.t}</span>${rd?'':`<button class="mk" data-read="${i}" title="Mark as read" aria-label="Mark as read">${ico('tick',12)}</button>`}</b><i>Recommended: ${x.a}</i></div>`};
 function renderAlerts(){
-  $('alertCount').textContent=alertsList.length;
-  $('alertList').innerHTML=alertsList.length?alertsList.slice(0,3).map(alertHtml).join(''):`<p class="none">${ico('tick',14)} No active alerts. All monitored measures are within thresholds.</p>`}
+  const unread=alertsList.map((x,i)=>[x,i]).filter(p=>!isRead(p[0])),bell=$('alertCount');
+  bell.textContent=unread.length;bell.style.display=unread.length?'':'none';
+  $('alertList').innerHTML=unread.length?unread.slice(0,5).map(p=>alertHtml(p[0],p[1])).join(''):`<p class="none">${ico('tick',14)} ${alertsList.length?'All alerts are marked as read.':'No active alerts. All monitored measures are within thresholds.'}</p>`}
+function refreshAlertViews(){renderAlerts();if(modalMode==='alerts'&&$('modal').style.display==='flex')renderAlertModal()}
+function markRead(i){const x=alertsList[i];if(x){readSet.add(alertKey(x));saveRead();refreshAlertViews()}}
+function markAll(read){alertsList.forEach(x=>read?readSet.add(alertKey(x)):readSet.delete(alertKey(x)));saveRead();refreshAlertViews()}
 function followAlert(i){
-  const x=alertsList[i];if(!x||!x.go)return;closeModal();
+  const x=alertsList[i];if(!x)return;
+  readSet.add(alertKey(x));saveRead();
+  if(!x.go){refreshAlertViews();return}
+  closeModal();renderAlerts();
   const [kind,target]=x.go.split('|');kind==='d'?openDetail(target):filterSubject(target)}
+const alertClick=e=>{
+  const m=e.target.closest('[data-read]');if(m){markRead(+m.dataset.read);return}
+  const a=e.target.closest('[data-alert]');if(a)followAlert(+a.dataset.alert)};
 
 /* 10. MODALS */
 const openModal=wide=>{$('modalBox').className='box'+(wide?' wide':'');$('modal').style.display='flex';const b=$('btnClose');b&&b.focus()};
-const closeModal=()=>$('modal').style.display='none';
+const closeModal=()=>{modalMode='';$('modal').style.display='none'};
 const closeButton='<button class="btn navy" id="btnClose" onclick="closeModal()">Close</button>';
-function openAlerts(){
-  $('modalBox').innerHTML=`<h3>Alerts and Recommended Actions</h3><p class="crumb">SPARTHEON › ${role.title} › Alerts · tap an alert to open its details</p>
-    <div id="allAlerts">${alertsList.length?alertsList.map(alertHtml).join(''):`<p class="none">${ico('tick',14)} No active alerts.</p>`}</div><p style="margin-top:14px">${closeButton}</p>`;
+function renderAlertModal(){
+  const all=alertsList.map((x,i)=>[x,i]),un=all.filter(p=>!isRead(p[0])),rd=all.filter(p=>isRead(p[0]));
+  $('modalBox').innerHTML=`<h3>Alerts and Recommended Actions</h3><p class="crumb">SPARTHEON › ${role.title} › Alerts · ${un.length} unread, ${rd.length} read · tap an alert to open its details</p>
+    <div class="actions" style="margin:0 0 8px"><button class="btn alt" onclick="markAll(true)" ${un.length?'':'disabled'}>${ico('tick',13)} Mark all as read</button>${rd.length?'<button class="btn alt" onclick="markAll(false)">Mark all as unread</button>':''}</div>
+    <div id="allAlerts">${un.length?un.map(p=>alertHtml(p[0],p[1])).join(''):`<p class="none">${ico('tick',14)} ${all.length?'No unread alerts.':'No active alerts.'}</p>`}
+    ${rd.length?`<h5 style="margin:14px 0 2px;color:var(--mute);font-size:.78rem">Read (${rd.length})</h5>`+rd.map(p=>alertHtml(p[0],p[1])).join(''):''}</div><p style="margin-top:14px">${closeButton}</p>`;
   openModal();
-  $('allAlerts').onclick=e=>{const a=e.target.closest('[data-alert]');if(a)followAlert(+a.dataset.alert)}}
+  $('allAlerts').onclick=alertClick}
+function openAlerts(){modalMode='alerts';renderAlertModal()}
 /* REPORT: per-role insights summary (preview, then print or save as PDF) */
 const listOf=(a,n=5)=>a.length?a.slice(0,n).join(', ')+(a.length>n?` +${a.length-n} more`:''):'none';
 function buildInsights(cur,prev){
@@ -787,7 +870,21 @@ $('panelBody').onclick=e=>{
   const g=e.target.closest('[data-group]');
   if(g){state.group=g.dataset.group;$('selGroup').value=state.group;fillSubjects();render();return}
   const s=e.target.closest('[data-section]');if(s)openDetail(s.dataset.section)};
-$('alertList').onclick=e=>{const a=e.target.closest('[data-alert]');if(a)followAlert(+a.dataset.alert)};
+$('alertList').onclick=alertClick;
+/* floating KPI tooltip */
+let tipFor=null;
+function showTip(b){
+  const t=$('tipBox');t.innerHTML=kpiTips[b.dataset.kpi]||'';t.classList.add('show');tipFor=b;
+  const r=b.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;
+  const left=Math.min(Math.max(8,r.left),innerWidth-w-8);let top=r.bottom+8;
+  if(top+h>innerHeight-8)top=Math.max(8,r.top-h-8);
+  t.style.left=left+'px';t.style.top=top+'px'}
+function hideTip(){$('tipBox').classList.remove('show');tipFor=null}
+$('kpiRow').addEventListener('mouseover',e=>{const b=e.target.closest('.kpi');if(b&&b!==tipFor)showTip(b)});
+$('kpiRow').addEventListener('mouseleave',hideTip);
+$('kpiRow').addEventListener('focusin',e=>{const b=e.target.closest('.kpi');if(b&&b!==tipFor)showTip(b)});
+$('kpiRow').addEventListener('focusout',hideTip);
+addEventListener('scroll',hideTip,{passive:true});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeModal();
   if(e.key==='Enter'&&e.target.matches('[data-section],[data-alert]'))e.target.click()});
@@ -800,7 +897,7 @@ document.querySelectorAll('[data-ico]').forEach(e=>e.insertAdjacentHTML('afterbe
 
 function enterRole(key){
   role=ROLES[key];
-  Object.assign(state,{roleKey:key,sem:3,group:'all',subject:'all',drill:null,chartId:role.charts[0]});
+  Object.assign(state,{roleKey:key,sem:3,group:'all',subject:'all',drill:null});
   $('roleTitle').textContent=role.title;$('roleType').textContent=role.type;
   $('selSem').innerHTML=SEM.map((s,i)=>`<option value="${i}" ${i==3?'selected':''}>${s}</option>`).join('');
   $('selGroup').style.display=role.groupFilter?'':'none';
