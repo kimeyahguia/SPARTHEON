@@ -6,99 +6,66 @@
 <title>SPARTHEON – Central Intelligence Hub</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-/* =====================================================================
-   STYLES
-   1. Tokens  2. Base  3. Landing  4. Top bar & hero  5. KPI cards
-   6. Cards, tabs, lists  7. Chart-specific (heatmap, matrix, sparks)
-   8. Modal & report  9. Responsive  10. Print
-   ===================================================================== */
-
-/* 1. TOKENS ---------------------------------------------------------- */
-:root{
-  --navy:#22364f; --navy2:#2f4a6b; --red:#c62b30;
-  --ink:#1c2733; --mute:#6b7685; --line:#e6ebf2; --soft:#f4f7fb;
-  --g:#2e9e5b; --y:#e3a600;
-  --rad:18px; --shadow:0 6px 24px rgba(34,54,79,.07);
-}
-
-/* 2. BASE ------------------------------------------------------------ */
-*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-body{font-family:'Inter','Segoe UI',system-ui,sans-serif;color:var(--ink);line-height:1.4;min-height:100vh;
-  background:linear-gradient(160deg,#e9f0fa 0%,#f5f8fc 45%,#fbf1f1 100%);background-attachment:fixed}
+/* 1. TOKENS */
+:root{--navy:#22364f;--navy2:#2f4a6b;--red:#c62b30;--ink:#1c2733;--mute:#6b7685;--line:#e6ebf2;--soft:#f4f7fb;--g:#2e9e5b;--y:#e3a600;--rad:18px;--shadow:0 6px 24px rgba(34,54,79,.07)}
+/* 2. BASE */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;color:var(--ink);line-height:1.4;min-height:100vh;background:linear-gradient(160deg,#e9f0fa 0%,#f5f8fc 45%,#fbf1f1 100%);background-attachment:fixed}
 button{font:inherit;cursor:pointer;color:inherit}
 button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 img.logo{mix-blend-mode:multiply;display:block}
 select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink)}
-.btn{background:var(--red);color:#fff;border-color:var(--red);font-weight:600;transition:.15s}
-.btn:hover{filter:brightness(1.08)}
+.btn{background:var(--red);color:#fff;border-color:var(--red);font-weight:600}
 .btn.alt{background:#fff;color:var(--navy);border-color:var(--line)}
 .btn.navy{background:var(--navy);border-color:var(--navy)}
-.btn.sm{padding:4px 12px;font-size:.72rem}
 .pill{padding:3px 10px;border-radius:12px;font-size:.68rem;font-weight:600;background:#e4f4ea;color:var(--g);white-space:nowrap}
-.pill.y{background:#fff3cf;color:#9a6f00}
-.pill.r{background:#fbe4e4;color:var(--red)}
+.pill.y{background:#fff3cf;color:#9a6f00}.pill.r{background:#fbe4e4;color:var(--red)}
 .none{font-size:.8rem;color:var(--mute);padding:8px 0}
-.fl{outline:3px solid var(--navy);outline-offset:3px;border-radius:var(--rad)}
-
-/* 3. LANDING --------------------------------------------------------- */
+/* 3. LANDING */
 #land{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
-#land img.logo{width:min(300px,70vw);height:auto}
-.tri{margin-top:6px;font-size:.7rem;letter-spacing:.35em;color:var(--mute)}
-.tag{margin:18px 0 8px;font-size:1.1rem;color:var(--navy);font-weight:600}
-.concept{max-width:560px;color:var(--mute);font-size:.88rem;margin-bottom:34px}
+#land img.logo{width:min(280px,70vw);height:auto}
+.fallback{font-size:1.8rem;font-weight:800;color:var(--navy);letter-spacing:.08em}
+.tag{margin:16px 0 8px;font-size:1.1rem;color:var(--navy);font-weight:600}
+.concept{max-width:560px;color:var(--mute);font-size:.88rem;margin-bottom:30px}
 .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;width:min(980px,100%)}
 .role{background:rgba(255,255,255,.85);border:1px solid #fff;border-radius:var(--rad);padding:20px 18px;text-align:left;transition:.18s;box-shadow:var(--shadow)}
-.role:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(34,54,79,.13)}
-.role b{display:flex;justify-content:space-between;gap:8px;font-size:.98rem;color:var(--navy)}
+.role:hover{transform:translateY(-3px)}
+.role b{display:flex;justify-content:space-between;font-size:.98rem;color:var(--navy)}
 .role b:after{content:"→";color:var(--red)}
 .role span{display:block;margin-top:6px;font-size:.78rem;color:var(--mute)}
-.lfoot{margin-top:38px;font-size:.7rem;color:#9aa4b2;max-width:520px}
-
-/* 4. TOP BAR & HERO -------------------------------------------------- */
+.lfoot{margin-top:30px;font-size:.7rem;color:#9aa4b2}
+/* 4. TOP BAR */
 #dash{display:none;max-width:1400px;margin:0 auto;padding:14px}
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:12px;align-items:start}
 .full{grid-column:1/-1}
 .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(255,255,255,.9);border-radius:20px;padding:8px 16px;box-shadow:var(--shadow)}
-.top img.logo{height:44px;width:auto}
+.top img.logo{height:40px;width:auto}
 .who{padding-left:12px;border-left:1px solid var(--line);font-size:.74rem;color:var(--mute);line-height:1.25}
 .who b{display:block;color:var(--navy);font-size:.88rem}
 .spacer{flex:1}
-.bell{position:relative;background:var(--soft);border:0;border-radius:50%;width:36px;height:36px;font-size:1rem}
-.bell b{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border-radius:10px;min-width:18px;padding:0 5px;font-size:.66rem;line-height:18px}
-#filterRow{display:none;flex-wrap:wrap;gap:8px;align-items:center;background:rgba(255,255,255,.9);border-radius:16px;padding:9px 14px;box-shadow:var(--shadow)}
-.hero{display:flex;align-items:center;gap:14px;border-radius:18px;padding:12px 18px;background:linear-gradient(120deg,#dbe7f7 0%,#eaf1fb 55%,#f9e4e5 100%);box-shadow:var(--shadow)}
-.hero svg{width:44px;height:auto;flex:none}
-.hero h1{font-size:1.15rem;color:var(--navy);line-height:1.2}
-.hero h1 em{font-style:normal;color:var(--red)}
+.hero{border-radius:18px;padding:12px 18px;background:linear-gradient(120deg,#dbe7f7 0%,#eaf1fb 55%,#f9e4e5 100%);box-shadow:var(--shadow)}
+.hero h1{font-size:1.15rem;color:var(--navy)}.hero h1 em{font-style:normal;color:var(--red)}
 .hero p{font-size:.78rem;color:#44566d;margin-top:2px}
-.chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.chip{background:rgba(255,255,255,.8);border-radius:20px;padding:3px 11px;font-size:.7rem;color:var(--navy);font-weight:600;white-space:nowrap}
-
-/* 5. KPI CARDS (status colour = .g / .y / .r / .n) ------------------- */
+/* 5. KPI CARDS */
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
 .kpi{position:relative;text-align:left;border:0;background:rgba(255,255,255,.92);border-radius:var(--rad);padding:12px 14px;box-shadow:var(--shadow);transition:.18s;width:100%}
-.kpi:hover,.kpi:focus-visible{transform:translateY(-3px);box-shadow:0 12px 28px rgba(34,54,79,.13)}
+.kpi:hover,.kpi:focus-visible{transform:translateY(-3px);z-index:100}
+.kpis{position:relative;z-index:10}
+.tip{z-index:101}
 .kpi.on{outline:2px solid var(--navy);outline-offset:2px}
 .kpi .ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:.9rem;margin-bottom:6px;background:#e4f4ea;color:var(--g)}
-.kpi.y .ic{background:#fff3cf;color:#9a6f00}
-.kpi.r .ic{background:#fbe4e4;color:var(--red)}
-.kpi.n .ic{background:#eceff3;color:var(--mute)}
+.kpi.y .ic{background:#fff3cf;color:#9a6f00}.kpi.r .ic{background:#fbe4e4;color:var(--red)}.kpi.n .ic{background:#eceff3;color:var(--mute)}
 .kpi h3{font-size:.72rem;color:var(--mute);font-weight:600;min-height:28px}
 .kpi .v{font-size:1.55rem;font-weight:700;color:var(--navy);margin:1px 0}
 .kpi .st{font-size:.7rem;font-weight:600;display:flex;align-items:center;gap:6px}
 .kpi .st:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--g)}
-.kpi.y .st:before{background:var(--y)} .kpi.r .st:before{background:var(--red)} .kpi.n .st:before{background:#9aa4b2}
-.kpi.g .st{color:var(--g)} .kpi.y .st{color:#9a6f00} .kpi.r .st{color:var(--red)}
-/* hover tooltip: objective / formula / target */
-.tip{position:absolute;z-index:6;left:0;top:calc(100% + 8px);width:250px;background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;font-size:.72rem;
-  box-shadow:0 14px 34px rgba(20,30,45,.3);opacity:0;visibility:hidden;transform:translateY(-4px);transition:.15s;pointer-events:none}
-.tip b{display:block;font-size:.78rem;margin-bottom:4px}
-.tip p{margin-top:5px;color:#d3dcea}
-.tip u{text-decoration:none;color:#fff;font-weight:600}
-.kpi:hover .tip,.kpi:focus-visible .tip{opacity:1;visibility:visible;transform:none}
+.kpi.y .st:before{background:var(--y)}.kpi.r .st:before{background:var(--red)}.kpi.n .st:before{background:#9aa4b2}
+.kpi.g .st{color:var(--g)}.kpi.y .st{color:#9a6f00}.kpi.r .st{color:var(--red)}
+.tip{position:absolute;z-index:6;left:0;top:calc(100% + 8px);width:240px;background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;font-size:.72rem;box-shadow:0 14px 34px rgba(20,30,45,.3);opacity:0;visibility:hidden;transition:.15s;pointer-events:none}
+.tip b{display:block;font-size:.78rem;margin-bottom:4px}.tip p{margin-top:5px;color:#d3dcea}.tip u{text-decoration:none;color:#fff;font-weight:600}
+.kpi:hover .tip,.kpi:focus-visible .tip{opacity:1;visibility:visible}
 .kpi:last-child .tip,.kpi:nth-last-child(2) .tip{left:auto;right:0}
-
-/* 6. CARDS, TABS, LISTS --------------------------------------------- */
+/* 6. CARDS, TABS, LISTS */
 .card{background:rgba(255,255,255,.92);border-radius:var(--rad);padding:14px 16px;min-width:0;box-shadow:var(--shadow)}
 .card h4{font-size:.92rem;color:var(--navy);font-weight:700}
 .col{display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -111,171 +78,136 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .chart-box{height:260px;position:relative}
 .html-box{height:260px;overflow:auto;display:none}
 .list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-.item{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:14px;background:var(--soft);cursor:pointer;border:0;text-align:left;width:100%;transition:.15s}
+.item{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:14px;background:var(--soft);cursor:pointer;border:0;text-align:left;width:100%}
 .item:hover{background:#e9eff8}
-.item .txt{flex:1;min-width:0}
-.item b{display:block;font-size:.83rem;color:var(--navy)}
-.item span.sub{font-size:.72rem;color:var(--mute)}
+.item .txt{flex:1;min-width:0}.item b{display:block;font-size:.83rem;color:var(--navy)}.item span.sub{font-size:.72rem;color:var(--mute)}
 .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.7rem;flex:none}
-/* health ring */
 .ring{--p:0;width:116px;height:116px;border-radius:50%;margin:8px auto 6px;background:conic-gradient(var(--g) calc(var(--p)*1%),#e8edf4 0);display:grid;place-items:center}
-.ring.y{background:conic-gradient(var(--y) calc(var(--p)*1%),#e8edf4 0)}
-.ring.r{background:conic-gradient(var(--red) calc(var(--p)*1%),#e8edf4 0)}
+.ring.y{background:conic-gradient(var(--y) calc(var(--p)*1%),#e8edf4 0)}.ring.r{background:conic-gradient(var(--red) calc(var(--p)*1%),#e8edf4 0)}
 .ring div{width:86px;height:86px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
-.ring b{font-size:1.3rem;color:var(--navy);line-height:1}
-.ring small{display:block;font-size:.6rem;color:var(--mute);margin-top:2px}
+.ring b{font-size:1.3rem;color:var(--navy);line-height:1}.ring small{display:block;font-size:.6rem;color:var(--mute);margin-top:2px}
 .center{text-align:center;font-size:.74rem;color:var(--mute)}
-/* alert rows: recommended action shows on hover */
-.al{border-radius:14px;background:var(--soft);padding:8px 12px;margin-top:7px;font-size:.76rem;border-left:4px solid var(--y);cursor:pointer;transition:.15s}
-.al.r{border-color:var(--red)}
-.al:hover{background:#e9eff8}
+.al{border-radius:14px;background:var(--soft);padding:8px 12px;margin-top:7px;font-size:.76rem;border-left:4px solid var(--y);cursor:pointer}
+.al.r{border-color:var(--red)}.al:hover{background:#e9eff8}
 .al b{display:block;color:var(--ink);font-size:.78rem}
 .al i{display:block;font-style:normal;color:var(--mute);max-height:0;overflow:hidden;opacity:0;transition:.2s}
 .al:hover i,.al:focus-visible i{max-height:90px;opacity:1;margin-top:4px}
 @media(hover:none){.al i{max-height:none;opacity:1;margin-top:4px}}
 .note{font-size:.68rem;color:#9aa4b2;text-align:center;padding:2px}
-
-/* 7. CHART-SPECIFIC HTML (heatmap, matrix, sparklines) -------------- */
+.bell{position:relative;background:var(--soft);border:0;border-radius:50%;width:36px;height:36px;font-size:1rem}
+.bell b{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border-radius:10px;min-width:18px;padding:0 5px;font-size:.66rem;line-height:18px}
+#filterRow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:rgba(255,255,255,.9);border-radius:16px;padding:9px 14px;box-shadow:var(--shadow)}
+/* 7. HEATMAP / MATRIX */
 .hm{width:100%;border-collapse:separate;border-spacing:3px;font-size:.74rem}
-.hm th{background:none;position:static;color:var(--mute);font-weight:600;padding:2px 4px;text-align:center}
-.hm th.cur{color:var(--navy)}
-.hm td{border:0;padding:0}
-.hm td.lab{text-align:left;font-weight:600;color:var(--navy);white-space:nowrap;padding-right:8px}
+.hm th{color:var(--mute);font-weight:600;padding:2px 4px;text-align:center}.hm th.cur{color:var(--navy)}
+.hm td{border:0;padding:0}.hm td.lab{text-align:left;font-weight:600;color:var(--navy);white-space:nowrap;padding-right:8px}
 .hm td.c{text-align:center;border-radius:8px;padding:6px 2px;font-weight:600}
-.c.g{background:#e4f4ea;color:var(--g)}
-.c.y{background:#fff3cf;color:#9a6f00}
-.c.r{background:#fbe4e4;color:var(--red)}
-.c.n{background:var(--soft);color:var(--mute)}
+.c.g{background:#e4f4ea;color:var(--g)}.c.y{background:#fff3cf;color:#9a6f00}.c.r{background:#fbe4e4;color:var(--red)}.c.n{background:var(--soft);color:var(--mute)}
 .legend{font-size:.68rem;color:var(--mute);margin-top:6px}
 .flag{font-size:.64rem;background:#fbe4e4;color:var(--red);border-radius:8px;padding:1px 7px;margin-left:6px;font-weight:600}
-.sparks{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.spark{background:var(--soft);border-radius:14px;padding:10px 12px}
-.spark b{color:var(--navy);font-size:.82rem}
-.spark span{float:right;font-size:.78rem;font-weight:700}
-.spark .sc{height:70px;margin-top:6px}
-
-/* 8. MODAL & REPORT -------------------------------------------------- */
-#modal{display:none;position:fixed;inset:0;background:rgba(20,30,45,.45);backdrop-filter:blur(3px);align-items:center;justify-content:center;z-index:20;padding:14px}
+/* 8. MODAL */
+#modal{display:none;position:fixed;inset:0;background:rgba(20,30,45,.45);align-items:center;justify-content:center;z-index:20;padding:14px}
 #modal .box{background:#fff;border-radius:22px;padding:24px;width:min(480px,100%);max-height:92vh;overflow:auto}
-#modal .box.wide{width:min(860px,100%)}
 #modal h3{color:var(--navy);font-size:1.1rem}
-#modal h5{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);margin:12px 0 3px;break-after:avoid}
-#modal ul{padding-left:18px;font-size:.8rem}
-#modal p{font-size:.8rem}
 .crumb{font-size:.7rem;color:var(--mute);margin:2px 0 8px}
-.report-head{display:flex;align-items:center;gap:14px;border-bottom:2px solid var(--red);padding-bottom:10px;margin-bottom:6px}
-.report-head img{height:46px;width:auto}
 .rows div{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.8rem}
 .rows i{font-style:normal;color:var(--mute);text-align:right}
 .crit{margin:8px 0;font-size:.8rem}
-.bar{height:7px;background:var(--line);border-radius:4px;margin-top:3px}
-.bar div{height:100%;background:linear-gradient(90deg,var(--navy),var(--navy2));border-radius:4px}
-.warn{background:#fff3cf;border-radius:12px;padding:8px 11px;font-size:.76rem;margin-top:10px}
-.warn.n{background:var(--soft)}
-table{width:100%;border-collapse:collapse;font-size:.76rem}
-.scroll{max-height:55vh;overflow:auto;margin-top:10px;border-radius:12px;border:1px solid var(--line)}
-.scroll table{min-width:600px}
-th{background:var(--soft);color:var(--navy);padding:8px;text-align:left;position:sticky;top:0;white-space:nowrap}
-.sortbtn{background:none;border:0;font:inherit;color:inherit;padding:0;font-weight:600}
-td{padding:7px 8px;border-bottom:1px solid var(--line)}
-.num{text-align:right}
-tr.row:hover{background:var(--soft);cursor:pointer}
-.hint{font-size:.72rem;color:var(--mute);margin-top:8px}
-
-/* 9. RESPONSIVE ------------------------------------------------------ */
-@media(max-width:1100px){.layout{grid-template-columns:1fr}.chips{display:none}}
-@media(max-width:700px){.who{border:0;padding:0;width:100%}.spacer{display:none}.hero svg{display:none}}
-
-/* 10. PRINT: only the report modal is printed ------------------------ */
+.bar{height:7px;background:var(--line);border-radius:4px;margin-top:3px}.bar div{height:100%;background:linear-gradient(90deg,var(--navy),var(--navy2));border-radius:4px}
+.warn{background:#fff3cf;border-radius:12px;padding:8px 11px;font-size:.76rem;margin-top:10px}.warn.n{background:var(--soft)}
+/* 9. ICONS, REPORT, PRINT */
+.ic-svg{flex:none;display:inline-block;vertical-align:-3px}
+.btn,.bell{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.pill.n{background:#eceff3;color:var(--mute)}
+.al b{display:flex;align-items:flex-start;gap:6px}
+.al b .ic-svg{margin-top:1px}
+.hm td.c .ic-svg{vertical-align:-2px;margin-right:2px}
+.none{display:flex;align-items:center;gap:6px}
+#modal .box.wide{width:min(860px,100%)}
+.rep-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:3px solid var(--red);padding-bottom:10px;margin-bottom:12px}
+.rep-head h3{font-size:1.15rem}
+.rep-head p{font-size:.76rem;color:var(--mute);margin-top:2px}
+.rep-brand{font-weight:800;letter-spacing:.08em;color:var(--navy);font-size:.95rem;text-align:right}
+.rep-brand small{display:block;font-weight:500;letter-spacing:0;color:var(--mute);font-size:.7rem}
+.rep-health{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.rep-health div{background:var(--soft);border-radius:12px;padding:8px 14px;font-size:.72rem;color:var(--mute)}
+.rep-health b{display:block;font-size:1.15rem;color:var(--navy)}
+.rep h5{color:var(--navy);font-size:.9rem;margin:16px 0 6px}
+.rep table{width:100%;border-collapse:collapse;font-size:.78rem}
+.rep th{text-align:left;color:var(--mute);font-weight:600;font-size:.7rem;border-bottom:1px solid var(--line);padding:5px 6px}
+.rep td{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.rep ul{padding-left:18px;font-size:.8rem}.rep li{margin:5px 0}
+.rep .foot{font-size:.68rem;color:var(--mute);margin-top:14px;border-top:1px solid var(--line);padding-top:8px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+@page{margin:14mm}
 @media print{
-  @page{size:A4;margin:.5in}
-  body.printing{background:#fff}
-  body.printing #land,body.printing #dash{display:none!important}
-  body.printing #modal{display:block!important;position:static;background:none;backdrop-filter:none;padding:0}
-  body.printing #modal .box{max-height:none;width:100%;overflow:visible;border-radius:0;padding:0}
-  body.printing .no-print{display:none!important}
-  body.printing #modal img,body.printing #modal li{break-inside:avoid}
+  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #land,#dash{display:none!important}
+  #modal{position:static!important;display:block!important;background:none!important;padding:0!important}
+  #modal .box,#modal .box.wide{width:100%!important;max-height:none!important;overflow:visible!important;padding:0!important;border-radius:0!important}
+  .noprint{display:none!important}
+  .rep tr,.rep li{break-inside:avoid}
 }
+@media(max-width:1100px){.layout{grid-template-columns:1fr}}
+@media(max-width:700px){.who{border:0;padding:0;width:100%}.spacer{display:none}}
 </style>
 </head>
 <body>
 
-<!-- ===================================================================
-     HTML STRUCTURE
-     #land  → role picker      #dash → one-page dashboard      #modal → popups
-     =================================================================== -->
-
 <section id="land">
-  <img class="logo" src="spartheonLogo.jpg" alt="SPARTHEON – Central Intelligence Hub">
-  <div class="tri">DATA • INSIGHTS • DECISIONS</div>
+  <img class="logo" src="spartheonLogo.jpg" alt="SPARTHEON" onerror="this.outerHTML='<div class=fallback>SPARTHEON</div>'">
   <p class="tag">Empowering Spartans Through Intelligence.</p>
   <p class="concept">A centralized university analytics portal that turns institutional data into insights for monitoring performance, spotting trends, and making informed decisions.</p>
   <div class="roles" id="roleList"></div>
-  <p class="lfoot">BAT 405 – Analytics Application · Urge, K. &amp; Macalalad, R.<br>Sample data only. Portal–SETE integration is a proposed enhancement.</p>
+  <p class="lfoot">Sample data only. Portal–SETE integration is a proposed enhancement.</p>
 </section>
 
 <section id="dash">
   <main class="layout">
-
     <header class="top full">
-      <img class="logo" src="spartheonLogo.jpg" alt="SPARTHEON">
+      <img class="logo" src="spartheonLogo.jpg" alt="SPARTHEON" onerror="this.style.display='none'">
       <div class="who"><b id="roleTitle"></b><span id="roleType"></span></div>
       <div class="spacer"></div>
-      <select id="selSem" aria-label="Semester"></select>
-      <button class="btn alt" id="btnFilters" onclick="toggleFilters()">Filters ▾</button>
-      <button class="bell" onclick="openAlerts()" aria-label="Alerts" title="Active alerts">🔔<b id="alertCount">0</b></button>
-      <button class="btn" onclick="openReport()">Report</button>
-      <button class="btn alt" onclick="backToRoles()">← Roles</button>
+      <button class="bell" data-ico="bell" onclick="openAlerts()" aria-label="Alerts" title="Active alerts"><b id="alertCount">0</b></button>
+      <button class="btn" data-ico="file" onclick="openReport()" title="Preview, print, or save the insights summary"> Report</button>
+      <button class="btn alt" data-ico="back" onclick="backToRoles()"> Roles</button>
     </header>
 
     <div id="filterRow" class="full">
-      <select id="selYear" aria-label="Year level"></select>
+      <select id="selSem" aria-label="Semester"></select>
       <select id="selGroup" aria-label="Track or college"></select>
       <select id="selSubject" aria-label="Subject"></select>
-      <button class="btn alt sm" onclick="resetFilters()">Reset</button>
+      <button class="btn alt" onclick="resetFilters()">Reset</button>
     </div>
 
-    <section class="hero full">
-      <svg viewBox="0 0 220 210" aria-hidden="true">
-        <defs><linearGradient id="shield" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f4a6b"/><stop offset="1" stop-color="#22364f"/></linearGradient></defs>
-        <path d="M110 12 L184 42 V102 C184 152 148 182 110 196 C72 182 36 152 36 102 V42 Z" fill="url(#shield)"/>
-        <path d="M78 128 C78 90 92 70 110 70 C128 70 142 90 142 128 V146 H126 V128 H94 V146 H78 Z" fill="#fff" fill-opacity=".95"/>
-        <path d="M96 72 C100 40 120 40 124 72 Z" fill="#c62b30"/>
-        <rect x="96" y="100" width="28" height="6" rx="3" fill="#22364f"/>
-        <circle cx="110" cy="124" r="3.5" fill="#c62b30"/>
-      </svg>
-      <div><h1 id="greeting"></h1><p id="decisionText"></p></div>
-      <div class="chips" id="heroChips"></div>
-    </section>
+    <section class="hero full"><h1 id="greeting"></h1><p id="decisionText"></p></section>
 
     <div class="kpis full" id="kpiRow"></div>
 
-    <!-- LEFT COLUMN: one chart (with tabs) + one role-specific list -->
     <div class="col">
       <section class="card">
-        <div class="card-head"><h4 id="chartTitle">Chart</h4><div class="tabs no-print" id="chartTabs" role="tablist"></div></div>
+        <div class="card-head"><h4 id="chartTitle">Chart</h4><div class="tabs" id="chartTabs" role="tablist"></div></div>
         <p class="caption" id="chartCaption"></p>
         <div class="chart-box" id="canvasBox"><canvas id="mainCanvas" role="img" aria-label="Chart"></canvas></div>
         <div class="html-box" id="htmlBox"></div>
       </section>
       <section class="card">
-        <div class="card-head"><h4 id="panelTitle">Panel</h4><button class="link no-print" id="panelMore" onclick="openSections()">See all sections</button></div>
+        <div class="card-head"><h4 id="panelTitle">Panel</h4></div>
         <p class="caption" id="panelHint"></p>
         <div class="list" id="panelBody"></div>
       </section>
     </div>
 
-    <!-- RIGHT COLUMN: health ring + top 3 alerts -->
     <div class="card">
       <h4>Overall Health</h4>
       <div class="ring" id="ring"><div><span><b id="ringValue">0/0</b><small>KPIs on target</small></span></div></div>
       <p class="center" id="ringText"></p>
-      <div class="card-head" style="margin-top:14px"><h4>Top Alerts</h4><button class="link no-print" onclick="openAlerts()">See all</button></div>
+      <div class="card-head" style="margin-top:14px"><h4>Top Alerts</h4><button class="link" onclick="openAlerts()">See all</button></div>
       <div id="alertList"></div>
     </div>
 
-    <p class="note full">Sample data only · IT subjects only · Section code 1106 = Year 1 · 1st Sem · Section 06 · Portal–SETE integration is a proposed enhancement · Hover a KPI card for its objective and formula; click it to list the sections behind it.
-      <span title="SETE results should not be the sole measure of teaching effectiveness. Consider response rate, context, and other evidence." style="cursor:help;color:var(--red)">ⓘ SETE use note</span></p>
+    <p class="note full">Sample data only · Each college has its own subjects · Hover a KPI for its objective and formula; click it to filter the list below · Section code 1106 = Year 1 · 1st Sem · Section 06
+      <span title="SETE results should not be the sole measure of teaching effectiveness. Consider response rate, context, and other evidence." data-ico="info" style="cursor:help;color:var(--red);display:inline-flex;align-items:center;gap:4px"> SETE use note</span></p>
   </main>
 </section>
 
@@ -283,262 +215,209 @@ tr.row:hover{background:var(--soft);cursor:pointer}
 
 <script>
 /* =====================================================================
-   SPARTHEON – SCRIPT MAP
-    1. CONFIG ............ semesters, colleges, section plan, thresholds
-    2. SAMPLE DATA ....... generated rows (replace with real API later)
-    3. KPI DEFINITIONS ... name, target, formula, formatter
-    4. ROLE CONFIG ....... what each role sees (KPIs, charts, list panel)
-    5. DATA HELPERS ...... filtering and aggregation
-    6. KPI + ALERT LOGIC . status colours and recommended actions
-    7. CHART LIBRARY ..... one entry per chart in the CHARTS registry
-    8. LIST PANELS ....... the role-specific list under the chart
-    9. RENDER ............ ties everything together
-   10. MODALS ............ alerts, sections table, details, report/print
-   11. EVENTS + NAV
-
-   HOW TO ADD A CHART:  add an entry to CHARTS (section 7) → put its id in a role's `charts` array (section 4).
-   HOW TO ADD A KPI:    add it to KPI (section 3) and compute it in computeKpis() (section 6) → add its key to a role's `kpis`.
-   HOW TO USE REAL DATA: replace the generator in section 2 with rows that have the same fields (see ROW SHAPE).
-   SECTION CODE:        "1106" = year 1 · semester 1 · section 06  →  [year][semester][2-digit section number].
+   SCRIPT MAP: 1 Config · 2 Sample data · 3 KPI definitions · 4 Roles
+   5 Helpers · 6 KPI + alert logic · 7 Charts · 8 List panels · 9 Render
+   10 Modals · 11 Events
    ===================================================================== */
 
-/* 1. CONFIG ========================================================== */
+/* 1. CONFIG */
 const SEM=['2nd Sem 2024-25','1st Sem 2025-26','2nd Sem 2025-26','1st Sem 2026-27'];
-const COLLEGE_NAME={
-  CICS:'College of Informatics and Computing Sciences',
-  CCJE:'College of Criminal Justice Education',
-  CTE:'College of Teacher Education',
-  CAS:'College of Arts and Sciences',
-  CHS:'College of Health and Sciences',
-  CABEIHM:'College of Accountancy, Business, Economics, and International Hospitality Management'};
-/* CICS (BS Information Technology) sections per year level. Tracks start in 3rd year: BA = Business Analytics, NT = Networking.
-   Core = common section, no track yet. Section numbers run in order: BA sections first, then NT. */
+const COLLEGE_NAME={CICS:'College of Informatics and Computing Sciences',CCJE:'College of Criminal Justice Education',CTE:'College of Teacher Education',CAS:'College of Arts and Sciences',CHS:'College of Health and Sciences',CABEIHM:'College of Accountancy, Business, Economics, and International Hospitality Management'};
 const SECTION_PLAN={1:{Core:8},2:{Core:7},3:{BA:4,NT:3},4:{BA:3,NT:2}};
-/* IT subjects taken by each section: `all` = every section of that year, BA / NT = track subjects */
-const SUBJECTS={
-  1:{all:['IT 101','IT 102']},
-  2:{all:['IT 201','IT 202']},
-  3:{all:['IT 303'],BA:['BAT 301'],NT:['NET 301']},
-  4:{all:['IT 401'],BA:['BAT 405'],NT:['NET 401']}};
-/* ASSUMPTION (sample only): the other colleges take IT 101 and IT 102 in 1st year; number of sections per college */
+const SUBJECTS={1:{all:['IT 101','IT 102']},2:{all:['IT 201','IT 202']},3:{all:['IT 303'],BA:['BAT 301'],NT:['NET 301']},4:{all:['IT 401'],BA:['BAT 405'],NT:['NET 401']}};
 const SERVICE_SECTIONS={CCJE:3,CTE:4,CAS:3,CHS:3,CABEIHM:5};
 const SERVICE_SUBJECTS=['IT 101','IT 102'];
 const TRACK_TEXT={Core:'Common section (no track yet)',BA:'Business Analytics (BA)',NT:'Networking (NT)'};
-
 const CRITERIA=['Mastery of Subject','Communication','Classroom Management','Punctuality','Fairness in Grading'];
-const CRITERIA_OFFSET=[.1,-.05,.05,.12,-.12];   // sample only: per-criterion spread around the section's SETE
-const DROP_SHARE=.4;                            // sample only: share of "failure + dropout" that is dropout
+const CRITERIA_OFFSET=[.1,-.05,.05,.12,-.12];
+const DROP_SHARE=.4;
 const PALETTE=['#22364f','#c62b30','#6b9ac4','#e3a600'];
-/* thresholds: [warning, critical]. Notes: late/hr = higher is worse; others = lower is worse */
+/* thresholds [warning, critical]. late/hr: higher is worse; others: lower is worse */
 const TH={late:[5,10],resp:[80,60],hr:[10,15],pass:[85,75],imp:[5,0],load:[100,90],hrFailDrop:20,hrSete:3.5};
-
-/* section-code helpers */
 const pad2=n=>String(n).padStart(2,'0');
 const semDigit=i=>SEM[i].startsWith('1st')?1:2;
 const makeSec=(semIdx,year,n)=>`${year}${semDigit(semIdx)}${pad2(n)}`;
 const decodeSection=s=>`Year ${s[0]} · ${s[1]==='1'?'1st':'2nd'} Sem · Section ${s.slice(2)}`;
 
-/* 2. SAMPLE DATA ===================================================== */
-/* ROW SHAPE (one row = one IT subject taken by one section in one semester):
-   {id, lbl, sem, code, name, prog, yl, col, sec, trk, fac, n, resp, sete, fd, late, done}
-   id  = unique key  "COLLEGE:CODE:SECTION"       lbl = display label  "IT 303-3101" (other colleges add "(CCJE)")
-   sem = semester index into SEM                  sec = section code, e.g. "1106"
-   yl  = year level · trk = 'Core'|'BA'|'NT' · prog = subject's track group ('IT Core' | 'BA Track' | 'NT Track')
-   n = students · resp = SETE response % · sete = avg SETE (1-5) · fd = failure+dropout % · late = grades late · done = load completed */
-const COURSES=[ // [code, name, track group]
-  ['IT 101','Introduction to Computing','IT Core'],['IT 102','Computer Programming 1','IT Core'],
-  ['IT 201','Data Structures and Algorithms','IT Core'],['IT 202','Database Systems','IT Core'],
-  ['IT 303','Information Management','IT Core'],['IT 401','Capstone Project','IT Core'],
-  ['BAT 301','Data Mining','BA Track'],['BAT 405','Analytics Application','BA Track'],
-  ['NET 301','Network Administration','NT Track'],['NET 401','Network Security','NT Track']];
+/* 1b. ICONS (inline SVG, stroke-based; no emoji) */
+const ICON_PATHS={
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  alert:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
+  cap:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>',
+  trend:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  check:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>',
+  star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  bell:'<path d="M6 16v-5a6 6 0 0112 0v5l2 2H4z"/><path d="M10 21h4"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  tick:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  file:'<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>',
+  print:'<path d="M7 9V3h10v6"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/>',
+  up:'<path d="M12 19V6M6 12l6-6 6 6"/>',
+  down:'<path d="M12 5v13M6 12l6 6 6-6"/>'};
+const ico=(n,s=15)=>`<svg class="ic-svg" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_PATHS[n]}</svg>`;
+
+/* 2. SAMPLE DATA. ROW SHAPE: {id,lbl,sem,code,name,prog,yl,col,sec,trk,fac,n,resp,sete,fd,late,done} */
+const COURSES=[['IT 101','Introduction to Computing','IT Core'],['IT 102','Computer Programming 1','IT Core'],['IT 201','Data Structures and Algorithms','IT Core'],['IT 202','Database Systems','IT Core'],['IT 303','Information Management','IT Core'],['IT 401','Capstone Project','IT Core'],['BAT 301','Data Mining','BA Track'],['BAT 405','Analytics Application','BA Track'],['NET 301','Network Administration','NT Track'],['NET 401','Network Security','NT Track']];
+/* VCAA view: every other college has its OWN 5 subjects (no shared codes). CICS keeps its 10 IT subjects above. */
+const COLLEGE_SUBJECTS={
+  CCJE:[['CRIM 101','Introduction to Criminology'],['CRIM 102','Law Enforcement Administration'],['CRIM 201','Forensic Photography'],['CRIM 202','Criminal Law and Jurisprudence'],['CRIM 301','Crime Detection and Investigation']],
+  CTE:[['EDUC 101','The Child and Adolescent Learner'],['EDUC 102','Facilitating Learner-Centered Teaching'],['EDUC 201','Assessment of Learning'],['EDUC 202','Technology for Teaching and Learning'],['EDUC 301','Curriculum Development']],
+  CAS:[['GEC 101','Understanding the Self'],['GEC 102','Purposive Communication'],['GEC 103','Mathematics in the Modern World'],['GEC 104','Ethics'],['GEC 105','Science, Technology and Society']],
+  CHS:[['NURS 101','Anatomy and Physiology'],['NURS 102','Fundamentals of Nursing'],['NURS 201','Health Assessment'],['NURS 202','Pharmacology'],['NURS 301','Community Health Nursing']],
+  CABEIHM:[['ACCT 101','Fundamentals of Accounting'],['BA 101','Business Mathematics'],['ECON 101','Principles of Economics'],['HM 101','Introduction to Hospitality Management'],['MKTG 101','Principles of Marketing']]};
 const COURSE_INFO=Object.fromEntries(COURSES.map(c=>[c[0],{name:c[1],prog:c[2]}]));
+Object.entries(COLLEGE_SUBJECTS).forEach(([col,list])=>list.forEach(([code,name])=>COURSE_INFO[code]={name,prog:col}));
+const COLLEGE_FACULTY={CCJE:['Prof. Lopez','Prof. Ramos'],CTE:['Prof. Flores','Prof. Torres'],CAS:['Prof. Rivera','Prof. Cruz'],CHS:['Prof. Dizon','Prof. Mercado'],CABEIHM:['Prof. Tan','Prof. Uy']};
 const CICS_FACULTY=['Prof. Reyes','Prof. Santos','Prof. Dela Cruz','Prof. Garcia','Prof. Mendoza','Prof. Aquino','Prof. Bautista','Prof. Navarro','Prof. Villanueva','Prof. Castillo'];
 const OTHER_FACULTY=['Prof. Lopez','Prof. Ramos','Prof. Flores','Prof. Torres','Prof. Rivera'];
-
-let seed=7; // seeded random so the sample data is the same on every load
+let seed=7;
 const random=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
-
 const DATA=[];
 function addRow(semIdx,col,code,yl,sec,trk,fac){
   const info=COURSE_INFO[code];
-  DATA.push({id:`${col}:${code}:${sec}`,lbl:col==='CICS'?`${code}-${sec}`:`${code}-${sec} (${col})`,
-    sem:semIdx,code,name:info.name,prog:info.prog,yl,col,sec,trk,fac,
-    n:28+Math.floor(random()*14),resp:Math.round(78+random()*18),sete:+(3.9+random()*0.8).toFixed(2),
-    fd:Math.round(5+random()*10),late:random()<.07,done:true})}
+  DATA.push({id:`${col}:${code}:${sec}`,lbl:col==='CICS'?`${code}-${sec}`:`${code}-${sec} (${col})`,sem:semIdx,code,name:info.name,prog:info.prog,yl,col,sec,trk,fac,
+    n:28+Math.floor(random()*14),resp:Math.round(78+random()*18),sete:+(3.9+random()*0.8).toFixed(2),fd:Math.round(5+random()*10),late:random()<.07,done:true})}
 SEM.forEach((_,semIdx)=>{
-  let k=0,o=0; // k / o = running counters so each section row gets a faculty member
-  /* CICS: sections follow SECTION_PLAN */
-  [1,2,3,4].forEach(yl=>{
-    let n=0;
+  let k=0,o=0;
+  [1,2,3,4].forEach(yl=>{let n=0;
     Object.entries(SECTION_PLAN[yl]).forEach(([trk,count])=>{
-      for(let j=0;j<count;j++){
-        n++;const sec=makeSec(semIdx,yl,n);
+      for(let j=0;j<count;j++){n++;const sec=makeSec(semIdx,yl,n);
         [...SUBJECTS[yl].all,...(SUBJECTS[yl][trk]||[])].forEach(code=>addRow(semIdx,'CICS',code,yl,sec,trk,CICS_FACULTY[k++%10]))}})});
-  /* other colleges: IT service subjects in 1st year */
   Object.entries(SERVICE_SECTIONS).forEach(([col,count])=>{
-    for(let n=1;n<=count;n++){
-      const sec=makeSec(semIdx,1,n);
+    for(let n=1;n<=count;n++){const sec=makeSec(semIdx,1,n);
       SERVICE_SUBJECTS.forEach(code=>addRow(semIdx,col,code,1,sec,'Core',OTHER_FACULTY[o++%5]))}})});
-
+/* The loop above only exists so the random sequence (and so the CICS data) stays identical.
+   Its non-CICS rows are dropped and replaced by college-specific subjects, generated with a separate seed. */
+for(let i=DATA.length-1;i>=0;i--)if(DATA[i].col!=='CICS')DATA.splice(i,1);
+seed=2026;
+SEM.forEach((_,semIdx)=>Object.entries(COLLEGE_SUBJECTS).forEach(([col,list])=>{let o=0;
+  list.forEach(([code])=>{const yl=+code.match(/\d/)[0];
+    for(let n=1;n<=SERVICE_SECTIONS[col];n++)addRow(semIdx,col,code,yl,makeSec(semIdx,yl,n),'Core',COLLEGE_FACULTY[col][o++%2])})}));
+const CODE_COL={};DATA.forEach(d=>CODE_COL[d.code]=d.col);
 /* hand-picked problem cases so the demo shows alerts */
 const sc=makeSec;
 const patch=(semIdx,code,sec,changes,col='CICS')=>Object.assign(DATA.find(d=>d.sem===semIdx&&d.code===code&&d.sec===sec&&d.col===col),changes);
 const patchCourse=(semIdx,code,col,changes)=>DATA.filter(d=>d.sem===semIdx&&d.code===code&&d.col===col).forEach(d=>Object.assign(d,changes));
-/* BAT 301 (BA, year 3): all four BA sections struggle → high-risk course */
 patch(3,'BAT 301',sc(3,3,1),{sete:3.2,fd:28,resp:52,late:true});
 patch(3,'BAT 301',sc(3,3,2),{sete:3.3,fd:24,resp:72});
 patch(3,'BAT 301',sc(3,3,3),{sete:3.4,fd:22});
 patch(3,'BAT 301',sc(3,3,4),{sete:3.4,fd:21});
-/* NET 301 (NT, year 3): all three NT sections struggle → high-risk course */
 patch(3,'NET 301',sc(3,3,5),{sete:3.4,fd:26,resp:78});
 patch(3,'NET 301',sc(3,3,6),{sete:3.5,fd:24});
 patch(3,'NET 301',sc(3,3,7),{sete:3.4,fd:25});
-/* late grades two semesters in a row (IT 303, section 3x01) + other cases */
 patch(2,'IT 303',sc(2,3,1),{late:true});
 patch(3,'IT 303',sc(3,3,1),{late:true,resp:74});
 patch(3,'IT 303',sc(3,3,2),{done:false});
 patch(3,'NET 401',sc(3,4,4),{late:true});
 patch(3,'BAT 405',sc(3,4,1),{resp:66});
-/* other colleges: whole IT course struggles → high-risk for that college */
-patchCourse(3,'IT 102','CABEIHM',{sete:3.35,fd:24});
-patchCourse(2,'IT 102','CABEIHM',{sete:3.45,fd:21});
-patchCourse(3,'IT 101','CCJE',{sete:3.3,fd:26});
+patchCourse(3,'BA 101','CABEIHM',{sete:3.35,fd:24});
+patchCourse(2,'BA 101','CABEIHM',{sete:3.45,fd:21});
+patchCourse(3,'CRIM 101','CCJE',{sete:3.3,fd:26});
+patch(3,'NURS 301',sc(3,3,1),{resp:68},'CHS');
+patch(3,'GEC 104',sc(3,1,1),{late:true},'CAS');
 
-/* 3. KPI DEFINITIONS ================================================= */
-/* lowerIsBetter: true if a smaller value is good · target: number used for comparison · unit: axis label */
+/* 3. KPI DEFINITIONS */
 const signed=v=>(v>=0?'+':'')+v.toFixed(1)+'%';
 const KPI={
-  late:{name:'Late Grade Submission Rate',icon:'⏱',targetText:'≤ 5%',lowerIsBetter:true,target:5,unit:'Sections with late grades (%)',fmt:v=>v.toFixed(1)+'%',
-    objective:'Monitor timely grade uploads to avoid delays in graduation, scholarships, and enrollment.',formula:'(Sections with late grade submission ÷ Total sections) × 100'},
-  resp:{name:'SETE Response Rate per Section',icon:'✉',targetText:'≥ 80%',lowerIsBetter:false,target:80,unit:'Response rate (%)',fmt:v=>v.toFixed(0)+'%',
-    objective:'Ensure enough students respond before SETE results are used to evaluate faculty.',formula:'(Students who completed SETE ÷ Total students enrolled in section) × 100'},
-  hr:{name:'High-Risk Course Rate',icon:'⚠',targetText:'≤ 10%',lowerIsBetter:true,target:10,unit:'High-risk courses (%)',fmt:v=>v.toFixed(0)+'%',
-    objective:'Identify courses with both high failure/dropout and low SETE ratings for intervention and resource allocation.',formula:'(Courses with failure + dropout ≥ 20% and avg SETE < 3.5 ÷ Total courses) × 100'},
-  pass:{name:'Student Passing Rate per Subject',icon:'🎓',targetText:'≥ 85%',lowerIsBetter:false,target:85,unit:'Passing rate (%)',fmt:v=>v.toFixed(0)+'%',
-    objective:'Monitor students who pass their subjects and identify subjects needing academic improvement.',formula:'(Students who passed ÷ Total students enrolled) × 100'},
-  imp:{name:'Faculty SETE Improvement Rate',icon:'📈',targetText:'≥ 5%',lowerIsBetter:false,target:5,unit:'Change in SETE (%)',fmt:signed,
+  late:{name:'Late Grade Submission Rate',icon:'clock',targetText:'≤ 5%',lowerIsBetter:true,fmt:v=>v.toFixed(1)+'%',
+    objective:'Monitor timely grade uploads to avoid delays in graduation, scholarships, and enrollment.',formula:'(Sections with late grades ÷ Total sections) × 100'},
+  resp:{name:'SETE Response Rate per Section',icon:'mail',targetText:'≥ 80%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
+    objective:'Ensure enough students respond before SETE results are used to evaluate faculty.',formula:'(Students who completed SETE ÷ Students enrolled) × 100'},
+  hr:{name:'High-Risk Course Rate',icon:'alert',targetText:'≤ 10%',lowerIsBetter:true,fmt:v=>v.toFixed(0)+'%',
+    objective:'Identify courses with both high failure/dropout and low SETE for intervention.',formula:'(Courses with failure + dropout ≥ 20% and avg SETE < 3.5 ÷ Total courses) × 100'},
+  pass:{name:'Student Passing Rate per Subject',icon:'cap',targetText:'≥ 85%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
+    objective:'Identify subjects needing academic improvement.',formula:'(Students who passed ÷ Students enrolled) × 100'},
+  imp:{name:'Faculty SETE Improvement Rate',icon:'trend',targetText:'≥ 5%',lowerIsBetter:false,fmt:signed,
     objective:'Monitor whether faculty SETE ratings improve from the previous semester.',formula:'((Current avg SETE − Previous avg SETE) ÷ Previous avg SETE) × 100'},
-  load:{name:'Teaching Load Compliance Rate',icon:'✔',targetText:'100%',lowerIsBetter:false,target:100,unit:'Faculty with completed loads (%)',fmt:v=>v.toFixed(0)+'%',
-    objective:'Monitor whether faculty complete their assigned teaching loads per the approved schedule.',formula:'(Faculty with completed assigned loads ÷ Total faculty) × 100'},
-  sete:{name:'Average SETE Rating',icon:'★',targetText:'≥ 4.0 / 5',lowerIsBetter:false,target:4,unit:'Average SETE rating (1–5 scale)',fmt:v=>v.toFixed(2)}};
+  load:{name:'Teaching Load Compliance Rate',icon:'check',targetText:'100%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
+    objective:'Monitor whether faculty complete their assigned teaching loads.',formula:'(Faculty with completed loads ÷ Total faculty) × 100'},
+  sete:{name:'Average SETE Rating',icon:'star',targetText:'≥ 4.0 / 5',lowerIsBetter:false,fmt:v=>v.toFixed(2)}};
 const STATUS_TEXT={g:'On target',y:'Warning',r:'Critical',n:'No baseline yet'};
 
-/* 4. ROLE CONFIG ===================================================== */
-/* filter     : which rows this role may see
-   groupBy    : field used for per-group charts ('code' | 'prog' | 'col')
-   groupFilter: field behind the "Track / College" dropdown (null = no dropdown)
-   kpis       : KPI cards shown, in order · extraAlerts: KPIs that raise alerts even if no card
-   charts     : chart ids from CHARTS (first one is the default) · panel: id from PANELS
-   rollupBy   : if set, KPIs are also grouped by this field (used for the high-risk-by-group alert) */
+/* 4. ROLE CONFIG: each role = exactly 5 KPIs + 3 charts + 1 list panel */
 const ROLES={
-  dean:{title:'Dean',greetName:'Dean',scope:'College of Informatics and Computing Sciences (CICS) · IT subjects',type:'Tactical / Strategic dashboard',
+  dean:{title:'Dean',greetName:'Dean',type:'Tactical / Strategic dashboard',
     blurb:'Whole college: risk, compliance, and teaching quality by track',
     decision:'Which tracks and subjects need curriculum or faculty support, and where compliance slips.',
-    question:'Which tracks and subjects need intervention this semester?',
-    filter:d=>d.col==='CICS',groupBy:'prog',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:'prog',
-    kpis:['hr','late','pass','imp','load'],extraAlerts:[],
-    kpiNames:{hr:'High-Risk Course Rate (College)'},
+    filter:d=>d.col==='CICS',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:'prog',
+    kpis:['hr','late','pass','imp','load'],kpiNames:{hr:'High-Risk Course Rate (College)'},
     charts:['heatmap','yearLines','riskBubble'],panel:'groups'},
-  chair:{title:'Program Chair',greetName:'Program Chair',scope:'BS Information Technology · Business Analytics (BA) & Networking (NT) Tracks',type:'Tactical dashboard',
+  chair:{title:'Program Chair',greetName:'Program Chair',type:'Tactical dashboard',
     blurb:'Whole IT program: late grades, SETE response, passing rates',
     decision:'Which sections and subjects need follow-up now.',
-    question:'Which sections and subjects need follow-up this semester?',
-    filter:d=>d.col==='CICS',groupBy:'code',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:null,
-    kpis:['late','resp','pass','imp','load'],extraAlerts:['hr'],kpiNames:{},
+    filter:d=>d.col==='CICS',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:null,
+    kpis:['late','resp','pass','imp','load'],kpiNames:{},
     charts:['respLollipop','lateMatrix','respVsSete'],panel:'topSections'},
-  faculty:{title:'Faculty Member',greetName:'Prof. Reyes',scope:'IT Faculty · Prof. Reyes',type:'Operational dashboard',
+  faculty:{title:'Faculty Member',greetName:'Prof. Reyes',type:'Operational dashboard',
     blurb:'My IT classes: SETE improvement, response, class results',
     decision:'How my classes stand and what to improve next.',
-    question:'How are my classes doing, and what should I improve?',
-    filter:d=>d.col==='CICS'&&d.fac==='Prof. Reyes',groupBy:'code',groupFilter:null,rollupBy:null,
-    kpis:['imp','resp','pass','late','load'],extraAlerts:[],
+    filter:d=>d.col==='CICS'&&d.fac==='Prof. Reyes',groupFilter:null,rollupBy:null,
+    kpis:['imp','resp','pass','late','load'],
     kpiNames:{late:'My Late Grade Submissions',resp:'SETE Response Rate (My Sections)',load:'My Teaching Load Compliance',imp:'My SETE Improvement Rate'},
     charts:['radar','seteTrend','classOutcome'],panel:'myClasses'},
-  admin:{title:'Authorized Academic Administrator',greetName:'VCAA',scope:'Vice Chancellor for Academic Affairs · all 6 colleges · IT subjects',type:'Strategic dashboard',
+  admin:{title:'Academic Administrator',greetName:'VCAA',type:'Strategic dashboard',
     blurb:'Vice Chancellor for Academic Affairs: campus-wide quality assurance',
     decision:'Which colleges need curriculum review, tutoring funds, and faculty development.',
-    question:'Which colleges need institution-level intervention?',
-    filter:()=>true,groupBy:'col',groupFilter:'col',groupLabel:'All Colleges',rollupBy:'col',
-    kpis:['hr','pass','imp','late','load'],extraAlerts:[],
-    kpiNames:{hr:'High-Risk Course Rate (Campus-wide)'},
-    charts:['hrRanking','slope','sparks'],panel:'groups'}};
+    filter:()=>true,groupFilter:'col',groupLabel:'All Colleges',rollupBy:'col',
+    kpis:['hr','pass','imp','late','load'],kpiNames:{hr:'High-Risk Course Rate (Campus-wide)'},
+    charts:['hrRanking','slope','heatmap'],panel:'groups'}};
 
-/* app state: everything the UI depends on lives here */
-const state={roleKey:'',sem:3,year:'all',group:'all',subject:'all',drill:null,chartId:null,sortKey:'sete',sortDir:1};
-let role=null,current=null,alertsList=[],charts={main:null,list:[]};
+const state={roleKey:'',sem:3,group:'all',subject:'all',drill:null,chartId:null};
+let role=null,current=null,alertsList=[],charts={main:null};
 const $=id=>document.getElementById(id);
 const sum=(a,f)=>a.reduce((x,d)=>x+f(d),0);
 
-/* 5. DATA HELPERS ==================================================== */
+/* 5. DATA HELPERS */
 const roleRows=()=>DATA.filter(role.filter);
-/* rows for a semester after applying the dropdown filters */
 const rowsFor=semIdx=>roleRows().filter(d=>d.sem===semIdx
-  &&(state.year==='all'||d.yl==state.year)
   &&(state.subject==='all'||d.code===state.subject)
   &&(state.group==='all'||!role.groupFilter||d[role.groupFilter]===state.group));
-/* weighted passing rate of some rows (null if no rows) */
 const passOf=rows=>rows.length?100-sum(rows,d=>d.fd*d.n)/sum(rows,d=>d.n):null;
 const hrRate=list=>100*list.filter(x=>x.hr).length/list.length;
-const groupBy=(rows,field)=>{const m={};rows.forEach(d=>(m[d[field]]=m[d[field]]||[]).push(d));return m};
 const vsTarget=(v,t,digits)=>`${Math.abs(v-t).toFixed(digits)} ${v>=t?'above':'below'} the ${t} target`;
 const clamp15=v=>Math.min(5,Math.max(1,v));
 const byCodeSec=(a,b)=>a.code<b.code?-1:a.code>b.code?1:a.sec<b.sec?-1:a.sec>b.sec?1:0;
-
-/* section rows → course rows (one per college + subject, weighted) */
 function buildCourses(rows){
   const m={};rows.forEach(d=>{const k=d.col+':'+d.code;(m[k]=m[k]||[]).push(d)});
   return Object.values(m).map(a=>{
     const d0=a[0],fd=sum(a,d=>d.fd*d.n)/sum(a,d=>d.n),sete=sum(a,d=>d.sete)/a.length;
-    return{code:d0.code,lbl:d0.col==='CICS'?d0.code:`${d0.code} (${d0.col})`,name:d0.name,col:d0.col,prog:d0.prog,
-      n:sum(a,d=>d.n),sete,fd,pass:100-fd,hr:fd>=TH.hrFailDrop&&sete<TH.hrSete}})}
-
-/* faculty with late grades in this AND the previous semester (escalation rule) */
+    return{code:d0.code,lbl:d0.col==='CICS'?d0.code:`${d0.code} (${d0.col})`,name:d0.name,col:d0.col,prog:d0.prog,n:sum(a,d=>d.n),sete,fd,pass:100-fd,hr:fd>=TH.hrFailDrop&&sete<TH.hrSete}})}
 const repeatedLate=(semIdx,fac)=>semIdx>0
   &&roleRows().some(d=>d.fac===fac&&d.late&&d.sem===semIdx)
   &&roleRows().some(d=>d.fac===fac&&d.late&&d.sem===semIdx-1);
-
-/* sorting / risk helpers for lists */
 const riskScore=d=>(4-d.sete)*20+(85-(100-d.fd))+(80-d.resp)/2+(d.late?10:0)+(d.done?0:8);
 const mainIssue=d=>d.late?['Late grades','r']:!d.done?['Load incomplete','y']:d.resp<80?['Low response','y']:100-d.fd<85?['Low passing','y']:d.sete<4?['Low SETE','y']:['On track',''];
-const filterText=()=>[state.year!=='all'&&'Year '+state.year,state.group!=='all'&&state.group,state.subject!=='all'&&state.subject].filter(Boolean).join(' · ')||'No extra filters';
 
-/* 6. KPI + ALERT LOGIC =============================================== */
-/* all KPI values + helper collections for one semester (null if no rows) */
+/* 6. KPI + ALERT LOGIC */
 function computeKpis(semIdx){
   const rows=rowsFor(semIdx);if(!rows.length)return null;
-  const courses=buildCourses(rows);
-  const byGroup={};if(role.rollupBy)courses.forEach(c=>(byGroup[c[role.rollupBy]]=byGroup[c[role.rollupBy]]||[]).push(c));
+  const courses=buildCourses(rows),byGroup={};
+  if(role.rollupBy)courses.forEach(c=>(byGroup[c[role.rollupBy]]=byGroup[c[role.rollupBy]]||[]).push(c));
   const prevRows=semIdx>0?rowsFor(semIdx-1):[];
   const sete=sum(rows,d=>d.sete)/rows.length,prevSete=prevRows.length?sum(prevRows,d=>d.sete)/prevRows.length:null;
   const faculty=[...new Set(rows.map(d=>d.fac))];
-  return{
-    late:100*rows.filter(d=>d.late).length/rows.length,
-    resp:sum(rows,d=>d.resp*d.n)/sum(rows,d=>d.n),
-    hr:hrRate(courses),
-    sete,pass:passOf(rows),
+  return{late:100*rows.filter(d=>d.late).length/rows.length,resp:sum(rows,d=>d.resp*d.n)/sum(rows,d=>d.n),hr:hrRate(courses),sete,pass:passOf(rows),
     imp:prevSete?(sete-prevSete)/prevSete*100:null,
-    load:100*faculty.filter(f=>rows.filter(d=>d.fac===f).every(d=>d.done)).length/faculty.length,
-    rows,courses,byGroup};
-}
-/* 'g' | 'y' | 'r' | 'n' (n = no baseline) */
+    load:100*faculty.filter(f=>rows.filter(d=>d.fac===f).every(d=>d.done)).length/faculty.length,rows,courses,byGroup}}
+/* 'g' | 'y' | 'r' | 'n' */
 function kpiStatus(key,value,semIdx){
   if(value==null)return'n';
   if(key==='late'){const repeat=rowsFor(semIdx).some(d=>d.late&&repeatedLate(semIdx,d.fac));return value>TH.late[1]||repeat?'r':value>TH.late[0]?'y':'g'}
   const t=TH[key];
   if(key==='hr')return value>t[1]?'r':value>t[0]?'y':'g';
   return value<t[1]?'r':value<t[0]?'y':'g'}
-/* which sections stand behind a KPI (used when a KPI card is clicked) */
+/* clicking a KPI filters the list panel to the rows behind it */
 const DRILL={late:d=>d.late,resp:d=>d.resp<80,pass:d=>100-d.fd<85,imp:d=>d.sete<4,load:d=>!d.done};
 function drillRows(cur){
   if(!state.drill)return cur.rows;
   if(state.drill==='hr'){const keys=new Set(cur.courses.filter(c=>c.hr).map(c=>c.col+':'+c.code));return cur.rows.filter(d=>keys.has(d.col+':'+d.code))}
   return cur.rows.filter(DRILL[state.drill])}
-const sortedRows=cur=>drillRows(cur).map(d=>({...d,pass:100-d.fd}))
-  .sort((x,y)=>(x[state.sortKey]>y[state.sortKey]?1:x[state.sortKey]<y[state.sortKey]?-1:0)*state.sortDir);
-
-/* alerts: l = 'r' critical | 'y' warning · go = where a click leads · a = recommended action */
+/* alerts: l = 'r' critical | 'y' warning · go = click target · a = recommended action */
 function buildAlerts(cur){
-  const list=[],watches=k=>role.kpis.includes(k)||role.extraAlerts.includes(k);
+  const list=[],watches=k=>role.kpis.includes(k);
   cur.rows.forEach(d=>{
     const who=`${d.lbl} (${d.fac})`,go=`d|${d.id}`;
     if(watches('late')&&d.late){const rep=repeatedLate(state.sem,d.fac);
@@ -548,36 +427,27 @@ function buildAlerts(cur){
     if(watches('load')&&!d.done)
       list.push({l:'y',go,t:`Teaching load incomplete · ${who}`,a:'Review faculty assignment, resolve scheduling conflicts, and adjust teaching load when necessary.'})});
   if(watches('hr'))cur.courses.filter(c=>c.hr).forEach(c=>list.push({l:'r',go:'s|'+c.code,
-    t:`High-risk course · ${c.lbl} ${c.name} (SETE ${c.sete.toFixed(2)}, F+D ${c.fd.toFixed(0)}%)`,a:'Review curriculum and course delivery; fund tutoring and faculty development; include in quality assurance review.'}));
+    t:`High-risk course · ${c.lbl} ${c.name} (SETE ${c.sete.toFixed(2)}, F+D ${c.fd.toFixed(0)}%)`,a:'Review curriculum and course delivery; fund tutoring and faculty development.'}));
   if(watches('hr')&&role.rollupBy)Object.entries(cur.byGroup).forEach(([g,a])=>{const p=hrRate(a);
-    if(p>TH.hr[1])list.push({l:'r',t:`${g}: ${p.toFixed(0)}% of courses high-risk (above 15%)`,a:'VCAA prioritizes this group for curriculum review and faculty development.'})});
+    if(p>TH.hr[1])list.push({l:'r',t:`${g}: ${p.toFixed(0)}% of courses high-risk (above 15%)`,a:'Prioritize this group for curriculum review and faculty development.'})});
   if(watches('pass'))cur.courses.filter(c=>c.pass<TH.pass[0]).forEach(c=>list.push({l:c.pass<TH.pass[1]?'r':'y',go:'s|'+c.code,
     t:`Low passing rate · ${c.lbl} ${c.name} (${c.pass.toFixed(0)}%)`,a:'Recommend academic support, tutoring, or curriculum review for this subject.'}));
   if(watches('imp')&&cur.imp!=null&&cur.imp<TH.imp[0])list.push({l:cur.imp<TH.imp[1]?'r':'y',
-    t:`SETE improvement ${signed(cur.imp)} (target ≥ 5%)`,a:'Recommend faculty development activities, teaching workshops, and instructional improvement plans.'});
+    t:`SETE improvement ${signed(cur.imp)} (target ≥ 5%)`,a:'Recommend faculty development activities and instructional improvement plans.'});
   list.sort((a,b)=>(a.l==='r'?0:1)-(b.l==='r'?0:1));
   return list}
 
-/* 7. CHART LIBRARY =================================================== */
-/* Each chart: { label (tab text), title(cur), draw(cur) → caption string }.
-   Canvas charts call drawCanvas(config); HTML charts call drawHtml(html).
-   To add a chart: add an entry here, then list its id in a role's `charts`. */
-
-/* -- shared plugins & option helpers -- */
+/* 7. CHART LIBRARY: { label, title(), draw(cur) → caption } */
 const valueLabels={id:'valueLabels',afterDatasetsDraw(c){
   const x=c.ctx;x.save();x.font='10px system-ui,sans-serif';x.fillStyle='#1c2733';
   c.data.datasets.forEach((ds,i)=>{const pts=c.getDatasetMeta(i).data;
-    if(ds.lollipop){ /* horizontal bar → dot + value at the end */
-      pts.forEach((p,j)=>{x.fillStyle=ds.backgroundColor[j];x.beginPath();x.arc(p.x,p.y,6,0,Math.PI*2);x.fill();
+    if(ds.lollipop){pts.forEach((p,j)=>{x.fillStyle=ds.backgroundColor[j];x.beginPath();x.arc(p.x,p.y,6,0,Math.PI*2);x.fill();
         x.fillStyle='#1c2733';x.textAlign='left';x.fillText(ds.fmt(ds.data[j]),p.x+10,p.y+3)})}
-    else if(ds.endLabel){ /* text right of the last point (slope chart) */
-      const p=pts[pts.length-1];if(p){x.textAlign='left';x.fillStyle=ds.borderColor;x.fillText(ds.endLabel,p.x+8,p.y+3)}}
-    else if(ds.targetLabel&&pts.length){ /* text at the end of a target line */
-      const p=pts[pts.length-1];x.textAlign='right';x.fillStyle='#6b7685';x.fillText(ds.targetLabel,p.x,p.y-4)}
+    else if(ds.endLabel){const p=pts[pts.length-1];if(p){x.textAlign='left';x.fillStyle=ds.borderColor;x.fillText(ds.endLabel,p.x+8,p.y+3)}}
+    else if(ds.targetLabel&&pts.length){const p=pts[pts.length-1];x.textAlign='right';x.fillStyle='#6b7685';x.fillText(ds.targetLabel,p.x,p.y-4)}
     else if(!ds.noLabels&&ds.fmt){x.textAlign='center';pts.forEach((p,j)=>{const v=ds.data[j];if(v!=null)x.fillText(ds.fmt(v),p.x,p.y-6)})}
     else if(ds.pointLabels){x.textAlign='left';pts.forEach((p,j)=>{if(ds.pointLabels[j])x.fillText(ds.pointLabels[j],p.x+10,p.y+3)})}});
   x.restore()}};
-/* dashed reference lines: options.plugins.refLines.lines = [{axis:'x'|'y', value, label}] */
 const refLines={id:'refLines',afterDatasetsDraw(c,_a,o){
   const lines=(o&&o.lines)||[],{ctx,chartArea:a,scales:{x,y}}=c;
   ctx.save();ctx.setLineDash([6,4]);ctx.strokeStyle='#9aa4b2';ctx.fillStyle='#6b7685';ctx.font='9px system-ui,sans-serif';
@@ -585,31 +455,23 @@ const refLines={id:'refLines',afterDatasetsDraw(c,_a,o){
     if(l.axis==='x'){const px=x.getPixelForValue(l.value);ctx.moveTo(px,a.top);ctx.lineTo(px,a.bottom);ctx.stroke();ctx.textAlign='left';ctx.fillText(l.label,px+3,a.top+10)}
     else{const py=y.getPixelForValue(l.value);ctx.moveTo(a.left,py);ctx.lineTo(a.right,py);ctx.stroke();ctx.textAlign='right';ctx.fillText(l.label,a.right,py-3)}});
   ctx.restore()}};
-/* shaded rectangle: options.plugins.zone = {xFrom,xTo,yFrom,yTo,label} (missing bound = axis edge) */
 const zone={id:'zone',beforeDatasetsDraw(c,_a,o){
   if(!o||!o.label)return;const{ctx,scales:{x,y}}=c;
   const x0=x.getPixelForValue(o.xFrom??x.min),x1=x.getPixelForValue(o.xTo??x.max),y0=y.getPixelForValue(o.yFrom??y.min),y1=y.getPixelForValue(o.yTo??y.max);
   ctx.save();ctx.fillStyle='rgba(198,43,48,.1)';ctx.fillRect(Math.min(x0,x1),Math.min(y0,y1),Math.abs(x1-x0),Math.abs(y1-y0));
   ctx.fillStyle='#c62b30';ctx.font='9px system-ui,sans-serif';ctx.textAlign='left';ctx.fillText(o.label,Math.min(x0,x1)+4,Math.min(y0,y1)+11);ctx.restore()}};
-
 const axisTitle=t=>({display:true,text:t,font:{size:10}});
 const tickFont={font:{size:9}},gridStyle={color:'#eef2f7'};
-const baseOptions=(extra={})=>({animation:false,maintainAspectRatio:false,responsive:true,...extra,
-  plugins:{legend:{display:false},...(extra.plugins||{})}});
-
-function destroyCharts(){if(charts.main){charts.main.destroy();charts.main=null}charts.list.forEach(c=>c.destroy());charts.list=[]}
+const baseOptions=(extra={})=>({animation:false,maintainAspectRatio:false,responsive:true,...extra,plugins:{legend:{display:false},...(extra.plugins||{})}});
+function destroyCharts(){if(charts.main){charts.main.destroy();charts.main=null}}
 function drawCanvas(config){$('canvasBox').style.display='block';$('htmlBox').style.display='none';charts.main=new Chart($('mainCanvas'),config)}
 function drawHtml(html){$('canvasBox').style.display='none';$('htmlBox').style.display='block';$('htmlBox').innerHTML=html}
-/* horizontal "lollipop" chart: sorted dots on a thin bar, with optional reference lines */
 function drawLollipop({labels,values,colors,fmt,max,lines,xTitle}){
   drawCanvas({type:'bar',data:{labels,datasets:[{data:values,backgroundColor:colors,barThickness:4,lollipop:true,fmt}]},
-    options:baseOptions({indexAxis:'y',layout:{padding:{right:40}},
-      plugins:{refLines:{lines}},
-      scales:{x:{min:0,max,title:axisTitle(xTitle),ticks:tickFont,grid:gridStyle},y:{ticks:{font:{size:10}},grid:{display:false}}}}),
-    plugins:[valueLabels,refLines]})}
+    options:baseOptions({indexAxis:'y',layout:{padding:{right:40}},plugins:{refLines:{lines}},
+      scales:{x:{min:0,max,title:axisTitle(xTitle),ticks:tickFont,grid:gridStyle},y:{ticks:{font:{size:10}},grid:{display:false}}}}),plugins:[valueLabels,refLines]})}
 
 const CHARTS={
-  /* ---------- DEAN ---------- */
   heatmap:{label:'Subject heatmap',title:()=>'Passing Rate · Subject × Semester',
     draw(){
       const codes=[...new Set(SEM.flatMap((_,i)=>rowsFor(i).map(d=>d.code)))];
@@ -619,9 +481,9 @@ const CHARTS={
       const below=grid.filter(g=>g.vals[state.sem]!=null&&g.vals[state.sem]<85).length;
       const repeat=grid.filter(g=>state.sem>0&&g.vals[state.sem]!=null&&g.vals[state.sem-1]!=null&&g.vals[state.sem]<85&&g.vals[state.sem-1]<85).length;
       drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${s.replace(' Sem','')}</th>`).join('')}</tr></thead><tbody>${
-        grid.map(g=>`<tr><td class="lab" title="${COURSE_INFO[g.code].name}">${g.code}</td>${g.vals.map(v=>`<td class="c ${cls(v)}">${v==null?'–':v.toFixed(0)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        grid.map(g=>`<tr><td class="lab" title="${COURSE_INFO[g.code].name}">${g.code}${state.roleKey==='admin'?` <span style="color:var(--mute);font-weight:500">${CODE_COL[g.code]}</span>`:''}</td>${g.vals.map(v=>`<td class="c ${cls(v)}">${v==null?'–':v.toFixed(0)}</td>`).join('')}</tr>`).join('')}</tbody></table>
         <p class="legend">Green ≥ 85% · Amber 75–84% · Red &lt; 75% · Lowest subjects first for the selected semester</p>`);
-      return `${below} of ${grid.length} IT subjects are below the 85% target this semester; ${repeat} stayed below it two semesters in a row.`}},
+      return `${below} of ${grid.length} ${subjWord()} are below the 85% target this semester; ${repeat} stayed below it two semesters in a row.`}},
 
   yearLines:{label:'Year levels',title:()=>'Passing Rate by Year Level, per Track',
     draw(cur){
@@ -633,7 +495,7 @@ const CHARTS={
       drawCanvas({type:'line',data:{labels:years.map(y=>'Year '+y),datasets:sets},
         options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10},filter:i=>i.text!=='Target 85%'}}},
           scales:{y:{min:50,max:100,title:axisTitle('Passing rate (%)'),ticks:tickFont,grid:gridStyle},x:{title:axisTitle('Year level'),ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
-      return `Lowest point: ${low.t}, Year ${low.y} at ${low.v.toFixed(0)}%. BA and NT tracks start in Year 3. Look for a year level where several tracks dip together.`}},
+      return `Lowest point: ${low.t}, Year ${low.y} at ${low.v.toFixed(0)}%. BA and NT tracks start in Year 3.`}},
 
   riskBubble:{label:'Risk map',title:()=>'SETE Rating vs Failure + Dropout',
     draw(cur){
@@ -642,14 +504,12 @@ const CHARTS={
         options:baseOptions({plugins:{zone:{xTo:TH.hrSete,yFrom:TH.hrFailDrop,label:'High-risk zone'},
           tooltip:{callbacks:{label:p=>{const c=cur.courses[p.dataIndex];return `${c.lbl} – ${c.name} (SETE ${p.raw.x}, F+D ${p.raw.y}%, ${c.n} students)`}}}},
           scales:{x:{min:2.5,max:5,title:axisTitle('Average SETE rating (1–5)'),ticks:tickFont,grid:gridStyle},y:{min:0,max:40,title:axisTitle('Failure + dropout (% of students)'),ticks:tickFont,grid:gridStyle}}}),plugins:[zone,valueLabels]});
-      return `${nHigh} of ${cur.courses.length} subjects are in the high-risk zone. One bubble = one subject; bigger bubble = more students affected.`}},
+      return `${nHigh} of ${cur.courses.length} subjects are in the high-risk zone. Bigger bubble = more students.`}},
 
-  /* ---------- PROGRAM CHAIR ---------- */
   respLollipop:{label:'SETE response',title:()=>'SETE Response Rate per Section (lowest 12)',
     draw(cur){
       const all=[...cur.rows].sort((a,b)=>a.resp-b.resp),show=all.slice(0,12),below=all.filter(d=>d.resp<80).length;
-      drawLollipop({labels:show.map(d=>d.lbl),values:show.map(d=>d.resp),
-        colors:show.map(d=>d.resp<60?'#c62b30':d.resp<80?'#e3a600':'#22364f'),fmt:v=>v+'%',max:100,
+      drawLollipop({labels:show.map(d=>d.lbl),values:show.map(d=>d.resp),colors:show.map(d=>d.resp<60?'#c62b30':d.resp<80?'#e3a600':'#22364f'),fmt:v=>v+'%',max:100,
         lines:[{axis:'x',value:80,label:'Target 80%'}],xTitle:'Response rate (%)'});
       return `${below} of ${all.length} section-subjects are below the 80% response target. Showing the 12 lowest.`}},
 
@@ -660,7 +520,7 @@ const CHARTS={
       const grid=facs.map(f=>{const cells=SEM.map((_,i)=>cell(f,i));
         return{f,cells,total:cells.filter(c=>c==='late').length,repeat:state.sem>0&&cells[state.sem]==='late'&&cells[state.sem-1]==='late'}});
       grid.sort((a,b)=>b.total-a.total||(a.f<b.f?-1:1));
-      const label={late:['r','✕ Late'],ok:['g','✓ OK'],none:['n','–']};
+      const label={late:['r',ico('x',11)+' Late'],ok:['g',ico('tick',11)+' OK'],none:['n','–']};
       drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${s.replace(' Sem','')}</th>`).join('')}</tr></thead><tbody>${
         grid.map(g=>`<tr><td class="lab">${g.f}${g.repeat?'<span class="flag">2 sems in a row</span>':''}</td>${g.cells.map(c=>`<td class="c ${label[c][0]}">${label[c][1]}</td>`).join('')}</tr>`).join('')}</tbody></table>
         <p class="legend">A cell is “Late” if any of the faculty’s sections submitted grades late that semester.</p>`);
@@ -670,14 +530,12 @@ const CHARTS={
   respVsSete:{label:'Response vs SETE',title:()=>'SETE Response Rate vs SETE Rating',
     draw(cur){
       const rows=cur.rows,low=rows.filter(d=>d.resp<80).length;
-      drawCanvas({type:'scatter',data:{datasets:[{data:rows.map(d=>({x:d.resp,y:d.sete})),pointRadius:5,
-          backgroundColor:rows.map(d=>d.resp<80?'#c62b30':'#22364f'),pointLabels:rows.map(d=>d.resp<60?d.lbl:null)}]},
+      drawCanvas({type:'scatter',data:{datasets:[{data:rows.map(d=>({x:d.resp,y:d.sete})),pointRadius:5,backgroundColor:rows.map(d=>d.resp<80?'#c62b30':'#22364f'),pointLabels:rows.map(d=>d.resp<60?d.lbl:null)}]},
         options:baseOptions({plugins:{zone:{xTo:80,label:'Low response – read with caution'},
           tooltip:{callbacks:{label:p=>{const d=rows[p.dataIndex];return `${d.lbl} (${d.fac}): response ${d.resp}%, SETE ${d.sete}`}}}},
           scales:{x:{min:40,max:100,title:axisTitle('SETE response rate (%)'),ticks:tickFont,grid:gridStyle},y:{min:2.5,max:5,title:axisTitle('SETE rating (1–5)'),ticks:tickFont,grid:gridStyle}}}),plugins:[zone,valueLabels]});
       return `${low} section-subjects have a response rate below 80%, so their SETE rating should be read with caution.`}},
 
-  /* ---------- FACULTY ---------- */
   radar:{label:'SETE criteria',title:()=>'My SETE per Criterion',
     draw(cur){
       const prev=state.sem>0?computeKpis(state.sem-1):null;
@@ -686,8 +544,7 @@ const CHARTS={
       if(prev)sets.push({label:SEM[state.sem-1],data:CRITERIA.map((_,i)=>clamp15(prev.sete+CRITERIA_OFFSET[i])),borderColor:'#9aa4b2',borderDash:[4,3],backgroundColor:'rgba(0,0,0,0)',pointRadius:2});
       sets.push({label:'Target 4.0',data:CRITERIA.map(()=>4),borderColor:'#c62b30',borderDash:[6,4],backgroundColor:'rgba(0,0,0,0)',pointRadius:0});
       drawCanvas({type:'radar',data:{labels:CRITERIA.map(c=>c.split(' ')),datasets:sets},
-        options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}}},
-          scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},backdropColor:'rgba(0,0,0,0)'},pointLabels:{font:{size:10}}}}})});
+        options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}}},scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},backdropColor:'rgba(0,0,0,0)'},pointLabels:{font:{size:10}}}}})});
       const lo=CRITERIA.map((c,i)=>[c,mine[i]]).sort((a,b)=>a[1]-b[1])[0];
       return `Weakest criterion: ${lo[0]} at ${lo[1].toFixed(2)}.`+(prev?` Overall SETE moved ${(cur.sete-prev.sete>=0?'+':'')+(cur.sete-prev.sete).toFixed(2)} vs the previous semester.`:'')}},
 
@@ -696,10 +553,9 @@ const CHARTS={
       const vals=SEM.map((_,i)=>{const k=computeKpis(i);return k?+k.sete.toFixed(2):null});
       drawCanvas({type:'line',data:{labels:SEM.map(s=>s.replace(' Sem','')),datasets:[
           {data:vals,borderColor:'#c62b30',backgroundColor:'#c62b30',tension:.35,pointRadius:5,fmt:v=>v.toFixed(2)},
-          {data:SEM.map(()=>4),borderColor:'#2e9e5b',borderDash:[6,4],pointRadius:0,noLabels:true,targetLabel:'Target 4.0'},
-          {data:SEM.map(()=>5),borderWidth:0,pointRadius:0,noLabels:true,fill:'-1',backgroundColor:'rgba(46,158,91,.1)'}]},
+          {data:SEM.map(()=>4),borderColor:'#2e9e5b',borderDash:[6,4],pointRadius:0,noLabels:true,targetLabel:'Target 4.0'}]},
         options:baseOptions({scales:{y:{min:2.5,max:5,title:axisTitle('Average SETE (1–5)'),ticks:tickFont,grid:gridStyle},x:{title:axisTitle('Semester'),ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
-      let t=`${cur.sete.toFixed(2)} in ${SEM[state.sem]}. The green band is the 4.0+ target zone.`;
+      let t=`${cur.sete.toFixed(2)} in ${SEM[state.sem]}.`;
       if(state.sem>0&&vals[state.sem-1]!=null){const df=cur.sete-vals[state.sem-1];t+=` ${df>=0?'Up':'Down'} ${Math.abs(df).toFixed(2)} from the previous semester.`}
       return t}},
 
@@ -715,14 +571,12 @@ const CHARTS={
           scales:{x:{stacked:true,title:axisTitle('Class (subject-section)'),ticks:{...tickFont,maxRotation:60},grid:{display:false}},y:{stacked:true,min:0,max:100,title:axisTitle('% of students'),ticks:tickFont,grid:gridStyle}}})});
       return `On average ${rows.length?(sum(rows,failed)/rows.length).toFixed(0):0}% of students fail and ${rows.length?(sum(rows,dropped)/rows.length).toFixed(0):0}% drop. (Failed/dropped split is estimated in sample data.)`}},
 
-  /* ---------- ADMINISTRATOR ---------- */
   hrRanking:{label:'College ranking',title:()=>'High-Risk Course Rate per College',
     draw(cur){
       const bars=Object.entries(cur.byGroup).map(([g,a])=>[g,hrRate(a)]).sort((a,b)=>b[1]-a[1]);
       const critical=bars.filter(b=>b[1]>TH.hr[1]).length,top=Math.max(30,Math.ceil((bars[0][1]+5)/5)*5);
-      drawLollipop({labels:bars.map(b=>b[0]),values:bars.map(b=>+b[1].toFixed(1)),
-        colors:bars.map(b=>b[1]>TH.hr[1]?'#c62b30':b[1]>TH.hr[0]?'#e3a600':'#22364f'),fmt:v=>v.toFixed(0)+'%',max:top,
-        lines:[{axis:'x',value:10,label:'Target 10%'},{axis:'x',value:15,label:'Critical 15%'}],xTitle:'High-risk IT courses (%)'});
+      drawLollipop({labels:bars.map(b=>b[0]),values:bars.map(b=>+b[1].toFixed(1)),colors:bars.map(b=>b[1]>TH.hr[1]?'#c62b30':b[1]>TH.hr[0]?'#e3a600':'#22364f'),fmt:v=>v.toFixed(0)+'%',max:top,
+        lines:[{axis:'x',value:10,label:'Target 10%'},{axis:'x',value:15,label:'Critical 15%'}],xTitle:'High-risk courses (%)'});
       return `${critical} of ${bars.length} colleges are above the 15% critical line. Highest: ${bars[0][0]} at ${bars[0][1].toFixed(0)}%.`}},
 
   slope:{label:'Prev → now',title:()=>'High-Risk Rate: Previous vs Current Semester',
@@ -736,74 +590,54 @@ const CHARTS={
         return{label:c,data:[+a.toFixed(1),+b.toFixed(1)],borderColor:color,backgroundColor:color,pointRadius:5,tension:0,noLabels:true,endLabel:`${c} ${b.toFixed(0)}%`}});
       drawCanvas({type:'line',data:{labels:[SEM[state.sem-1].replace(' Sem',''),SEM[state.sem].replace(' Sem','')],datasets:sets},
         options:baseOptions({layout:{padding:{right:110}},scales:{y:{min:0,title:axisTitle('High-risk courses (%)'),ticks:tickFont,grid:gridStyle},x:{ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
-      return `${worse} college${worse===1?'':'s'} got worse (red), ${better} improved (green) vs the previous semester. Grey = unchanged.`}},
-
-  sparks:{label:'Trends per college',title:()=>'High-Risk Rate Trend per College',
-    draw(cur){
-      const all=SEM.map((_,i)=>computeKpis(i)),cols=Object.keys(cur.byGroup);
-      const series=cols.map(c=>all.map(k=>k&&k.byGroup[c]?+hrRate(k.byGroup[c]).toFixed(1):null));
-      const top=Math.max(20,...series.flat().filter(v=>v!=null))+5;
-      drawHtml(`<div class="sparks">${cols.map((c,i)=>{const last=series[i][state.sem],cls=last>TH.hr[1]?'var(--red)':last>TH.hr[0]?'#9a6f00':'var(--g)';
-        return`<div class="spark" title="${COLLEGE_NAME[c]||c}"><b>${c}</b><span style="color:${cls}">${last==null?'–':last.toFixed(0)+'%'}</span><div class="sc"><canvas id="sp${i}"></canvas></div></div>`}).join('')}</div>
-        <p class="legend">Same scale for every college · red dot = selected semester · hover a card for the college name</p>`);
-      cols.forEach((c,i)=>charts.list.push(new Chart($('sp'+i),{type:'line',
-        data:{labels:SEM.map(s=>s.replace(' Sem','')),datasets:[{data:series[i],borderColor:'#22364f',tension:.3,spanGaps:true,pointRadius:SEM.map((_,j)=>j===state.sem?5:2),pointBackgroundColor:SEM.map((_,j)=>j===state.sem?'#c62b30':'#22364f')}]},
-        options:baseOptions({scales:{x:{display:false},y:{display:false,min:0,max:top}}})})));
-      return `One mini-trend per college. A line that keeps climbing needs institution-level attention.`}}
+      return `${worse} college${worse===1?'':'s'} got worse (red), ${better} improved (green) vs the previous semester. Grey = unchanged.`}}
 };
 
-/* 8. LIST PANELS (the role-specific list under the chart) ============ */
+/* 8. LIST PANELS (role-specific list under the chart) */
 const PANELS={
   groups:{title:()=>state.roleKey==='admin'?'College Ranking':'Track Overview',
     hint:()=>state.roleKey==='admin'?'Ranked by high-risk course rate. Click a college to filter.':'Click a track to filter the whole dashboard.',
-    seeAll:false,
     html(cur){
       const groups=Object.entries(cur.byGroup).map(([g,a])=>({g,n:a.length,hr:hrRate(a),pass:sum(a,x=>x.pass)/a.length,sete:sum(a,x=>x.sete)/a.length}));
       if(state.roleKey==='admin')groups.sort((a,b)=>b.hr-a.hr);else groups.sort((a,b)=>a.g<b.g?-1:1);
       return groups.map(x=>{const c=x.hr>TH.hr[1]?'r':x.hr>TH.hr[0]?'y':'',name=COLLEGE_NAME[x.g]?COLLEGE_NAME[x.g]+' · ':'';
-        return`<button class="item" data-group="${x.g}" title="Average SETE ${x.sete.toFixed(2)} · High-risk ${x.hr.toFixed(0)}% (target ≤ 10%)"><div class="avatar">${x.g.slice(0,2)}</div><div class="txt"><b>${x.g}</b><span class="sub">${name}${x.n} IT subjects · Passing ${x.pass.toFixed(0)}%</span></div><span class="pill ${c}">${x.hr.toFixed(0)}% high-risk</span></button>`}).join('')}},
-  topSections:{title:()=>'Sections Needing Follow-up',seeAll:true,
-    hint:cur=>`Top ${Math.min(5,drillRows(cur).length)} of ${drillRows(cur).length} section-subjects${state.drill?' · Drill-down: '+(role.kpiNames[state.drill]||KPI[state.drill].name)+' (click the KPI again to clear)':''} · ${filterText()}`,
+        return`<button class="item" data-group="${x.g}" title="Average SETE ${x.sete.toFixed(2)}"><div class="avatar">${x.g.slice(0,2)}</div><div class="txt"><b>${x.g}</b><span class="sub">${name}${x.n} ${subjWord()} · Passing ${x.pass.toFixed(0)}%</span></div><span class="pill ${c}">${x.hr.toFixed(0)}% high-risk</span></button>`}).join('')}},
+  topSections:{title:()=>'Sections Needing Follow-up',
+    hint:cur=>`Top ${Math.min(5,drillRows(cur).length)} of ${drillRows(cur).length} section-subjects${state.drill?' · Filtered by: '+(role.kpiNames[state.drill]||KPI[state.drill].name)+' (click the KPI again to clear)':''}`,
     html(cur){
       return drillRows(cur).map(d=>({...d,pass:100-d.fd})).sort((a,b)=>riskScore(b)-riskScore(a)).slice(0,5).map(d=>{const i=mainIssue(d);
-        return`<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)} · SETE ${d.sete.toFixed(2)} (${vsTarget(d.sete,4,2)}) · Response ${d.resp}% · Passing ${d.pass}%"><div class="avatar">${d.fac.replace('Prof. ','').slice(0,2).toUpperCase()}</div><div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${d.fac} · ${decodeSection(d.sec)}</span></div><span class="pill ${i[1]}">${i[0]}</span></button>`}).join('')}},
-  myClasses:{title:()=>'My Classes',seeAll:true,
-    hint:()=>'Click a class to see its SETE details.'+(state.drill?` Drill-down: ${role.kpiNames[state.drill]||KPI[state.drill].name} (click the KPI again to clear).`:''),
+        return`<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}"><div class="avatar">${d.fac.replace('Prof. ','').slice(0,2).toUpperCase()}</div><div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${d.fac} · ${decodeSection(d.sec)}</span></div><span class="pill ${i[1]}">${i[0]}</span></button>`}).join('')}},
+  myClasses:{title:()=>'My Classes',
+    hint:()=>'Click a class to see its SETE details.'+(state.drill?` Filtered by: ${role.kpiNames[state.drill]||KPI[state.drill].name} (click the KPI again to clear).`:''),
     html(cur){
       return drillRows(cur).map(d=>({...d,pass:100-d.fd})).sort(byCodeSec).map(d=>{const i=mainIssue(d);
         return`<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}"><div class="avatar">${d.sec.slice(2)}</div><div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${decodeSection(d.sec)} · SETE ${d.sete.toFixed(2)} · Response ${d.resp}% · Passing ${d.pass}%</span></div><span class="pill ${i[1]}">${i[0]}</span></button>`}).join('')}}
 };
 
-/* 9. RENDER ========================================================== */
+/* 9. RENDER */
 function render(){
   const cur=computeKpis(state.sem),prev=state.sem>0?computeKpis(state.sem-1):null;current=cur;
   const hour=new Date().getHours(),part=hour<12?'morning':hour<18?'afternoon':'evening';
   $('greeting').innerHTML=`Good ${part}, <em>${role.greetName}</em>`;
   $('decisionText').textContent='Decision supported: '+role.decision;
-  destroyCharts();
-  renderChartTabs();
+  destroyCharts();renderChartTabs();
   if(!cur){
-    $('kpiRow').innerHTML='<p class="card" style="grid-column:1/-1;color:var(--mute)">No data for this filter combination. Press Reset in Filters.</p>';
-    ['alertList','panelBody','panelHint','chartCaption','heroChips','htmlBox'].forEach(id=>$(id).innerHTML='');
+    $('kpiRow').innerHTML='<p class="card" style="grid-column:1/-1;color:var(--mute)">No data for this filter combination. Press Reset.</p>';
+    ['alertList','panelBody','panelHint','chartCaption','htmlBox'].forEach(id=>$(id).innerHTML='');
     $('alertCount').textContent=0;return}
-  renderKpiCards(cur,prev);
-  renderHealth(cur);
-  renderChart(cur);
-  renderPanel(cur);
-  alertsList=buildAlerts(cur);renderAlerts();
-  const crit=alertsList.filter(x=>x.l==='r').length;
-  $('heroChips').innerHTML=`<span class="chip">${SEM[state.sem]}</span><span class="chip">${crit} critical</span><span class="chip">${alertsList.length-crit} warning</span>`}
+  renderKpiCards(cur,prev);renderHealth(cur);renderChart(cur);renderPanel(cur);
+  alertsList=buildAlerts(cur);renderAlerts()}
 
 function renderKpiCards(cur,prev){
   $('kpiRow').innerHTML=role.kpis.map(key=>{
     const v=cur[key],st=kpiStatus(key,v,state.sem),def=KPI[key],name=role.kpiNames[key]||def.name;
     let trend='';
     if(prev&&v!=null&&prev[key]!=null){const df=v-prev[key],good=def.lowerIsBetter?df<=0:df>=0;
-      trend=`<p><u>Vs previous sem:</u> ${df>=0?'▲':'▼'} ${Math.abs(df).toFixed(key==='sete'?2:1)} (${good?'improving':'worsening'})</p>`}
+      trend=`<p><u>Vs previous sem:</u> ${Math.abs(df)<0.05?'No change':`${ico(df>=0?'up':'down',11)} ${Math.abs(df).toFixed(1)} (${good?'improving':'worsening'})`}</p>`}
     return`<button class="kpi ${st}${state.drill===key?' on':''}" data-kpi="${key}" aria-pressed="${state.drill===key}">
-      <div class="ic">${def.icon}</div><h3>${name}</h3><div class="v">${v==null?'N/A':def.fmt(v)}</div><div class="st">${STATUS_TEXT[st]}</div>
+      <div class="ic">${ico(def.icon,17)}</div><h3>${name}</h3><div class="v">${v==null?'N/A':def.fmt(v)}</div><div class="st">${STATUS_TEXT[st]}</div>
       <div class="tip" role="tooltip"><b>${name}</b><p>${def.objective}</p><p><u>Formula:</u> ${def.formula}</p><p><u>Target:</u> ${def.targetText}</p>${trend}
-      <p style="color:#9fb3cf">Click to list the sections behind this KPI.</p>${key==='resp'?'<p style="color:#9fb3cf">SETE should not be the sole measure of teaching effectiveness.</p>':''}</div></button>`}).join('')}
+      <p style="color:#9fb3cf">Click to list the sections behind this KPI.</p></div></button>`}).join('')}
 
 function renderHealth(cur){
   const onTarget=role.kpis.filter(k=>kpiStatus(k,cur[k],state.sem)==='g').length,pct=Math.round(100*onTarget/role.kpis.length);
@@ -816,53 +650,101 @@ function renderChartTabs(){
   $('chartTabs').innerHTML=role.charts.map(id=>`<button class="${id===state.chartId?'on':''}" onclick="selectChart('${id}')">${CHARTS[id].label}</button>`).join('')}
 function selectChart(id){state.chartId=id;if(current){destroyCharts();renderChartTabs();renderChart(current)}}
 function renderChart(cur){
-  const def=CHARTS[state.chartId];
-  const caption=def.draw(cur);
+  const def=CHARTS[state.chartId],caption=def.draw(cur);
   $('chartTitle').textContent=def.title(cur);$('chartCaption').textContent=caption;
   $('mainCanvas').setAttribute('aria-label',def.title(cur)+'. '+caption)}
-
 function renderPanel(cur){
   const p=PANELS[role.panel];
-  $('panelTitle').textContent=p.title();$('panelMore').style.display=p.seeAll?'':'none';
-  $('panelHint').textContent=p.hint(cur);
-  $('panelBody').innerHTML=p.html(cur)||'<p class="none">Nothing matches this drill-down.</p>'}
+  $('panelTitle').textContent=p.title();$('panelHint').textContent=p.hint(cur);
+  $('panelBody').innerHTML=p.html(cur)||'<p class="none">Nothing matches this filter.</p>'}
 
-const alertHtml=(x,i)=>`<div class="al ${x.l}" data-alert="${i}" tabindex="0"><b>● ${x.t}</b><i>Recommended: ${x.a}</i></div>`;
+const alertHtml=(x,i)=>`<div class="al ${x.l}" data-alert="${i}" tabindex="0"><b>${ico(x.l==='r'?'alert':'info',13)}<span>${x.t}</span></b><i>Recommended: ${x.a}</i></div>`;
 function renderAlerts(){
   $('alertCount').textContent=alertsList.length;
-  $('alertList').innerHTML=alertsList.length?alertsList.slice(0,3).map(alertHtml).join(''):'<p class="none">✓ No active alerts. All monitored measures are within thresholds.</p>'}
+  $('alertList').innerHTML=alertsList.length?alertsList.slice(0,3).map(alertHtml).join(''):`<p class="none">${ico('tick',14)} No active alerts. All monitored measures are within thresholds.</p>`}
 function followAlert(i){
   const x=alertsList[i];if(!x||!x.go)return;closeModal();
   const [kind,target]=x.go.split('|');kind==='d'?openDetail(target):filterSubject(target)}
 
-/* 10. MODALS ========================================================= */
+/* 10. MODALS */
 const openModal=wide=>{$('modalBox').className='box'+(wide?' wide':'');$('modal').style.display='flex';const b=$('btnClose');b&&b.focus()};
 const closeModal=()=>$('modal').style.display='none';
 const closeButton='<button class="btn navy" id="btnClose" onclick="closeModal()">Close</button>';
-
 function openAlerts(){
-  $('modalBox').innerHTML=`<h3>Alerts and Recommended Actions</h3><p class="crumb">SPARTHEON › ${role.title} › Alerts · hover or tap an alert to see its action</p>
-    <div id="allAlerts">${alertsList.length?alertsList.map(alertHtml).join(''):'<p class="none">✓ No active alerts.</p>'}</div><p style="margin-top:14px">${closeButton}</p>`;
+  $('modalBox').innerHTML=`<h3>Alerts and Recommended Actions</h3><p class="crumb">SPARTHEON › ${role.title} › Alerts · tap an alert to open its details</p>
+    <div id="allAlerts">${alertsList.length?alertsList.map(alertHtml).join(''):`<p class="none">${ico('tick',14)} No active alerts.</p>`}</div><p style="margin-top:14px">${closeButton}</p>`;
   openModal();
   $('allAlerts').onclick=e=>{const a=e.target.closest('[data-alert]');if(a)followAlert(+a.dataset.alert)}}
+/* REPORT: per-role insights summary (preview, then print or save as PDF) */
+const listOf=(a,n=5)=>a.length?a.slice(0,n).join(', ')+(a.length>n?` +${a.length-n} more`:''):'none';
+function buildInsights(cur,prev){
+  const R=state.roleKey,out=[];
+  const subj=[...new Set(cur.rows.map(d=>d.code))].map(c=>({c,p:passOf(cur.rows.filter(d=>d.code===c))})).sort((a,b)=>a.p-b.p);
+  const lowS=subj[0],hrList=cur.courses.filter(c=>c.hr).map(c=>c.lbl);
+  const lateRows=cur.rows.filter(d=>d.late),repeat=[...new Set(lateRows.filter(d=>repeatedLate(state.sem,d.fac)).map(d=>d.fac))];
+  const lowResp=cur.rows.filter(d=>d.resp<80).sort((a,b)=>a.resp-b.resp);
+  const groups=Object.entries(cur.byGroup).map(([g,a])=>[g,hrRate(a)]).sort((a,b)=>b[1]-a[1]);
+  const subjLine=`Lowest passing rate: ${lowS.c} ${COURSE_INFO[lowS.c].name} at ${lowS.p.toFixed(0)}%${lowS.p<TH.pass[0]?' (below the 85% target)':''}.`;
+  const impLine=cur.imp==null?'No previous semester is available for a SETE comparison.':`Average SETE moved ${signed(cur.imp)} vs the previous semester (target ≥ 5%).`;
+  const lateLine=`${lateRows.length} of ${cur.rows.length} section-subjects submitted grades late`+(repeat.length?`; late two semesters in a row: ${listOf(repeat)}.`:'.');
+  if(R==='dean'){
+    out.push(`${hrList.length} of ${cur.courses.length} IT subjects are high-risk (failure + dropout ≥ 20% and SETE < 3.5): ${listOf(hrList)}.`);
+    if(groups.length)out.push(`Highest high-risk rate by track: ${groups[0][0]} at ${groups[0][1].toFixed(0)}%.`);
+    out.push(subjLine,lateLine,impLine)}
+  else if(R==='chair'){
+    out.push(lateLine);
+    out.push(`${lowResp.length} section-subjects are below the 80% SETE response target`+(lowResp.length?`; lowest: ${listOf(lowResp.map(d=>`${d.lbl} (${d.resp}%)`),3)}.`:'.'));
+    const top=[...cur.rows].sort((a,b)=>riskScore(b)-riskScore(a)).slice(0,3).filter(d=>mainIssue(d)[0]!=='On track');
+    if(top.length)out.push(`Follow up first: ${top.map(d=>`${d.lbl} (${d.fac}, ${mainIssue(d)[0].toLowerCase()})`).join('; ')}.`);
+    out.push(subjLine,impLine)}
+  else if(R==='faculty'){
+    const mine=CRITERIA.map((c,i)=>[c,clamp15(cur.sete+CRITERIA_OFFSET[i])]).sort((a,b)=>a[1]-b[1]),hi=mine[mine.length-1];
+    out.push(`My average SETE is ${cur.sete.toFixed(2)} / 5`+(prev?` (${cur.sete-prev.sete>=0?'+':'−'}${Math.abs(cur.sete-prev.sete).toFixed(2)} vs the previous semester).`:'.'));
+    out.push(`Weakest criterion: ${mine[0][0]} (${mine[0][1].toFixed(2)}). Strongest: ${hi[0]} (${hi[1].toFixed(2)}).`);
+    out.push(`Average SETE response across my sections is ${cur.resp.toFixed(0)}%; average passing rate is ${cur.pass.toFixed(0)}%.`);
+    const need=cur.rows.filter(d=>mainIssue(d)[0]!=='On track');
+    out.push(need.length?`Classes needing attention: ${listOf(need.map(d=>`${d.lbl} (${mainIssue(d)[0].toLowerCase()})`))}.`:'All my classes are on track.')}
+  else{
+    const above=groups.filter(g=>g[1]>TH.hr[1]).map(g=>`${g[0]} (${g[1].toFixed(0)}%)`);
+    out.push(`${above.length} of ${groups.length} colleges are above the 15% high-risk critical line: ${listOf(above)}.`);
+    out.push(`${hrList.length} high-risk courses campus-wide: ${listOf(hrList,6)}.`);
+    if(prev)out.push(`Campus high-risk rate is ${cur.hr.toFixed(0)}% vs ${prev.hr.toFixed(0)}% in the previous semester.`);
+    out.push(subjLine,lateLine,impLine)}
+  return out}
 
-function openSections(){
+function openReport(){
   if(!current)return;
-  const cols=[['code','Subject-Section'],['fac','Faculty'],['sete','SETE (1–5)','num'],['resp','Resp. %','num'],['pass','Pass %','num'],['late','Grades'],['done','Load']];
-  const rows=sortedRows(current),colName=cols.find(c=>c[0]===state.sortKey)[1],numeric=['sete','resp','pass'].includes(state.sortKey);
-  $('modalBox').innerHTML=`<div class="card-head"><h3>Section Monitor</h3><button class="btn alt sm" onclick="exportCsv()">Export CSV</button></div>
-    <p class="crumb">SPARTHEON › ${role.title} › Sections · click a row for details · Section code 1106 = Year 1 · 1st Sem · Section 06</p>
-    <div class="scroll"><table><thead><tr>${cols.map(c=>`<th class="${c[2]||''}" aria-sort="${state.sortKey===c[0]?(state.sortDir>0?'ascending':'descending'):'none'}"><button class="sortbtn" onclick="sortBy('${c[0]}')">${c[1]}${state.sortKey===c[0]?(state.sortDir>0?' ▲':' ▼'):' ⇅'}</button></th>`).join('')}</tr></thead>
-    <tbody id="sectionRows">${rows.length?rows.map(d=>`<tr class="row" tabindex="0" data-section="${d.id}" title="${decodeSection(d.sec)}"><td>${d.lbl}</td><td>${d.fac}</td>
-      <td class="num" title="SETE ${vsTarget(d.sete,4,2)}">${d.sete.toFixed(2)}</td>
-      <td class="num"><span class="pill ${d.resp<60?'r':d.resp<80?'y':''}" title="Response ${vsTarget(d.resp,80,0)}%">${d.resp}</span></td>
-      <td class="num"><span class="pill ${d.pass<75?'r':d.pass<85?'y':''}" title="Passing ${vsTarget(d.pass,85,0)}%">${d.pass}</span></td>
-      <td><span class="pill ${d.late?'r':''}">${d.late?'Late':'On time'}</span></td><td><span class="pill ${d.done?'':'y'}">${d.done?'Done':'Incomplete'}</span></td></tr>`).join(''):'<tr><td colspan="7">No sections match these filters.</td></tr>'}</tbody></table></div>
-    <p class="hint" id="sectionHint">Showing ${rows.length} of ${current.rows.length} section-subjects · ${SEM[state.sem]} · ${filterText()}${state.drill?' · Drill-down: '+(role.kpiNames[state.drill]||KPI[state.drill].name):''} · Sorted by ${colName}, ${numeric?(state.sortDir>0?'lowest first':'highest first'):(state.sortDir>0?'A–Z':'Z–A')}.</p>
-    <p style="margin-top:12px">${closeButton}</p>`;
-  openModal(true);
-  $('sectionRows').onclick=e=>{const r=e.target.closest('[data-section]');if(r)openDetail(r.dataset.section)}}
-function sortBy(key){state.sortDir=state.sortKey===key?-state.sortDir:1;state.sortKey=key;openSections()}
+  const cur=current,prev=state.sem>0?computeKpis(state.sem-1):null;
+  const date=new Date().toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
+  const filters=[SEM[state.sem],state.group!=='all'?state.group:null,state.subject!=='all'?state.subject:null].filter(Boolean).join(' · ');
+  const onT=role.kpis.filter(k=>kpiStatus(k,cur[k],state.sem)==='g').length;
+  const crit=alertsList.filter(a=>a.l==='r').length,warn=alertsList.length-crit;
+  const pillCls={g:'',y:'y',r:'r',n:'n'};
+  const kpiRows=role.kpis.map(k=>{
+    const v=cur[k],st=kpiStatus(k,v,state.sem),def=KPI[k];let tr='–';
+    if(prev&&v!=null&&prev[k]!=null){const df=v-prev[k],good=def.lowerIsBetter?df<=0:df>=0;tr=Math.abs(df)<0.05?'No change':`${df>=0?'+':'−'}${Math.abs(df).toFixed(1)} (${good?'improving':'worsening'})`}
+    return`<tr><td>${role.kpiNames[k]||def.name}</td><td><b>${v==null?'N/A':def.fmt(v)}</b></td><td>${def.targetText}</td><td><span class="pill ${pillCls[st]}">${STATUS_TEXT[st]}</span></td><td>${tr}</td></tr>`}).join('');
+  const byAction={};
+  alertsList.forEach(a=>{const g=byAction[a.a]=byAction[a.a]||{a:a.a,l:'y',n:0,ex:a.t};g.n++;if(a.l==='r')g.l='r'});
+  const acts=Object.values(byAction).sort((x,y)=>(x.l==='r'?0:1)-(y.l==='r'?0:1)||y.n-x.n).slice(0,5);
+  $('modalBox').innerHTML=`<div class="rep">
+    <div class="rep-head"><div><h3>${role.title} · Insights Summary</h3><p>${role.type} · ${filters}</p><p>Decision supported: ${role.decision}</p></div>
+      <div class="rep-brand">SPARTHEON<small>Generated ${date}</small></div></div>
+    <div class="rep-health">
+      <div><b>${onT} / ${role.kpis.length}</b>KPIs on target</div>
+      <div><b>${crit}</b>Critical alerts</div>
+      <div><b>${warn}</b>Warning alerts</div>
+      <div><b>${cur.rows.length}</b>Section-subjects in view</div></div>
+    <h5>Key Performance Indicators</h5>
+    <table><thead><tr><th>KPI</th><th>Value</th><th>Target</th><th>Status</th><th>Vs previous sem</th></tr></thead><tbody>${kpiRows}</tbody></table>
+    <h5>Key Insights</h5>
+    <ul>${buildInsights(cur,prev).map(t=>`<li>${t}</li>`).join('')}</ul>
+    <h5>Recommended Actions</h5>
+    ${acts.length?`<ul>${acts.map(g=>`<li><span class="pill ${g.l==='r'?'r':'y'}">${g.l==='r'?'Critical':'Warning'}</span> ${g.a} <span style="color:var(--mute)">(${g.n} alert${g.n>1?'s':''}, e.g. ${g.ex})</span></li>`).join('')}</ul>`
+      :'<p class="none">No actions needed. All monitored measures are within thresholds.</p>'}
+    <p class="foot">Sample data only; Portal–SETE integration is a proposed enhancement. SETE results should not be the sole measure of teaching effectiveness. Consider response rates, context, and other evidence.</p></div>
+    <div class="actions noprint"><button class="btn" onclick="window.print()">${ico('print')} Print / Save as PDF</button>${closeButton}</div>`;
+  openModal(true)}
 
 function openDetail(id){
   const d=DATA.find(x=>x.sem===state.sem&&x.id===id);if(!d)return;
@@ -881,80 +763,51 @@ function openDetail(id){
       <div><span>${d.fac} also handles</span><i>${others}</i></div></div>
     ${CRITERIA.map((c,i)=>{const v=clamp15(d.sete+CRITERIA_OFFSET[i]);return`<div class="crit">${c}: <b>${v.toFixed(2)}</b><div class="bar"><div style="width:${v*20}%"></div></div></div>`}).join('')}
     ${d.resp<80?'<div class="warn">Low response rate – interpret with caution.</div>':''}
-    <div class="warn n">SETE is not the sole measure of teaching effectiveness. Consider response rates, evaluation criteria, context, and other evidence.</div>
+    <div class="warn n">SETE is not the sole measure of teaching effectiveness. Consider response rates, context, and other evidence.</div>
     <p style="margin-top:14px">${closeButton} <button class="btn alt" onclick="closeModal();filterSubject('${d.code}')">Show this subject only</button></p>`;
   openModal()}
 
-/* REPORT: shows on screen, prints / saves as PDF through the browser print dialog */
-function openReport(){
-  const cur=current;if(!cur)return;
-  const rows=role.kpis.map(k=>({k,v:cur[k],st:kpiStatus(k,cur[k],state.sem)})),onTarget=rows.filter(x=>x.st==='g').length,crit=alertsList.filter(x=>x.l==='r').length;
-  const ul=a=>'<ul>'+a.map(x=>`<li>${x}</li>`).join('')+'</ul>',section=(t,b)=>`<h5>${t}</h5>${b}`;
-  const actions=[...new Set(alertsList.map(x=>x.a))].slice(0,3);
-  let img='';if(charts.main){try{img=charts.main.toBase64Image()}catch(e){}}  // HTML-only charts have no image
-  const date=new Date().toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
-  const kpiTable=`<table><thead><tr><th>KPI</th><th class="num">Value</th><th class="num">Target</th><th>Status</th></tr></thead><tbody>${rows.map(x=>
-    `<tr><td>${role.kpiNames[x.k]||KPI[x.k].name}</td><td class="num">${x.v==null?'N/A':KPI[x.k].fmt(x.v)}</td><td class="num">${KPI[x.k].targetText}</td><td><span class="pill ${x.st==='r'?'r':x.st==='y'?'y':''}">${STATUS_TEXT[x.st]}</span></td></tr>`).join('')}</tbody></table>`;
-  $('modalBox').innerHTML=`<div class="report-head"><img class="logo" src="spartheonLogo.jpg" alt="SPARTHEON"><div><h3>Decision-Support Report</h3><p class="crumb" style="margin:0">${role.title} · ${SEM[state.sem]} · Generated ${date}</p></div></div>`
-    +section('Purpose',`<p>${role.question}</p>`)
-    +section('Scope',`<p>${SEM[state.sem]} · ${role.scope} · ${filterText()}. ${cur.rows.length} section-subjects in view.</p>`)
-    +section('Key findings',ul(alertsList.length?alertsList.slice(0,3).map(x=>x.t):['No alerts: all monitored measures are within thresholds.']))
-    +section('Evidence',kpiTable+(img?`<p style="margin:10px 0 4px;color:var(--mute)">Chart: ${$('chartTitle').textContent}. ${$('chartCaption').textContent}</p><img src="${img}" alt="${$('chartTitle').textContent}" style="width:100%;max-width:640px;border:1px solid var(--line);border-radius:12px">`:''))
-    +section('Interpretation',`<p>${onTarget} of ${rows.length} KPIs are on target. ${crit} critical and ${alertsList.length-crit} warning alerts are active for this semester.</p>`)
-    +section('Decision implications',ul(actions.length?actions:['Continue routine monitoring.']))
-    +section('Limitations',ul(['Sample data for demonstration; Portal–SETE integration is a proposed enhancement.','Only IT subjects are covered.','One reporting period: a change may not yet be a trend.','SETE is not the sole measure of teaching effectiveness; consider response rates, criteria, context, and other evidence.','Patterns show association, not proven cause.']))
-    +`<p class="no-print" style="margin-top:16px"><button class="btn" onclick="printReport()">Print / Save as PDF</button> ${closeButton}</p>
-      <p class="hint no-print">In the print window, choose “Save as PDF” as the destination to download a PDF copy.</p>`;
-  openModal(true)}
-function printReport(){document.body.classList.add('printing');setTimeout(()=>window.print(),60)}
-window.addEventListener('afterprint',()=>document.body.classList.remove('printing'));
-
-function exportCsv(){
-  if(!current)return;const rows=sortedRows(current);
-  const csv=['College,Subject,Section,Faculty,SETE,Response %,Passing %,Grades,Load',
-    ...rows.map(d=>[d.col,d.code,d.sec,d.fac,d.sete.toFixed(2),d.resp,d.pass,d.late?'Late':'On time',d.done?'Done':'Incomplete'].join(','))].join('\n');
-  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`spartheon-${state.roleKey}.csv`;document.body.append(a);a.click();a.remove()}catch(e){}
-  const h=$('sectionHint');if(h)h.textContent=`Exported ${rows.length} rows to spartheon-${state.roleKey}.csv (only the rows currently shown).`}
-
-/* 11. EVENTS + NAV =================================================== */
-function showFilters(open){$('filterRow').style.display=open?'flex':'none';$('btnFilters').textContent=open?'Filters ▴':'Filters ▾'}
-function toggleFilters(){showFilters($('filterRow').style.display!=='flex')}
+/* 11. EVENTS + NAV */
 function resetFilters(){
-  Object.assign(state,{year:'all',group:'all',subject:'all',drill:null,sem:3,sortKey:'sete',sortDir:1});
-  $('selSem').value=3;$('selYear').value='all';$('selSubject').value='all';if(role.groupFilter)$('selGroup').value='all';render()}
-function filterSubject(code){state.subject=code;$('selSubject').value=code;showFilters(true);render()}
-
+  Object.assign(state,{group:'all',subject:'all',drill:null,sem:3});
+  $('selSem').value=3;if(role.groupFilter)$('selGroup').value='all';fillSubjects();render()}
+const subjWord=()=>state.roleKey==='admin'?'subjects':'IT subjects';
+/* subject dropdown only lists the subjects of the selected college / track, so nothing is mixed */
+function fillSubjects(){
+  const rows=roleRows().filter(d=>state.group==='all'||!role.groupFilter||d[role.groupFilter]===state.group);
+  const codes=[...new Set(rows.map(d=>d.code))];
+  if(state.subject!=='all'&&!codes.includes(state.subject))state.subject='all';
+  $('selSubject').innerHTML=`<option value="all">All ${state.roleKey==='admin'?'Subjects':'IT Subjects'}</option>`+codes.map(c=>`<option value="${c}">${c} – ${COURSE_INFO[c].name}</option>`).join('');
+  $('selSubject').value=state.subject}
+function filterSubject(code){state.subject=code;$('selSubject').value=code;render()}
 $('kpiRow').onclick=e=>{const b=e.target.closest('.kpi');if(!b)return;
   const key=b.dataset.kpi;state.drill=state.drill===key?null:key;render();
   const again=$('kpiRow').querySelector(`[data-kpi="${key}"]`);again&&again.focus({preventScroll:true})};
 $('panelBody').onclick=e=>{
   const g=e.target.closest('[data-group]');
-  if(g){state.group=g.dataset.group;$('selGroup').value=state.group;showFilters(true);render();return}
+  if(g){state.group=g.dataset.group;$('selGroup').value=state.group;fillSubjects();render();return}
   const s=e.target.closest('[data-section]');if(s)openDetail(s.dataset.section)};
 $('alertList').onclick=e=>{const a=e.target.closest('[data-alert]');if(a)followAlert(+a.dataset.alert)};
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeModal();
   if(e.key==='Enter'&&e.target.matches('[data-section],[data-alert]'))e.target.click()});
 $('selSem').onchange=e=>{state.sem=+e.target.value;render()};
-$('selYear').onchange=e=>{state.year=e.target.value;render()};
-$('selGroup').onchange=e=>{state.group=e.target.value;render()};
+$('selGroup').onchange=e=>{state.group=e.target.value;fillSubjects();render()};
 $('selSubject').onchange=e=>{state.subject=e.target.value;render()};
-
-/* landing: role buttons */
 $('roleList').innerHTML=Object.entries(ROLES).map(([k,r])=>`<button class="role" onclick="enterRole('${k}')"><b>${r.title}</b><span>${r.blurb}</span></button>`).join('');
+
+document.querySelectorAll('[data-ico]').forEach(e=>e.insertAdjacentHTML('afterbegin',ico(e.dataset.ico,e.dataset.ico==='bell'?18:15)));
 
 function enterRole(key){
   role=ROLES[key];
-  Object.assign(state,{roleKey:key,sem:3,year:'all',group:'all',subject:'all',drill:null,chartId:role.charts[0],sortKey:'sete',sortDir:1});
+  Object.assign(state,{roleKey:key,sem:3,group:'all',subject:'all',drill:null,chartId:role.charts[0]});
   $('roleTitle').textContent=role.title;$('roleType').textContent=role.type;
   $('selSem').innerHTML=SEM.map((s,i)=>`<option value="${i}" ${i==3?'selected':''}>${s}</option>`).join('');
-  $('selYear').innerHTML='<option value="all">All Year Levels</option>'+[1,2,3,4].map(i=>`<option value="${i}">Year ${i}</option>`).join('');
   $('selGroup').style.display=role.groupFilter?'':'none';
   if(role.groupFilter){
     const text=c=>role.groupFilter==='col'?`${c} – ${COLLEGE_NAME[c]}`:c;
     $('selGroup').innerHTML=`<option value="all">${role.groupLabel}</option>`+[...new Set(roleRows().map(d=>d[role.groupFilter]))].map(c=>`<option value="${c}">${text(c)}</option>`).join('')}
-  $('selSubject').innerHTML='<option value="all">All IT Subjects</option>'+[...new Set(roleRows().map(d=>d.code))].map(c=>`<option value="${c}">${c} – ${COURSE_INFO[c].name}</option>`).join('');
-  showFilters(false);
+  fillSubjects();
   $('land').style.display='none';$('dash').style.display='block';scrollTo(0,0);render()}
 function backToRoles(){destroyCharts();$('dash').style.display='none';$('land').style.display='flex'}
 </script>
