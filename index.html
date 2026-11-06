@@ -1964,180 +1964,109 @@ const CHARTS = {
     }
   },
 
-    collegeTrends: {
+  collegeTrends: {
     title: () => 'Passing Rate Trend per College',
     draw() {
-      const colors = {
-        'CICS': '#43A58B',
-        'CABEIHM': '#FFD700',
-        'CAS': '#C62B30',
-        'CTE': '#3978B8',
-        'CCJE': '#7B8490',
-        'CHS': '#398451'
-      };
-
       let below = 0;
+      drawHtml(`<div class="mini-grid">${COLS.map(c => `
+        <div class="mini">
+          <div class="mini-h"><b>${c}</b><span id="mv_${c}"></span></div>
+          <div class="mini-c" id="mw_${c}"><canvas id="mc_${c}" role="img" aria-label="${c} passing rate trend"></canvas></div>
+        </div>`).join('')}</div>`);
 
-      const datasets = COLS.map(c => {
-        const vals = SEM.map((_, i) =>
-          passOf(rowsFor(i).filter(d => d.col === c))
-        );
-
+      COLS.forEach(c => {
+        const vals = SEM.map((_, i) => passOf(rowsFor(i).filter(d => d.col === c)));
+        if (vals.every(v => v == null)) {
+          $('mw_' + c).innerHTML = '<p class="none">No data for this filter</p>';
+          return;
+        }
         const now = vals[state.sem];
-
+        const color = ({
+          'CICS': '#43A58B',   // Verdigris
+          'CABEIHM': '#FFD700', // Bright Yellow
+          'CAS': '#C62B30',    // Red
+          'CTE': '#3978B8',    // Blue
+          'CCJE': '#7B8490',   // Gray
+          'CHS': '#398451'     // Green
+        }[c] || '#9aa4b2');
         if (now != null && now < TH.pass[0]) below++;
+        $('mv_' + c).innerHTML = now == null ? '–' : `<span class="pill ${now < TH.pass[1] ? 'r' : now < TH.pass[0] ? 'y' : ''}">${now.toFixed(0)}%</span>`;
 
-        return {
-          label: c,
-          data: vals.map(v => v == null ? null : +v.toFixed(1)),
-          borderColor: colors[c] || '#9aa4b2',
-          backgroundColor: colors[c] || '#9aa4b2',
-          tension: .3,
-          pointRadius: 3,
-          spanGaps: true,
-          fmt: v => v.toFixed(0)
-        };
-      });
-
-      datasets.push({
-        label: 'Target 85%',
-        data: SEM.map(() => 85),
-        borderColor: '#9aa4b2',
-        borderDash: [4, 3],
-        pointRadius: 0,
-        noLabels: true
-      });
-
-      drawCanvas({
-        type: 'line',
-        data: {
-          labels: SEM.map(shortSem),
-          datasets
-        },
-        options: baseOptions({
-          plugins: {
-            legend: legendOn({ filter: i => i.text !== 'Target 85%' })
+        charts.extra.push(new Chart($('mc_' + c), {
+          type: 'line',
+          data: {
+            labels: SEM.map(shortSem),
+            datasets: [
+              { data: vals.map(v => v == null ? null : +v.toFixed(1)), borderColor: color, backgroundColor: color, tension: .3, pointRadius: 3, spanGaps: true, fmt: v => v.toFixed(0) },
+              { data: SEM.map(() => 85), borderColor: '#9aa4b2', borderDash: [4, 3], pointRadius: 0, noLabels: true }
+            ]
           },
-          scales: {
-            y: {
-              min: 60,
-              max: 100,
-              title: axisTitle('Passing Rate (%)'),
-              ticks: tickFont,
-              grid: gridStyle
-            },
-            x: {
-              ticks: tickFont,
-              grid: { display: false }
+          options: baseOptions({
+            layout: { padding: { top: 12, right: 8 } },
+            scales: {
+              y: { min: 60, max: 100, ticks: { font: { size: 8 }, stepSize: 20 }, grid: gridStyle },
+              x: { ticks: { font: { size: 8 }, maxRotation: 0, autoSkip: false }, grid: { display: false } }
             }
-          }
-        }),
-        plugins: [valueLabels]
+          }),
+          plugins: [valueLabels]
+        }));
       });
-
-      return `${below} of ${COLS.length} colleges are below the 85% passing target this semester. Dashed line = target.`;
+      return `${below} of ${COLS.length} colleges are below the 85% passing target this semester (dashed line = target).`;
     }
   },
 
   seteTrendGroup: {
-  title: () => `Faculty SETE Trend per ${groupName(groupKey())}`,
-  draw() {
-    const k = groupKey();
+    title: () => `Faculty SETE Trend per ${groupName(groupKey())}`,
+    draw(cur) {
+      const k = groupKey();
+      const groups = groupList(k);
+      const sets = groups.map((g, i) => ({
+        label: groupLbl(k, g),
+       borderColor: ({
+          'CICS': '#43A58B',   // Verdigris
+          'CABEIHM': '#FFD700', // Bright Yellow
+          'CAS': '#C62B30',    // Red
+          'CTE': '#3978B8',    // Blue
+          'CCJE': '#7B8490',   // Gray
+          'CHS': '#398451'     // Green
+        }[g] || PAL6[i % 6]),
+        backgroundColor: ({
+          'CICS': '#43A58B',
+          'CABEIHM': '#FFD700', // Bright Yellow
+          'CAS': '#C62B30',
+          'CTE': '#3978B8',
+          'CCJE': '#7B8490',
+          'CHS': '#398451'
+        }[g] || PAL6[i % 6]),
+        tension: .3,
+        pointRadius: 3,
+        spanGaps: true,
+        data: SEM.map((_, s) => {
+          const v = seteOf(rowsFor(s).filter(d => d[k] === g));
+          return v == null ? null : +v.toFixed(2);
+        })
+      }));
+      sets.push({ label: 'Target 4.0', data: SEM.map(() => 4), borderColor: '#9aa4b2', borderDash: [6, 4], pointRadius: 0, noLabels: true, targetLabel: 'Target 4.0' });
 
-    const colors = {
-      'CICS': '#43A58B',
-      'CABEIHM': '#FFD700',
-      'CAS': '#C62B30',
-      'CTE': '#3978B8',
-      'CCJE': '#7B8490',
-      'CHS': '#398451'
-    };
-
-    let below = 0;
-    const groups = groupList(k);
-
-    drawHtml(`<div class="mini-grid">${groups.map((g, i) => `
-      <div class="mini">
-        <div class="mini-h">
-          <b>${groupLbl(k, g)}</b>
-          <span id="sv_${i}"></span>
-        </div>
-        <div class="mini-c" id="sw_${i}">
-          <canvas id="sc_${i}" role="img"
-            aria-label="${groupLbl(k, g)} SETE trend"></canvas>
-        </div>
-      </div>
-    `).join('')}</div>`);
-
-    groups.forEach((g, i) => {
-      const vals = SEM.map((_, s) =>
-        seteOf(rowsFor(s).filter(d => d[k] === g))
-      );
-
-      if (vals.every(v => v == null)) {
-        $('sw_' + i).innerHTML =
-          '<p class="none">No data for this filter</p>';
-        return;
-      }
-
-      const now = vals[state.sem];
-      const color = colors[g] || PAL6[i % 6];
-
-      if (now != null && now < 4) below++;
-
-      $('sv_' + i).innerHTML = now == null
-        ? '–'
-        : `<span class="pill ${now < 3.5 ? 'r' : now < 4 ? 'y' : ''}">${now.toFixed(2)}</span>`;
-
-      charts.extra.push(new Chart($('sc_' + i), {
+      drawCanvas({
         type: 'line',
-        data: {
-          labels: SEM.map(shortSem),
-          datasets: [
-            {
-              data: vals.map(v => v == null ? null : +v.toFixed(2)),
-              borderColor: color,
-              backgroundColor: color,
-              tension: .3,
-              pointRadius: 3,
-              spanGaps: true,
-              fmt: v => v.toFixed(2)
-            },
-            {
-              data: SEM.map(() => 4),
-              borderColor: '#9aa4b2',
-              borderDash: [4, 3],
-              pointRadius: 0,
-              noLabels: true
-            }
-          ]
-        },
+        data: { labels: SEM.map(shortSem), datasets: sets },
         options: baseOptions({
-          layout: { padding: { top: 12, right: 8 } },
+          plugins: { legend: legendOn({ filter: i => i.text !== 'Target 4.0' }) },
           scales: {
-            y: {
-              min: 3,
-              max: 5,
-              ticks: { font: { size: 8 }, stepSize: 1 },
-              grid: gridStyle
-            },
-            x: {
-              ticks: {
-                font: { size: 8 },
-                maxRotation: 0,
-                autoSkip: false
-              },
-              grid: { display: false }
-            }
+            y: { min: 3, max: 5, title: axisTitle('Average SETE (1–5)'), ticks: tickFont, grid: gridStyle },
+            x: { ticks: tickFont, grid: { display: false } }
           }
         }),
         plugins: [valueLabels]
-      }));
-    });
+      });
 
-    return `${below} of ${groups.length} groups are below the 4.0 SETE target this semester. Dashed line = target.`;
+      const now = groups.map(g => [g, seteOf(cur.rows.filter(d => d[k] === g))]).filter(x => x[1] != null).sort((a, b) => a[1] - b[1]);
+      return now.length
+        ? `Lowest this semester: ${groupLbl(k, now[0][0])} at ${now[0][1].toFixed(2)}. Averages are respondent-weighted and exclude withheld ratings.`
+        : 'No valid SETE ratings this semester.';
+    }
   }
-}
 };
 
 /* =====================================================================
