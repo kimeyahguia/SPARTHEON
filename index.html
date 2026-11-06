@@ -15,6 +15,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 img.logo{mix-blend-mode:multiply;display:block}
 select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+select{max-width:210px}
 .btn{background:var(--red);color:#fff;border-color:var(--red);font-weight:600}
 .btn.alt{background:#fff;color:var(--navy);border-color:var(--line)}
 .btn.navy{background:var(--navy);border-color:var(--navy)}
@@ -26,23 +27,24 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 #land img.logo{width:min(280px,70vw);height:auto}
 .fallback{font-size:1.8rem;font-weight:800;color:var(--navy);letter-spacing:.08em}
 .tag{margin:16px 0 8px;font-size:1.1rem;color:var(--navy);font-weight:600}
-.concept{max-width:560px;color:var(--mute);font-size:.88rem;margin-bottom:30px}
+.concept{max-width:600px;color:var(--mute);font-size:.88rem;margin-bottom:30px}
 .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;width:min(980px,100%)}
 .role{background:rgba(255,255,255,.85);border:1px solid #fff;border-radius:var(--rad);padding:20px 18px;text-align:left;transition:.18s;box-shadow:var(--shadow)}
 .role:hover{transform:translateY(-3px)}
 .role b{display:flex;justify-content:space-between;font-size:.98rem;color:var(--navy)}
 .role b:after{content:"→";color:var(--red)}
 .role span{display:block;margin-top:6px;font-size:.78rem;color:var(--mute)}
-.lfoot{margin-top:30px;font-size:.7rem;color:#9aa4b2}
+.lfoot{margin-top:30px;font-size:.7rem;color:#9aa4b2;max-width:640px}
 /* 4. TOP BAR */
 #dash{display:none;max-width:1400px;margin:0 auto;padding:14px}
 .layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;align-items:start}
-.s4{grid-column:span 4}.s8{grid-column:span 8}.s12{grid-column:1/-1}
+.s4{grid-column:span 4}.s6{grid-column:span 6}.s8{grid-column:span 8}.s12{grid-column:1/-1}
 .full{grid-column:1/-1}
 .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(255,255,255,.9);border-radius:20px;padding:8px 16px;box-shadow:var(--shadow)}
 .top img.logo{height:40px;width:auto}
 .who{padding-left:12px;border-left:1px solid var(--line);font-size:.74rem;color:var(--mute);line-height:1.25}
 .who b{display:block;color:var(--navy);font-size:.88rem}
+.who small{display:block;font-size:.66rem;color:#8a95a5}
 .spacer{flex:1}
 .hero{border-radius:18px;padding:12px 18px;background:linear-gradient(120deg,#dbe7f7 0%,#eaf1fb 55%,#f9e4e5 100%);box-shadow:var(--shadow)}
 .hero h1{font-size:1.15rem;color:var(--navy)}.hero h1 em{font-style:normal;color:var(--red)}
@@ -60,8 +62,7 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .kpi .st:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--g)}
 .kpi.y .st:before{background:var(--y)}.kpi.r .st:before{background:var(--red)}.kpi.n .st:before{background:#9aa4b2}
 .kpi.g .st{color:var(--g)}.kpi.y .st{color:#9a6f00}.kpi.r .st{color:var(--red)}
-/* one floating tooltip on <body>: always above every card and chart, kept inside the screen by JS */
-#tipBox{position:fixed;z-index:1000;left:0;top:0;width:250px;background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;font-size:.72rem;box-shadow:0 14px 34px rgba(20,30,45,.3);opacity:0;visibility:hidden;transition:opacity .12s;pointer-events:none}
+#tipBox{position:fixed;z-index:1000;left:0;top:0;width:270px;background:var(--navy);color:#fff;border-radius:14px;padding:12px 14px;font-size:.72rem;box-shadow:0 14px 34px rgba(20,30,45,.3);opacity:0;visibility:hidden;transition:opacity .12s;pointer-events:none}
 #tipBox.show{opacity:1;visibility:visible}
 #tipBox b{display:block;font-size:.78rem;margin-bottom:4px}#tipBox p{margin-top:5px;color:#d3dcea}#tipBox u{text-decoration:none;color:#fff;font-weight:600}
 /* 6. CARDS, TABS, LISTS */
@@ -70,9 +71,6 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .col{display:flex;flex-direction:column;gap:12px;min-width:0}
 .card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
 .link{background:none;border:0;color:var(--red);font-size:.78rem;font-weight:600}
-.tabs{display:flex;gap:4px;background:var(--soft);padding:3px;border-radius:20px;flex-wrap:wrap}
-.tabs button{border:0;background:none;padding:5px 13px;border-radius:16px;font-size:.74rem;color:var(--mute);font-weight:600}
-.tabs button.on{background:#fff;color:var(--navy);box-shadow:0 2px 8px rgba(34,54,79,.1)}
 .caption{font-size:.76rem;color:var(--mute);margin-bottom:4px;min-height:1.2em}
 .chart-box{height:300px;position:relative}
 .html-box{height:300px;overflow:auto;display:none}
@@ -82,11 +80,6 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .item:hover{background:#e9eff8}
 .item .txt{flex:1;min-width:0}.item b{display:block;font-size:.83rem;color:var(--navy)}.item span.sub{font-size:.72rem;color:var(--mute)}
 .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.7rem;flex:none}
-.ring{--p:0;width:116px;height:116px;border-radius:50%;margin:8px auto 6px;background:conic-gradient(var(--g) calc(var(--p)*1%),#e8edf4 0);display:grid;place-items:center}
-.ring.y{background:conic-gradient(var(--y) calc(var(--p)*1%),#e8edf4 0)}.ring.r{background:conic-gradient(var(--red) calc(var(--p)*1%),#e8edf4 0)}
-.ring div{width:86px;height:86px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
-.ring b{font-size:1.3rem;color:var(--navy);line-height:1}.ring small{display:block;font-size:.6rem;color:var(--mute);margin-top:2px}
-.center{text-align:center;font-size:.74rem;color:var(--mute)}
 .al{border-radius:14px;background:var(--soft);padding:8px 12px;margin-top:7px;font-size:.76rem;border-left:4px solid var(--y);cursor:pointer}
 .al.r{border-color:var(--red)}.al:hover{background:#e9eff8}
 .al b{display:block;color:var(--ink);font-size:.78rem}
@@ -97,7 +90,7 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .bell{position:relative;background:var(--soft);border:0;border-radius:50%;width:36px;height:36px;font-size:1rem}
 .bell b{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border-radius:10px;min-width:18px;padding:0 5px;font-size:.66rem;line-height:18px}
 #filterRow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:rgba(255,255,255,.9);border-radius:16px;padding:9px 14px;box-shadow:var(--shadow)}
-/* 7. HEATMAP / MATRIX */
+/* 7. HEATMAP / MATRIX / TABLES */
 .hm{width:100%;border-collapse:separate;border-spacing:2px 3px;font-size:.72rem}
 .hm th{color:var(--mute);font-weight:600;padding:2px 4px;text-align:center}.hm th.cur{color:var(--navy)}
 .hm td{border:0;padding:0}.hm td.lab{text-align:left;font-weight:600;color:var(--navy);white-space:nowrap;padding-right:8px}
@@ -105,13 +98,21 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .c.g{background:#e4f4ea;color:var(--g)}.c.y{background:#fff3cf;color:#9a6f00}.c.r{background:#fbe4e4;color:var(--red)}.c.n{background:var(--soft);color:var(--mute)}
 .legend{font-size:.66rem;color:var(--mute);margin-top:4px}
 .flag{font-size:.64rem;background:#fbe4e4;color:var(--red);border-radius:8px;padding:1px 7px;margin-left:6px;font-weight:600}
+.dt{width:100%;border-collapse:collapse;font-size:.72rem}
+.dt th{text-align:left;color:var(--mute);font-weight:600;font-size:.66rem;border-bottom:1px solid var(--line);padding:5px 6px;position:sticky;top:0;background:#fff}
+.dt td{padding:6px;border-bottom:1px solid var(--line);vertical-align:top}
+.dt tr.clk{cursor:pointer}.dt tr.clk:hover{background:var(--soft)}
+.cm{border-left:3px solid var(--line);padding:5px 9px;margin:6px 0;font-size:.74rem;background:var(--soft);border-radius:0 8px 8px 0}
+.cm b{color:var(--navy);font-size:.72rem}
 /* 8. MODAL */
 #modal{display:none;position:fixed;inset:0;background:rgba(20,30,45,.45);align-items:center;justify-content:center;z-index:20;padding:14px}
-#modal .box{background:#fff;border-radius:22px;padding:24px;width:min(480px,100%);max-height:92vh;overflow:auto}
+#modal .box{background:#fff;border-radius:22px;padding:24px;width:min(520px,100%);max-height:92vh;overflow:auto}
 #modal h3{color:var(--navy);font-size:1.1rem}
 .crumb{font-size:.7rem;color:var(--mute);margin:2px 0 8px}
 .rows div{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.8rem}
 .rows i{font-style:normal;color:var(--mute);text-align:right}
+.sec-h{color:var(--navy);font-size:.78rem;font-weight:700;margin:14px 0 2px;text-transform:uppercase;letter-spacing:.04em}
+.sec-h small{font-weight:500;text-transform:none;letter-spacing:0;color:var(--mute)}
 .crit{margin:8px 0;font-size:.8rem}
 .bar{height:7px;background:var(--line);border-radius:4px;margin-top:3px}.bar div{height:100%;background:linear-gradient(90deg,var(--navy),var(--navy2));border-radius:4px}
 .warn{background:#fff3cf;border-radius:12px;padding:8px 11px;font-size:.76rem;margin-top:10px}.warn.n{background:var(--soft)}
@@ -123,7 +124,7 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .al b .ic-svg{margin-top:1px}
 .hm td.c .ic-svg{vertical-align:-2px;margin-right:2px}
 .none{display:flex;align-items:center;gap:6px}
-#modal .box.wide{width:min(860px,100%)}
+#modal .box.wide{width:min(900px,100%)}
 .rep-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:3px solid var(--red);padding-bottom:10px;margin-bottom:12px}
 .rep-head h3{font-size:1.15rem}
 .rep-head p{font-size:.76rem;color:var(--mute);margin-top:2px}
@@ -151,7 +152,7 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .al.read{opacity:.55;border-left-color:#cbd3de}
 .btn:disabled{opacity:.5;cursor:default}
 @media(max-width:700px){.mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-/* 11. VISUALIZATION CARDS: every chart card has the same height; the chart fills what is left under title + caption */
+/* 11. VISUALIZATION CARDS */
 .viz{display:flex;flex-direction:column;height:372px}
 .viz .card-head,.viz .caption{flex:none}
 .viz .caption{margin-bottom:6px}
@@ -161,6 +162,16 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 .viz.s4 .hm td.c{padding:2px 2px}
 .viz .hm th{white-space:nowrap;font-size:.68rem}
 .viz #alertList{flex:1;min-height:0;overflow:auto;padding-right:2px}
+/* 12. INTEGRATION CARD */
+.integ-grid{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-top:6px}
+.integ-keys{font-size:.74rem;background:var(--soft);border-radius:12px;padding:8px 12px;margin-top:8px;color:var(--navy)}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:.74rem;padding:4px 0;border-bottom:1px solid var(--line)}
+/* 13. THREE-VISUALIZATION LAYOUT */
+.viz .list{flex:1;min-height:0;overflow:auto;align-content:start}
+.viz .caption{min-height:2.4em}
+.viz.s4 .mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr))}
+.viz.s4 .mini-c{min-height:60px}
+@media(max-width:1100px){.viz .list{flex:none;max-height:420px}}
 @page{margin:14mm}
 @media print{
   body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -170,9 +181,9 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
   .noprint{display:none!important}
   .rep tr,.rep li{break-inside:avoid}
 }
-@media(max-width:1100px){.layout{grid-template-columns:1fr}.s4,.s8,.s12{grid-column:1/-1}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.s4,.s6,.s8,.s12{grid-column:1/-1}
   .viz{height:auto}.viz .chart-box{flex:none;height:300px}.viz .html-box{flex:none;height:auto;max-height:420px}
-  .mini-grid{height:auto;grid-template-rows:none}.mini-c{flex:none;height:110px}}
+  .mini-grid{height:auto;grid-template-rows:none}.mini-c{flex:none;height:110px}.integ-grid{grid-template-columns:1fr}}
 @media(max-width:900px){.list{grid-template-columns:1fr}}
 @media(max-width:700px){.who{border:0;padding:0;width:100%}.spacer{display:none}}
 </style>
@@ -182,26 +193,27 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 <section id="land">
   <img class="logo" src="spartheonLogo.jpg" alt="SPARTHEON" onerror="this.outerHTML='<div class=fallback>SPARTHEON</div>'">
   <p class="tag">Empowering Spartans Through Intelligence.</p>
-  <p class="concept">A centralized university analytics portal that turns institutional data into insights for monitoring performance, spotting trends, and making informed decisions.</p>
+  <p class="concept">A centralized university analytics portal that integrates Student Portal, Faculty Portal, and SETE records into insights for monitoring performance, spotting trends, and making informed decisions.</p>
   <div class="roles" id="roleList"></div>
-  <p class="lfoot">Sample data only. Portal–SETE integration is a proposed enhancement.</p>
+  <p class="lfoot" id="landFoot"></p>
 </section>
 
 <section id="dash">
   <main class="layout">
     <header class="top full">
       <img class="logo" src="spartheonLogo.jpg" alt="SPARTHEON" onerror="this.style.display='none'">
-      <div class="who"><b id="roleTitle"></b><span id="roleType"></span></div>
+      <div class="who"><b id="roleTitle"></b><span id="roleType"></span><small id="roleAccess"></small></div>
       <div class="spacer"></div>
+      <span class="pill y" id="modeBadge" title="">SAMPLE DATA</span>
       <button class="bell" data-ico="bell" onclick="openAlerts()" aria-label="Alerts" title="Active alerts"><b id="alertCount">0</b></button>
       <button class="btn" data-ico="file" onclick="openReport()" title="Preview, print, or save the insights summary"> Report</button>
       <button class="btn alt" data-ico="back" onclick="backToRoles()"> Roles</button>
     </header>
 
     <div id="filterRow" class="full">
+      <select id="selAY" aria-label="Academic year"></select>
       <select id="selSem" aria-label="Semester"></select>
-      <select id="selGroup" aria-label="Track or college"></select>
-      <select id="selSubject" aria-label="Subject"></select>
+      <span id="fSelects" style="display:contents"></span>
       <button class="btn alt" onclick="resetFilters()">Reset</button>
     </div>
 
@@ -209,11 +221,17 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 
     <div class="kpis full" id="kpiRow"></div>
 
-    <section class="card viz s8">
+    <section class="card viz s4">
       <div class="card-head"><h4 id="mainTitle"></h4></div>
       <p class="caption" id="mainCaption"></p>
       <div class="chart-box" id="mainBox"><canvas id="mainCanvas" role="img"></canvas></div>
       <div class="html-box" id="mainHtml"></div>
+    </section>
+    <section class="card viz s4">
+      <div class="card-head"><h4 id="secondTitle"></h4></div>
+      <p class="caption" id="secondCaption"></p>
+      <div class="chart-box" id="secondBox"><canvas id="secondCanvas" role="img"></canvas></div>
+      <div class="html-box" id="secondHtml"></div>
     </section>
     <section class="card viz s4">
       <div class="card-head"><h4 id="sideTitle"></h4></div>
@@ -221,23 +239,22 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
       <div class="chart-box" id="sideBox"><canvas id="sideCanvas" role="img"></canvas></div>
       <div class="html-box" id="sideHtml"></div>
     </section>
-    <section class="card viz s8">
-      <div class="card-head"><h4 id="secondTitle"></h4></div>
-      <p class="caption" id="secondCaption"></p>
-      <div class="chart-box" id="secondBox"><canvas id="secondCanvas" role="img"></canvas></div>
-      <div class="html-box" id="secondHtml"></div>
-    </section>
     <section class="card viz s4">
       <div class="card-head"><h4>Top Alerts</h4><div class="head-links"><button class="link" onclick="markAll(true)">Mark all read</button><button class="link" onclick="openAlerts()">See all</button></div></div>
       <div id="alertList"></div>
     </section>
-    <section class="card s12">
+    <section class="card viz s8">
       <div class="card-head"><h4 id="panelTitle">Panel</h4></div>
       <p class="caption" id="panelHint"></p>
       <div class="list" id="panelBody"></div>
     </section>
+    <section class="card s12 integ">
+      <div class="card-head"><h4>Data Integration &amp; Integrity</h4><span class="pill" id="integPill"></span></div>
+      <p class="caption">How the Student Portal, Faculty Portal and SETE records behind the current view are linked.</p>
+      <div class="integ-grid"><div id="integLeft"></div><div id="integRight"></div></div>
+    </section>
 
-    <p class="note full">Sample data only · Each college has its own subjects · Hover a KPI for its objective and formula; click it to filter the list below · Section code 1106 = Year 1 · 1st Sem · Section 06
+    <p class="note full" id="footNote">Hover a KPI for its objective, formula, threshold and data source; click it to filter the list below · Section code 1106 = Year 1 · 1st Sem · Section 06
       <span title="SETE results should not be the sole measure of teaching effectiveness. Consider response rate, context, and other evidence." data-ico="info" style="cursor:help;color:var(--red);display:inline-flex;align-items:center;gap:4px"> SETE use note</span></p>
   </main>
 </section>
@@ -247,30 +264,50 @@ select,.btn{font:inherit;font-size:.78rem;padding:7px 12px;border-radius:20px;bo
 
 <script>
 /* =====================================================================
-   SCRIPT MAP: 1 Config · 2 Sample data · 3 KPI definitions · 4 Roles
-   5 Helpers · 6 KPI + alert logic · 7 Charts · 8 List panels · 9 Render
-   10 Modals · 11 Events
+   SCRIPT MAP: 1 Config · 1b Icons · 2 Integrated data layer (Student Portal +
+   Faculty Portal + SETE) · 3 KPI definitions · 4 Roles + access · 5 Helpers
+   6 KPI + alert logic · 7 Charts · 8 List panels · 9 Render · 10 Modals
+   11 Events
    ===================================================================== */
 
-/* 1. CONFIG */
-const SEM=['2nd Sem 2024-25','1st Sem 2025-26','2nd Sem 2025-26','1st Sem 2026-27'];
+/* 1. CONFIG – every threshold here is a SAMPLE value for demonstration and is configurable */
+const TERMS=[
+  {ay:'2024-25',sem:'2nd',label:'2nd Sem 2024-25',eval:['2025-04-21','2025-05-09']},
+  {ay:'2025-26',sem:'1st',label:'1st Sem 2025-26',eval:['2025-10-20','2025-11-07']},
+  {ay:'2025-26',sem:'2nd',label:'2nd Sem 2025-26',eval:['2026-04-20','2026-05-08']},
+  {ay:'2026-27',sem:'1st',label:'1st Sem 2026-27',eval:['2026-10-19','2026-11-06']}];
+const SEM=TERMS.map(t=>t.label);
+const AYS=[...new Set(TERMS.map(t=>t.ay))];
 const shortSem=s=>s.replace(' Sem','').replace(/20(\d\d)-(\d\d)/,'$1-$2');
 const COLLEGE_NAME={CICS:'College of Informatics and Computing Sciences',CCJE:'College of Criminal Justice Education',CTE:'College of Teacher Education',CAS:'College of Arts and Sciences',CHS:'College of Health and Sciences',CABEIHM:'College of Accountancy, Business, Economics, and International Hospitality Management'};
+const COLS=Object.keys(COLLEGE_NAME);
+const PROGRAM={CICS:'BS Information Technology',CCJE:'BS Criminology',CTE:'Bachelor of Secondary Education',CAS:'AB General Education',CHS:'BS Nursing',CABEIHM:'BS Business Administration'};
+const CONFIG={
+  capacity:45,                         /* seats per section-subject (sample) */
+  setMin:{rate:50,count:5},            /* a SETE rating is withheld below this response (sample) */
+  weights:[.2,.2,.2,.2,.2],            /* weight per SETE criterion for the overall rating (sample: equal) */
+  units:3,
+  bands:[[4.5,'Outstanding'],[3.5,'Very Satisfactory'],[2.5,'Satisfactory'],[1.5,'Fair'],[0,'Poor']], /* sample categories */
+  passGrade:3.0};                      /* sample 1.0–5.0 scale: grade ≤ 3.0 = passed */
+const catOf=v=>v==null?'N/A':CONFIG.bands.find(b=>v>=b[0])[1];
 const SECTION_PLAN={1:{Core:8},2:{Core:7},3:{BA:4,NT:3},4:{BA:3,NT:2}};
 const SUBJECTS={1:{all:['IT 101','IT 102']},2:{all:['IT 201','IT 202']},3:{all:['IT 303'],BA:['BAT 301'],NT:['NET 301']},4:{all:['IT 401'],BA:['BAT 405'],NT:['NET 401']}};
 const SERVICE_SECTIONS={CCJE:3,CTE:4,CAS:3,CHS:3,CABEIHM:5};
-const SERVICE_SUBJECTS=['IT 101','IT 102'];
 const TRACK_TEXT={Core:'Common section (no track yet)',BA:'Business Analytics (BA)',NT:'Networking (NT)'};
 const CRITERIA=['Mastery of Subject','Communication','Classroom Management','Punctuality','Fairness in Grading'];
 const CRITERIA_OFFSET=[.1,-.05,.05,.12,-.12];
 const DROP_SHARE=.4;
 const PALETTE=['#22364f','#c62b30','#6b9ac4','#e3a600'];
+const PAL6=['#22364f','#c62b30','#6b9ac4','#e3a600','#2e9e5b','#8e5ea2'];
 /* thresholds [warning, critical]. late/hr: higher is worse; others: lower is worse */
-const TH={late:[5,10],resp:[80,60],hr:[10,15],pass:[85,75],imp:[5,0],load:[100,90],hrFailDrop:20,hrSete:3.5};
+const TH={late:[5,10],resp:[80,60],hr:[10,15],pass:[85,75],imp:[5,0],load:[100,90],enr:[70,50],cmp:[80,60],hrFailDrop:20,hrSete:3.5};
 const pad2=n=>String(n).padStart(2,'0');
-const semDigit=i=>SEM[i].startsWith('1st')?1:2;
+const semDigit=i=>TERMS[i].sem==='1st'?1:2;
 const makeSec=(semIdx,year,n)=>`${year}${semDigit(semIdx)}${pad2(n)}`;
 const decodeSection=s=>`Year ${s[0]} · ${s[1]==='1'?'1st':'2nd'} Sem · Section ${s.slice(2)}`;
+const addDays=(iso,n)=>new Date(Date.parse(iso)+n*864e5).toISOString().slice(0,10);
+const clamp15=v=>Math.min(5,Math.max(1,v));
+const fmtS=v=>v==null?'N/A':v.toFixed(2);
 
 /* 1b. ICONS (inline SVG, stroke-based; no emoji) */
 const ICON_PATHS={
@@ -282,6 +319,8 @@ const ICON_PATHS={
   check:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>',
   star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
   bell:'<path d="M6 16v-5a6 6 0 0112 0v5l2 2H4z"/><path d="M10 21h4"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6"/><path d="M16 5a3.5 3.5 0 010 7M18 14c2.2.6 3.5 2.5 3.5 6"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13M3.5 6h.5M3.5 12h.5M3.5 18h.5"/>',
   x:'<path d="M6 6l12 12M18 6L6 18"/>',
   tick:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
@@ -292,138 +331,290 @@ const ICON_PATHS={
   down:'<path d="M12 5v13M6 12l6 6 6-6"/>'};
 const ico=(n,s=15)=>`<svg class="ic-svg" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_PATHS[n]}</svg>`;
 
-/* 2. SAMPLE DATA. ROW SHAPE: {id,lbl,sem,code,name,prog,yl,col,sec,trk,fac,n,resp,sete,fd,late,done} */
+/* =====================================================================
+   2. INTEGRATED DATA LAYER
+   One centralized structure DB = the three source systems, linked ONLY by identifiers:
+     Student Portal : DB.students {sid}, DB.enrollments {sid + oid, status, grade, evalDone, evalDate}
+     Faculty Portal : DB.faculty {fid}, DB.subjects {code}, DB.offerings {oid = term + college + subject + section, fid, load, daysLate}
+     SETE           : DB.sete {oid → criterion ratings + anonymous comments}; respondents are NOT stored twice:
+                      they are derived from enrollments.evalDone, so response rate = completed ÷ eligible students.
+   Joins:  enrollment.sid → student · enrollment.oid → offering · offering.fid → faculty · offering.code → subject · sete.oid → offering
+   FUTURE DB/API: replace DataAdapters.sample() with DataAdapters.api() returning the same six collections; nothing else changes.
+   ===================================================================== */
+const SAMPLE_MODE=true; /* no database/API connection exists in this demo, so every record below is generated sample data */
 const COURSES=[['IT 101','Introduction to Computing','IT Core'],['IT 102','Computer Programming 1','IT Core'],['IT 201','Data Structures and Algorithms','IT Core'],['IT 202','Database Systems','IT Core'],['IT 303','Information Management','IT Core'],['IT 401','Capstone Project','IT Core'],['BAT 301','Data Mining','BA Track'],['BAT 405','Analytics Application','BA Track'],['NET 301','Network Administration','NT Track'],['NET 401','Network Security','NT Track']];
-/* VCAA view: every other college has its OWN 5 subjects (no shared codes). CICS keeps its 10 IT subjects above. */
 const COLLEGE_SUBJECTS={
   CCJE:[['CRIM 101','Introduction to Criminology'],['CRIM 102','Law Enforcement Administration'],['CRIM 201','Forensic Photography'],['CRIM 202','Criminal Law and Jurisprudence'],['CRIM 301','Crime Detection and Investigation']],
   CTE:[['EDUC 101','The Child and Adolescent Learner'],['EDUC 102','Facilitating Learner-Centered Teaching'],['EDUC 201','Assessment of Learning'],['EDUC 202','Technology for Teaching and Learning'],['EDUC 301','Curriculum Development']],
   CAS:[['GEC 101','Understanding the Self'],['GEC 102','Purposive Communication'],['GEC 103','Mathematics in the Modern World'],['GEC 104','Ethics'],['GEC 105','Science, Technology and Society']],
   CHS:[['NURS 101','Anatomy and Physiology'],['NURS 102','Fundamentals of Nursing'],['NURS 201','Health Assessment'],['NURS 202','Pharmacology'],['NURS 301','Community Health Nursing']],
   CABEIHM:[['ACCT 101','Fundamentals of Accounting'],['BA 101','Business Mathematics'],['ECON 101','Principles of Economics'],['HM 101','Introduction to Hospitality Management'],['MKTG 101','Principles of Marketing']]};
-const COURSE_INFO=Object.fromEntries(COURSES.map(c=>[c[0],{name:c[1],prog:c[2]}]));
-Object.entries(COLLEGE_SUBJECTS).forEach(([col,list])=>list.forEach(([code,name])=>COURSE_INFO[code]={name,prog:col}));
+const COURSE_INFO=Object.fromEntries(COURSES.map(c=>[c[0],{name:c[1],prog:c[2],col:'CICS'}]));
+Object.entries(COLLEGE_SUBJECTS).forEach(([col,list])=>list.forEach(([code,name])=>COURSE_INFO[code]={name,prog:col,col}));
 const COLLEGE_FACULTY={CCJE:['Prof. Lopez','Prof. Ramos'],CTE:['Prof. Flores','Prof. Torres'],CAS:['Prof. Rivera','Prof. Cruz'],CHS:['Prof. Dizon','Prof. Mercado'],CABEIHM:['Prof. Tan','Prof. Uy']};
 const CICS_FACULTY=['Prof. Reyes','Prof. Santos','Prof. Dela Cruz','Prof. Garcia','Prof. Mendoza','Prof. Aquino','Prof. Bautista','Prof. Navarro','Prof. Villanueva','Prof. Castillo'];
-const OTHER_FACULTY=['Prof. Lopez','Prof. Ramos','Prof. Flores','Prof. Torres','Prof. Rivera'];
-let seed=7;
-const random=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
-const DATA=[];
-function addRow(semIdx,col,code,yl,sec,trk,fac){
-  const info=COURSE_INFO[code];
-  DATA.push({id:`${col}:${code}:${sec}`,lbl:col==='CICS'?`${code}-${sec}`:`${code}-${sec} (${col})`,sem:semIdx,code,name:info.name,prog:info.prog,yl,col,sec,trk,fac,
-    n:28+Math.floor(random()*14),resp:Math.round(78+random()*18),sete:+(3.9+random()*0.8).toFixed(2),fd:Math.round(5+random()*10),late:random()<.07,done:true})}
-SEM.forEach((_,semIdx)=>{
-  let k=0,o=0;
-  [1,2,3,4].forEach(yl=>{let n=0;
-    Object.entries(SECTION_PLAN[yl]).forEach(([trk,count])=>{
-      for(let j=0;j<count;j++){n++;const sec=makeSec(semIdx,yl,n);
-        [...SUBJECTS[yl].all,...(SUBJECTS[yl][trk]||[])].forEach(code=>addRow(semIdx,'CICS',code,yl,sec,trk,CICS_FACULTY[k++%10]))}})});
-  Object.entries(SERVICE_SECTIONS).forEach(([col,count])=>{
-    for(let n=1;n<=count;n++){const sec=makeSec(semIdx,1,n);
-      SERVICE_SUBJECTS.forEach(code=>addRow(semIdx,col,code,1,sec,'Core',OTHER_FACULTY[o++%5]))}})});
-/* The loop above only exists so the random sequence (and so the CICS data) stays identical.
-   Its non-CICS rows are dropped and replaced by college-specific subjects, generated with a separate seed. */
-for(let i=DATA.length-1;i>=0;i--)if(DATA[i].col!=='CICS')DATA.splice(i,1);
-seed=2026;
-SEM.forEach((_,semIdx)=>Object.entries(COLLEGE_SUBJECTS).forEach(([col,list])=>{let o=0;
-  list.forEach(([code])=>{const yl=+code.match(/\d/)[0];
-    for(let n=1;n<=SERVICE_SECTIONS[col];n++)addRow(semIdx,col,code,yl,makeSec(semIdx,yl,n),'Core',COLLEGE_FACULTY[col][o++%2])})}));
+const FIRST=['Maria','Juan','Ana','Jose','Carla','Miguel','Bea','Luis','Nina','Paolo','Isabel','Rafael','Joy','Marco','Lea','Gabriel','Trina','Daniel','Kyla','Andres'];
+const LAST=['Santos','Reyes','Cruz','Bautista','Ocampo','Garcia','Mendoza','Torres','Flores','Aquino','Villanueva','Castillo','Ramos','Navarro','Dizon','Mercado','Soriano','Lim','Tan','Panganiban'];
+const SLOTS=['Mon/Wed 08:00–09:30','Mon/Wed 10:00–11:30','Tue/Thu 08:00–09:30','Tue/Thu 13:00–14:30','Fri 08:00–11:00','Sat 09:00–12:00'];
+const GRADES=[1.25,1.5,1.5,1.75,1.75,2,2,2,2.25,2.25,2.5,2.75,3];
+const CM={pos:[['Mastery of Subject','Explains difficult topics clearly and patiently.'],['Communication','Always approachable and answers questions.'],['Punctuality','Starts and ends class on time.']],
+  mid:[['Classroom Management','Class discussions sometimes go off track.'],['Fairness in Grading','Please share the grading rubric earlier.']],
+  neg:[['Communication','Lessons are hard to follow; more examples please.'],['Punctuality','Class often starts late.'],['Fairness in Grading','Exam coverage did not match the lessons.']]};
+
+const DataAdapters={
+  sample(){return buildSample()},
+  /* async api(base){ const [students,faculty,subjects,offerings,enrollments,sete]=await Promise.all(['students','faculty','subjects','offerings','enrollments','sete'].map(p=>fetch(base+'/'+p).then(r=>r.json()))); return {students,faculty,subjects,offerings,enrollments,sete}; } */
+};
+
+function buildSample(){
+  let seed=7;
+  const random=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+  const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  const db={students:{},faculty:[],subjects:{},offerings:[],enrollments:[],sete:{}};
+  /* faculty (Faculty Portal) */
+  CICS_FACULTY.forEach((n,i)=>db.faculty.push({fid:'F-10'+pad2(i+1),name:n,col:'CICS'}));
+  Object.entries(COLLEGE_FACULTY).forEach(([c,l],ci)=>l.forEach((n,i)=>db.faculty.push({fid:`F-2${ci}${pad2(i+1)}`,name:n,col:c})));
+  /* subjects (curriculum) */
+  Object.entries(COURSE_INFO).forEach(([code,i])=>db.subjects[code]={code,name:i.name,prog:i.prog,col:i.col,yl:+code.match(/\d/)[0],units:CONFIG.units});
+  /* class offering parameters: the "plan" for each class; student-level records are generated from it */
+  const P=[];
+  const addParam=(sem,col,code,yl,sec,trk,fid)=>P.push({oid:`T${sem}:${col}:${code}:${sec}`,sem,col,code,yl,sec,trk,fid,
+    fd:Math.round(5+random()*10),resp:Math.round(78+random()*18),sete:+(3.9+random()*0.8).toFixed(2),late:random()<.07,done:true,noSete:false});
+  TERMS.forEach((_,sem)=>{let k=0;
+    [1,2,3,4].forEach(yl=>{let n=0;Object.entries(SECTION_PLAN[yl]).forEach(([trk,count])=>{for(let j=0;j<count;j++){n++;const sec=makeSec(sem,yl,n);
+      [...SUBJECTS[yl].all,...(SUBJECTS[yl][trk]||[])].forEach(code=>addParam(sem,'CICS',code,yl,sec,trk,'F-10'+pad2(k++%10+1)))}})})});
+  seed=2026;
+  TERMS.forEach((_,sem)=>Object.entries(COLLEGE_SUBJECTS).forEach(([col,list])=>{let o=0;
+    list.forEach(([code])=>{const yl=+code.match(/\d/)[0];
+      for(let n=1;n<=SERVICE_SECTIONS[col];n++){const f=db.faculty.filter(x=>x.col===col)[o++%2];addParam(sem,col,code,yl,makeSec(sem,yl,n),'Core',f.fid)}})}));
+  /* hand-picked problem cases so the demo shows alerts */
+  const sc=makeSec;
+  const patch=(sem,code,sec,ch,col='CICS')=>Object.assign(P.find(d=>d.sem===sem&&d.code===code&&d.sec===sec&&d.col===col),ch);
+  const patchCourse=(sem,code,col,ch)=>P.filter(d=>d.sem===sem&&d.code===code&&d.col===col).forEach(d=>Object.assign(d,ch));
+  patch(3,'BAT 301',sc(3,3,1),{sete:3.2,fd:28,resp:52,late:true});
+  patch(3,'BAT 301',sc(3,3,2),{sete:3.3,fd:24,resp:72});
+  patch(3,'BAT 301',sc(3,3,3),{sete:3.4,fd:22});
+  patch(3,'BAT 301',sc(3,3,4),{sete:3.4,fd:21});
+  patch(3,'NET 301',sc(3,3,5),{sete:3.4,fd:26,resp:78});
+  patch(3,'NET 301',sc(3,3,6),{sete:3.5,fd:24});
+  patch(3,'NET 301',sc(3,3,7),{sete:3.4,fd:25});
+  patch(2,'IT 303',sc(2,3,1),{late:true});
+  patch(3,'IT 303',sc(3,3,1),{late:true,resp:74});
+  patch(3,'IT 303',sc(3,3,2),{done:false});
+  patch(3,'NET 401',sc(3,4,4),{late:true});
+  patch(3,'BAT 405',sc(3,4,1),{resp:66});
+  patch(3,'IT 202',sc(3,2,1),{resp:38});                       /* response too low: SETE rating withheld */
+  patch(3,'EDUC 101',sc(3,1,1),{noSete:true},'CTE');            /* no SETE responses yet: missing data case */
+  patchCourse(3,'BA 101','CABEIHM',{sete:3.35,fd:24});
+  patchCourse(2,'BA 101','CABEIHM',{sete:3.45,fd:21});
+  patchCourse(3,'CRIM 101','CCJE',{sete:3.3,fd:26});
+  patch(3,'NURS 301',sc(3,3,1),{resp:68},'CHS');
+  patch(3,'GEC 104',sc(3,1,1),{late:true},'CAS');
+  /* Student Portal: rosters. Student ID = entry year + college index + section + seat, so the same student is the same record across semesters */
+  const cohort={};
+  const nameOf=sid=>{let h=7;for(const c of sid)h=(h*31+c.charCodeAt(0))>>>0;return `${LAST[(h>>5)%20]}, ${FIRST[h%20]}`};
+  const roster=(sem,col,yl,sec)=>{const entry=parseInt(TERMS[sem].ay)-(yl-1),no=+sec.slice(2),key=`${entry}|${col}|${no}`;
+    if(!cohort[key])cohort[key]=28+Math.floor(random()*14);
+    return Array.from({length:cohort[key]},(_,i)=>{const sid=`${entry}-${COLS.indexOf(col)}${no}${pad2(i+1)}`;
+      if(!db.students[sid])db.students[sid]={sid,name:nameOf(sid),col,entry,program:PROGRAM[col]};return sid})};
+  seed=99;
+  P.forEach(p=>{
+    const ids=roster(p.sem,p.col,p.yl,p.sec),n=ids.length;
+    const nDrop=Math.round(n*p.fd*DROP_SHARE/100),nFail=Math.round(n*p.fd*(1-DROP_SHARE)/100);
+    const ord=shuffle(ids.map((_,i)=>i)),drop=new Set(ord.slice(0,nDrop)),fail=new Set(ord.slice(nDrop,nDrop+nFail));
+    const recs=ids.map((sid,i)=>({sid,oid:p.oid,status:drop.has(i)?'Dropped':'Enrolled',grade:drop.has(i)?null:fail.has(i)?5:GRADES[Math.floor(random()*GRADES.length)],evalDone:false,evalDate:null}));
+    /* SETE completion is recorded on the student's enrollment record (eligible = students who did not drop) */
+    const act=shuffle(recs.filter(r=>r.status==='Enrolled')),k=p.noSete?0:Math.round(act.length*p.resp/100);
+    const [a,b]=TERMS[p.sem].eval,span=Math.round((Date.parse(b)-Date.parse(a))/864e5);
+    act.slice(0,k).forEach(r=>{r.evalDone=true;r.evalDate=addDays(a,Math.floor(random()*(span+1)))});
+    recs.forEach(r=>db.enrollments.push(r));
+    if(k>0){const ratings=CRITERIA_OFFSET.map(o=>+clamp15(p.sete+o+(random()-.5)*.16).toFixed(2));
+      const ov=ratings.reduce((s,v,i)=>s+v*CONFIG.weights[i],0),pool=ov>=4.2?CM.pos:ov>=3.7?CM.mid:CM.neg;
+      const comments=Array.from({length:Math.min(3,Math.floor(k/10))},()=>{const c=pool[Math.floor(random()*pool.length)];return{c:c[0],t:c[1]}});
+      db.sete[p.oid]={ratings,comments}}
+    db.offerings.push({oid:p.oid,term:p.sem,col:p.col,code:p.code,sec:p.sec,trk:p.trk,fid:p.fid,units:CONFIG.units,room:`RM ${100+Math.floor(random()*40)}`,sched:SLOTS[Math.floor(random()*SLOTS.length)],
+      daysLate:p.late?1+Math.floor(random()*10):0,load:p.done?'Completed':'Incomplete'})});
+  return db;
+}
+const DB=DataAdapters.sample();
+const FAC=Object.fromEntries(DB.faculty.map(f=>[f.fid,f]));
+const OFF=Object.fromEntries(DB.offerings.map(o=>[o.oid,o]));
+const ENR_BY_OID={},ENR_BY_SID={};
+DB.enrollments.forEach(e=>{(ENR_BY_OID[e.oid]=ENR_BY_OID[e.oid]||[]).push(e);(ENR_BY_SID[e.sid]=ENR_BY_SID[e.sid]||[]).push(e)});
+
+/* JOIN: one analysis row per class (term + college + subject + section), built from the three sources by ID */
+function toRow(o){
+  const en=ENR_BY_OID[o.oid]||[],sub=DB.subjects[o.code],f=FAC[o.fid],sr=DB.sete[o.oid];
+  const dropped=en.filter(e=>e.status==='Dropped').length,active=en.length-dropped;
+  const failed=en.filter(e=>e.status==='Enrolled'&&e.grade>CONFIG.passGrade).length;
+  const respondents=en.filter(e=>e.evalDone).length;
+  const rate=active?100*respondents/active:null;
+  const overall=sr?sr.ratings.reduce((s,v,i)=>s+v*CONFIG.weights[i],0):null;
+  const valid=!!sr&&respondents>=CONFIG.setMin.count&&rate>=CONFIG.setMin.rate;
+  const secNo=o.sec.slice(2);
+  return{id:o.oid,lbl:o.col==='CICS'?`${o.code}-${o.sec}`:`${o.code}-${o.sec} (${o.col})`,sem:o.term,ay:TERMS[o.term].ay,code:o.code,name:sub.name,prog:sub.prog,yl:sub.yl===+o.sec[0]?sub.yl:+o.sec[0],
+    col:o.col,sec:o.sec,secNo,trk:o.trk,fid:o.fid,fac:f.name,units:o.units,room:o.room,sched:o.sched,
+    n:en.length,active,dropped,failed,passed:active-failed,eligible:active,respondents,resp:rate,
+    sete:valid?overall:null,seteRaw:overall,criteria:valid?sr.ratings:null,seteStatus:!sr?'No responses':valid?'Valid':'Withheld (low response)',
+    fd:en.length?100*(failed+dropped)/en.length:0,late:o.daysLate>0,daysLate:o.daysLate,done:o.load==='Completed'}}
+const DATA=DB.offerings.map(toRow);
 const CODE_COL={};DATA.forEach(d=>CODE_COL[d.code]=d.col);
-/* hand-picked problem cases so the demo shows alerts */
-const sc=makeSec;
-const patch=(semIdx,code,sec,changes,col='CICS')=>Object.assign(DATA.find(d=>d.sem===semIdx&&d.code===code&&d.sec===sec&&d.col===col),changes);
-const patchCourse=(semIdx,code,col,changes)=>DATA.filter(d=>d.sem===semIdx&&d.code===code&&d.col===col).forEach(d=>Object.assign(d,changes));
-patch(3,'BAT 301',sc(3,3,1),{sete:3.2,fd:28,resp:52,late:true});
-patch(3,'BAT 301',sc(3,3,2),{sete:3.3,fd:24,resp:72});
-patch(3,'BAT 301',sc(3,3,3),{sete:3.4,fd:22});
-patch(3,'BAT 301',sc(3,3,4),{sete:3.4,fd:21});
-patch(3,'NET 301',sc(3,3,5),{sete:3.4,fd:26,resp:78});
-patch(3,'NET 301',sc(3,3,6),{sete:3.5,fd:24});
-patch(3,'NET 301',sc(3,3,7),{sete:3.4,fd:25});
-patch(2,'IT 303',sc(2,3,1),{late:true});
-patch(3,'IT 303',sc(3,3,1),{late:true,resp:74});
-patch(3,'IT 303',sc(3,3,2),{done:false});
-patch(3,'NET 401',sc(3,4,4),{late:true});
-patch(3,'BAT 405',sc(3,4,1),{resp:66});
-patchCourse(3,'BA 101','CABEIHM',{sete:3.35,fd:24});
-patchCourse(2,'BA 101','CABEIHM',{sete:3.45,fd:21});
-patchCourse(3,'CRIM 101','CCJE',{sete:3.3,fd:26});
-patch(3,'NURS 301',sc(3,3,1),{resp:68},'CHS');
-patch(3,'GEC 104',sc(3,1,1),{late:true},'CAS');
+DATA.forEach(d=>{const g=(ENR_BY_OID[d.id]||[]).filter(e=>e.grade!=null);d.avgG=g.length?g.reduce((s,e)=>s+e.grade,0)/g.length:null});
+
+/* integrity checks across the three sources (run once; shown in the integration card) */
+function runChecks(){
+  const seen=new Set(),sk=new Set();let orphan=0,dup=0,twice=0,badO=0;
+  DB.enrollments.forEach(e=>{const o=OFF[e.oid];if(!DB.students[e.sid]||!o)orphan++;const k=e.sid+'|'+e.oid;if(seen.has(k))dup++;else seen.add(k);
+    if(o){const q=`${e.sid}|${o.term}|${o.col}|${o.code}`;if(sk.has(q))twice++;else sk.add(q)}});
+  DB.offerings.forEach(o=>{if(!FAC[o.fid]||!DB.subjects[o.code])badO++});
+  const badS=Object.keys(DB.sete).filter(k=>!OFF[k]).length,over=DATA.filter(d=>d.respondents>d.eligible).length;
+  return[
+    ['Every enrollment links to a Student ID and a class offering',orphan,'orphan'],
+    ['No duplicate enrollment (Student ID + class)',dup,'duplicate'],
+    ['No student enrolled twice in the same subject in a term',twice,'conflict'],
+    ['Every class links to a Faculty ID and a catalogued subject',badO,'unlinked'],
+    ['Every SETE result maps to exactly one class (faculty · subject · section · term)',badS,'unmatched'],
+    ['Respondents never exceed eligible students (SETE ↔ enrollment)',over,'violation'],
+    ['Records are joined by IDs only, never by names',0,'name-based join']]}
+const CHECKS=runChecks();
 
 /* 3. KPI DEFINITIONS */
 const signed=v=>(v>=0?'+':'')+v.toFixed(1)+'%';
 const KPI={
   late:{name:'Late Grade Submission Rate',icon:'clock',targetText:'≤ 5%',lowerIsBetter:true,fmt:v=>v.toFixed(1)+'%',
-    objective:'Monitor timely grade uploads to avoid delays in graduation, scholarships, and enrollment.',formula:'(Sections with late grades ÷ Total sections) × 100'},
+    objective:'Monitor timely grade uploads to avoid delays in graduation, scholarships, and enrollment.',formula:'(Sections with late grades ÷ Total sections) × 100',
+    src:'Faculty Portal grade submissions per class (Faculty ID · Subject · Section · Term)'},
+  gsc:{name:'Grade Submission Compliance Rate',icon:'check',targetText:'≥ 95%',lowerIsBetter:false,fmt:v=>v.toFixed(1)+'%',
+    objective:'Show the share of classes whose grades were submitted on time.',formula:'(Sections with on-time grades ÷ Total sections) × 100',
+    src:'Faculty Portal grade submissions per class'},
   resp:{name:'SETE Response Rate per Section',icon:'mail',targetText:'≥ 80%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
-    objective:'Ensure enough students respond before SETE results are used to evaluate faculty.',formula:'(Students who completed SETE ÷ Students enrolled) × 100'},
+    objective:'Ensure enough students respond before SETE results are used to evaluate faculty.',formula:'(Students who completed SETE ÷ Eligible enrolled students) × 100',
+    src:'SETE completion on Student Portal enrollments, per class'},
+  cmp:{name:'SETE Completion Rate (Students)',icon:'users',targetText:'≥ 80%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
+    objective:'Show how many students completed the evaluation for ALL their enrolled subjects.',formula:'(Students who evaluated every enrolled subject ÷ Students with active enrollment) × 100',
+    src:'Student Portal enrollments (Student ID) + SETE completion status'},
   hr:{name:'High-Risk Course Rate',icon:'alert',targetText:'≤ 10%',lowerIsBetter:true,fmt:v=>v.toFixed(0)+'%',
-    objective:'Identify courses with both high failure/dropout and low SETE for intervention.',formula:'(Courses with failure + dropout ≥ 20% and avg SETE < 3.5 ÷ Total courses) × 100'},
+    objective:'Identify courses with both high failure/dropout and low SETE for intervention.',formula:'(Courses with failure + dropout ≥ 20% and avg SETE < 3.5 ÷ Total courses) × 100',
+    src:'Student Portal grades/enrollment status + SETE ratings, joined by subject'},
   pass:{name:'Student Passing Rate per Subject',icon:'cap',targetText:'≥ 85%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
-    objective:'Identify subjects needing academic improvement.',formula:'(Students who passed ÷ Students enrolled) × 100'},
+    objective:'Identify subjects needing academic improvement.',formula:'(Students who passed ÷ Students enrolled) × 100',
+    src:'Student Portal grades per enrollment (Student ID · Subject · Section)'},
   imp:{name:'Faculty SETE Improvement Rate',icon:'trend',targetText:'≥ 5%',lowerIsBetter:false,fmt:signed,
-    objective:'Monitor whether faculty SETE ratings improve from the previous semester.',formula:'((Current avg SETE − Previous avg SETE) ÷ Previous avg SETE) × 100'},
+    objective:'Monitor whether faculty SETE ratings improve from the previous semester.',formula:'((Current avg SETE − Previous avg SETE) ÷ Previous avg SETE) × 100',
+    src:'SETE overall ratings for valid classes, current vs previous term'},
   load:{name:'Teaching Load Compliance Rate',icon:'check',targetText:'100%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
-    objective:'Monitor whether faculty complete their assigned teaching loads.',formula:'(Faculty with completed loads ÷ Total faculty) × 100'},
-  sete:{name:'Average SETE Rating',icon:'star',targetText:'≥ 4.0 / 5',lowerIsBetter:false,fmt:v=>v.toFixed(2)}};
+    objective:'Monitor whether faculty complete their assigned teaching loads.',formula:'(Faculty with all assigned classes completed ÷ Total faculty) × 100',
+    src:'Faculty Portal teaching assignments (Faculty ID)'},
+  sete:{name:'Average Faculty SETE Rating',icon:'star',targetText:'≥ 4.0 / 5',lowerIsBetter:false,fmt:v=>v.toFixed(2),
+    objective:'Track the overall student rating of teaching, weighted by number of respondents.',formula:'Σ(class overall rating × respondents) ÷ Σ respondents, valid classes only',
+    src:'SETE criterion ratings per class (Faculty ID · Subject · Section · Term)'},
+  enr:{name:'Student Enrollment Rate',icon:'users',targetText:'≥ 70% of seats',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
+    objective:'Show how much of the available class capacity is filled by enrolled students.',formula:'(Enrollment records ÷ (Section-subjects × capacity)) × 100',
+    src:'Student Portal enrollment records vs class capacity (sample: '+CONFIG.capacity+' seats)'}};
+Object.assign(KPI,{
+  drop:{name:'Dropout Rate',icon:'users',targetText:'≤ 10%',lowerIsBetter:true,fmt:v=>v.toFixed(1)+'%',
+    objective:'Show how many enrolled students leave their subjects, to target retention support.',formula:'(Dropped enrollments ÷ Total enrollments) × 100',src:'Student Portal enrollment status per class'},
+  fail:{name:'Class Failure Rate',icon:'alert',targetText:'≤ 10%',lowerIsBetter:true,fmt:v=>v.toFixed(1)+'%',
+    objective:'Show how many active students fail, to plan consultation or remedial activities.',formula:'(Students who failed ÷ Active (not dropped) students) × 100',src:'Student Portal grades per enrollment'},
+  avgg:{name:'Average Class Grade',icon:'cap',targetText:'≤ 2.50 (1.0 is best)',lowerIsBetter:true,fmt:v=>v.toFixed(2),
+    objective:'Show the typical grade in my classes (1.0 is highest; 3.0 is the passing limit).',formula:'Σ final grades ÷ Number of graded students',src:'Student Portal grades per enrollment'},
+  minc:{name:'Lowest SETE Criterion Score',icon:'star',targetText:'≥ 4.0 / 5',lowerIsBetter:false,fmt:v=>v.toFixed(2),
+    objective:'Point to the weakest teaching area so improvement can be targeted.',formula:'Minimum of the five respondent-weighted criterion averages',src:'SETE criterion ratings (valid classes only)'},
+  avgd:{name:'Average Grade Submission Delay',icon:'clock',targetText:'0 days',lowerIsBetter:true,fmt:v=>v.toFixed(1)+' d',
+    objective:'Show how late grades are when a deadline is missed.',formula:'Σ days late ÷ Number of late submissions',src:'Faculty Portal grade submissions'},
+  cov:{name:'SETE Rating Coverage',icon:'mail',targetText:'≥ 90%',lowerIsBetter:false,fmt:v=>v.toFixed(0)+'%',
+    objective:'Show how many classes have a reportable SETE rating, so results are not judged on thin responses.',formula:'(Classes with valid SETE ratings ÷ Total classes) × 100',src:'SETE responses joined to enrollments (valid: ≥ 50% response and ≥ 5 respondents)'},
+  fbt:{name:'Faculty Below SETE Target',icon:'trend',targetText:'0 faculty',lowerIsBetter:true,fmt:v=>String(v),
+    objective:'Identify faculty whose respondent-weighted SETE is under 4.0 for development support.',formula:'Count of faculty with valid weighted SETE < 4.0',src:'SETE ratings by Faculty ID'},
+  lsp:{name:'Low-SETE & Low-Passing Subjects',icon:'alert',targetText:'0 subjects',lowerIsBetter:true,fmt:v=>String(v),
+    objective:'Find subjects where students rate teaching low AND many fail: review curriculum and delivery.',formula:'Count of subjects with avg SETE < 4.0 and passing rate < 85%',src:'SETE ratings + Student Portal grades, joined by subject'},
+  rep:{name:'Faculty Late 2 Semesters in a Row',icon:'clock',targetText:'0 faculty',lowerIsBetter:true,fmt:v=>String(v),
+    objective:'Identify repeated late grade submission for escalation.',formula:'Count of faculty with late grades this semester and the previous one',src:'Faculty Portal grade submissions (two terms)'},
+  colr:{name:'Colleges Above 15% High-Risk',icon:'alert',targetText:'0 colleges',lowerIsBetter:true,fmt:v=>String(v),
+    objective:'Show colleges that exceed the high-risk course limit and need institution-level intervention.',formula:'Count of colleges where high-risk courses exceed 15% of their courses',src:'Student Portal + SETE, joined by subject and college'},
+  decl:{name:'Colleges With Declining Passing Rate',icon:'trend',targetText:'0 colleges',lowerIsBetter:true,fmt:v=>String(v),
+    objective:'Spot colleges whose academic outcomes are getting worse.',formula:'Count of colleges whose passing rate fell vs the previous semester',src:'Student Portal grades, current vs previous term'}});
 const STATUS_TEXT={g:'On target',y:'Warning',r:'Critical',n:'No baseline yet'};
 
-/* 4. ROLE CONFIG: each role = exactly 5 KPIs + 3 charts + 1 list panel */
+/* 4. ROLE CONFIG: each role = 5 KPIs + 3 visualizations + 1 list panel + access rules */
 const ROLES={
   dean:{title:'Dean',greetName:'Dean',type:'Tactical / Strategic dashboard',
-    blurb:'Whole college: risk, compliance, and teaching quality by track',
+    blurb:'Whole college: dropout, faculty compliance, and teaching quality by track',
     decision:'Which tracks and subjects need curriculum or faculty support, and where compliance slips.',
-    filter:d=>d.col==='CICS',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:'prog',
-    kpis:['hr','late','pass','imp','load'],kpiNames:{hr:'High-Risk Course Rate (College)'},
-    slots:{main:'yearLines',second:'riskBubble',side:'heatmap'},panel:'groups'},
+    filter:d=>d.col==='CICS',filters:['prog','yl','subject','sec','fac'],groupFilter:'prog',groupLabel:'All Tracks',rollupBy:'prog',
+    kpis:['load','drop','fbt','lsp','rep'],kpiNames:{load:'Teaching Load Compliance (College)'},ex:['hr'],
+    slots:{main:'yearLines',second:'riskBubble',side:'compliance'},panel:'deanSubjects',
+    access:{scope:'College of Informatics and Computing Sciences',students:'none',comments:false,maskFaculty:false}},
   chair:{title:'Program Chair',greetName:'Program Chair',type:'Tactical dashboard',
     blurb:'Whole IT program: late grades, SETE response, passing rates',
-    decision:'Which sections and subjects need follow-up now.',
-    filter:d=>d.col==='CICS',groupFilter:'prog',groupLabel:'All Tracks',rollupBy:null,
-    kpis:['late','resp','pass','imp','load'],kpiNames:{},
-    slots:{main:'respLollipop',second:'lateMatrix',side:'respQuad'},panel:'topSections'},
+    decision:'Which sections, faculty and subjects need follow-up now.',
+    filter:d=>d.col==='CICS',filters:['prog','yl','subject','sec','fac'],groupFilter:'prog',groupLabel:'All Tracks',rollupBy:null,
+    kpis:['late','resp','pass','cov','enr'],kpiNames:{},ex:['hr'],
+    slots:{main:'respLollipop',second:'lateMatrix',side:'sectionPerf'},panel:'topSections',
+    access:{scope:'IT program (CICS)',students:'masked',comments:true,maskFaculty:false}},
   faculty:{title:'Faculty Member',greetName:'Prof. Reyes',type:'Operational dashboard',
-    blurb:'My IT classes: SETE improvement, response, class results',
+    blurb:'My IT classes: SETE improvement, weakest criterion, class results',
     decision:'How my classes stand and what to improve next.',
-    filter:d=>d.col==='CICS'&&d.fac==='Prof. Reyes',groupFilter:null,rollupBy:null,
-    kpis:['imp','resp','pass','late','load'],
-    kpiNames:{late:'My Late Grade Submissions',resp:'SETE Response Rate (My Sections)',load:'My Teaching Load Compliance',imp:'My SETE Improvement Rate'},
-    slots:{main:'classOutcome',second:'seteTrend',side:'radar'},panel:'myClasses'},
+    filter:d=>d.col==='CICS'&&d.fid==='F-1001',filters:['yl','subject','sec'],groupFilter:null,rollupBy:null,
+    kpis:['imp','minc','fail','avgg','avgd'],
+    kpiNames:{imp:'My SETE Improvement Rate',minc:'My Lowest SETE Criterion',fail:'Failure Rate (My Classes)',avgg:'Average Grade (My Classes)',avgd:'My Grade Submission Delay'},ex:[],
+    slots:{main:'classOutcome',second:'radar',side:'seteTrend'},panel:'myClasses',
+    access:{scope:'My classes only (Faculty ID F-1001)',students:'names',comments:true,maskFaculty:false}},
   admin:{title:'Academic Administrator',greetName:'VCAA',type:'Strategic dashboard',
     blurb:'Vice Chancellor for Academic Affairs: campus-wide quality assurance',
     decision:'Which colleges need curriculum review, tutoring funds, and faculty development.',
-    filter:()=>true,groupFilter:'col',groupLabel:'All Colleges',rollupBy:'col',
-    kpis:['hr','pass','imp','late','load'],kpiNames:{hr:'High-Risk Course Rate (Campus-wide)'},
-    slots:{main:'hrRanking',second:'collegeTrends',side:'slope'},panel:'groups'}};
+    filter:()=>true,filters:['col','prog','yl','subject','sec'],groupFilter:'col',groupLabel:'All Colleges',rollupBy:'col',
+    kpis:['hr','colr','cmp','sete','decl'],
+    kpiNames:{hr:'High-Risk Course Rate (Campus-wide)',cmp:'SETE Completion Rate (Campus)',sete:'Campus Average SETE Rating'},ex:[],
+    slots:{main:'hrRanking',second:'collegeTrends',side:'seteTrendGroup'},panel:'groups',
+    access:{scope:'Campus-wide, aggregated',students:'none',comments:false,maskFaculty:true}}};
+const SLOT_IDS=['main','second','side'];
+const FKEYS=['col','prog','yl','subject','sec','fac'];
+const FDEF={col:{all:'All Colleges',val:d=>d.col,txt:v=>`${v} – ${COLLEGE_NAME[v]}`},
+  prog:{all:'All Programs / Tracks',val:d=>d.prog,txt:v=>v},
+  yl:{all:'All Year Levels',val:d=>d.yl,txt:v=>'Year '+v},
+  subject:{all:'All Subjects',val:d=>d.code,txt:v=>`${v} – ${COURSE_INFO[v].name}`},
+  sec:{all:'All Sections',val:d=>d.secNo,txt:v=>'Section '+v},
+  fac:{all:'All Faculty',val:d=>d.fid,txt:v=>`${v} – ${FAC[v].name}`}};
 
-const state={roleKey:'',sem:3,group:'all',subject:'all',drill:null};
-let role=null,current=null,alertsList=[],slot='main';
-const charts={main:null,second:null,side:null,extra:[]};
+const state={roleKey:'',sem:3,f:{col:'all',prog:'all',yl:'all',subject:'all',sec:'all',fac:'all'},drill:null};
+let role=null,current=null,alertsList=[],slot='main',lastDetail=null;
+const charts={extra:[]};
 const $=id=>document.getElementById(id);
 const sum=(a,f)=>a.reduce((x,d)=>x+f(d),0);
 
 /* 5. DATA HELPERS */
 const roleRows=()=>DATA.filter(role.filter);
-const rowsFor=semIdx=>roleRows().filter(d=>d.sem===semIdx
-  &&(state.subject==='all'||d.code===state.subject)
-  &&(state.group==='all'||!role.groupFilter||d[role.groupFilter]===state.group));
-const passOf=rows=>rows.length?100-sum(rows,d=>d.fd*d.n)/sum(rows,d=>d.n):null;
+const matchF=(d,skip)=>FKEYS.every(k=>k===skip||state.f[k]==='all'||String(FDEF[k].val(d))===state.f[k]);
+const rowsFor=semIdx=>roleRows().filter(d=>d.sem===semIdx&&matchF(d));
+const fx=d=>role.access.maskFaculty?d.fid:d.fac;                     /* faculty shown by name, or by ID only for the VCAA */
+const passOf=rows=>rows.length&&sum(rows,d=>d.n)?100*sum(rows,d=>d.passed)/sum(rows,d=>d.n):null;
+const respOf=rows=>sum(rows,d=>d.eligible)?100*sum(rows,d=>d.respondents)/sum(rows,d=>d.eligible):null;
+const seteOf=rows=>{const v=rows.filter(d=>d.sete!=null);const w=sum(v,d=>d.respondents);return w?sum(v,d=>d.sete*d.respondents)/w:null};
+const criteriaOf=rows=>{const v=rows.filter(d=>d.criteria);const w=sum(v,d=>d.respondents);return w?CRITERIA.map((_,i)=>sum(v,d=>d.criteria[i]*d.respondents)/w):null};
+const lateOf=rows=>rows.length?100*rows.filter(d=>d.late).length/rows.length:null;
+const loadOf=rows=>{const fs=[...new Set(rows.map(d=>d.fid))];return fs.length?100*fs.filter(f=>rows.filter(d=>d.fid===f).every(d=>d.done)).length/fs.length:null};
+const completionOf=rows=>{const m=new Map();rows.forEach(d=>(ENR_BY_OID[d.id]||[]).forEach(e=>{if(e.status==='Dropped')return;const c=m.get(e.sid);m.set(e.sid,c===undefined?e.evalDone:c&&e.evalDone)}));
+  return m.size?100*[...m.values()].filter(Boolean).length/m.size:null};
+const uniqueStudents=rows=>{const s=new Set();rows.forEach(d=>(ENR_BY_OID[d.id]||[]).forEach(e=>s.add(e.sid)));return s.size};
 const hrRate=list=>100*list.filter(x=>x.hr).length/list.length;
 const vsTarget=(v,t,digits)=>`${Math.abs(v-t).toFixed(digits)} ${v>=t?'above':'below'} the ${t} target`;
-const clamp15=v=>Math.min(5,Math.max(1,v));
 const byCodeSec=(a,b)=>a.code<b.code?-1:a.code>b.code?1:a.sec<b.sec?-1:a.sec>b.sec?1:0;
+const maskSid=s=>s.slice(0,5)+'••'+s.slice(-2);
 function buildCourses(rows){
   const m={};rows.forEach(d=>{const k=d.col+':'+d.code;(m[k]=m[k]||[]).push(d)});
   return Object.values(m).map(a=>{
-    const d0=a[0],fd=sum(a,d=>d.fd*d.n)/sum(a,d=>d.n),sete=sum(a,d=>d.sete)/a.length;
-    return{code:d0.code,lbl:d0.col==='CICS'?d0.code:`${d0.code} (${d0.col})`,name:d0.name,col:d0.col,prog:d0.prog,n:sum(a,d=>d.n),sete,fd,pass:100-fd,hr:fd>=TH.hrFailDrop&&sete<TH.hrSete}})}
-const repeatedLate=(semIdx,fac)=>semIdx>0
-  &&roleRows().some(d=>d.fac===fac&&d.late&&d.sem===semIdx)
-  &&roleRows().some(d=>d.fac===fac&&d.late&&d.sem===semIdx-1);
-const riskScore=d=>(4-d.sete)*20+(85-(100-d.fd))+(80-d.resp)/2+(d.late?10:0)+(d.done?0:8);
-const mainIssue=d=>d.late?['Late grades','r']:!d.done?['Load incomplete','y']:d.resp<80?['Low response','y']:100-d.fd<85?['Low passing','y']:d.sete<4?['Low SETE','y']:['On track',''];
+    const d0=a[0],n=sum(a,d=>d.n),fd=100*sum(a,d=>d.failed+d.dropped)/n,sete=seteOf(a);
+    return{code:d0.code,lbl:d0.col==='CICS'?d0.code:`${d0.code} (${d0.col})`,name:d0.name,col:d0.col,prog:d0.prog,n,sete,fd,pass:100-fd,
+      hr:sete!=null&&fd>=TH.hrFailDrop&&sete<TH.hrSete,hrUnknown:sete==null&&fd>=TH.hrFailDrop}})}
+const repeatedLate=(semIdx,fid)=>semIdx>0
+  &&roleRows().some(d=>d.fid===fid&&d.late&&d.sem===semIdx)
+  &&roleRows().some(d=>d.fid===fid&&d.late&&d.sem===semIdx-1);
+const riskScore=d=>(4-(d.sete==null?4:d.sete))*20+(85-(100-d.fd))+(80-d.resp)/2+(d.late?10:0)+(d.done?0:8);
+const mainIssue=d=>d.late?['Late grades','r']:!d.done?['Load incomplete','y']:d.resp<80?['Low response','y']:100-d.fd<85?['Low passing','y']:d.sete!=null&&d.sete<4?['Low SETE','y']:['On track',''];
+/* SETE ↔ academic performance: where the two sources agree or disagree (areas for further investigation, not conclusions) */
+function crossFlags(cur){const cs=cur.courses.filter(c=>c.sete!=null);
+  return{both:cs.filter(c=>c.sete<4&&c.pass<85),hiLow:cs.filter(c=>c.sete>=4&&c.pass<85),loHigh:cs.filter(c=>c.sete<4&&c.pass>=85)}}
 
 /* 6. KPI + ALERT LOGIC */
 function computeKpis(semIdx){
@@ -431,47 +622,99 @@ function computeKpis(semIdx){
   const courses=buildCourses(rows),byGroup={};
   if(role.rollupBy)courses.forEach(c=>(byGroup[c[role.rollupBy]]=byGroup[c[role.rollupBy]]||[]).push(c));
   const prevRows=semIdx>0?rowsFor(semIdx-1):[];
-  const sete=sum(rows,d=>d.sete)/rows.length,prevSete=prevRows.length?sum(prevRows,d=>d.sete)/prevRows.length:null;
-  const faculty=[...new Set(rows.map(d=>d.fac))];
-  return{late:100*rows.filter(d=>d.late).length/rows.length,resp:sum(rows,d=>d.resp*d.n)/sum(rows,d=>d.n),hr:hrRate(courses),sete,pass:passOf(rows),
-    imp:prevSete?(sete-prevSete)/prevSete*100:null,
-    load:100*faculty.filter(f=>rows.filter(d=>d.fac===f).every(d=>d.done)).length/faculty.length,rows,courses,byGroup}}
-/* 'g' | 'y' | 'r' | 'n' */
+  const sete=seteOf(rows),prevSete=prevRows.length?seteOf(prevRows):null,late=lateOf(rows);
+  const fids=[...new Set(rows.map(d=>d.fid))],crit=criteriaOf(rows),lateRows=rows.filter(d=>d.late),act=sum(rows,d=>d.active);
+  const fbtF=new Set(fids.filter(f=>{const v=seteOf(rows.filter(d=>d.fid===f));return v!=null&&v<4}));
+  const repF=new Set(rows.filter(d=>d.late&&repeatedLate(semIdx,d.fid)).map(d=>d.fid));
+  const lspC=new Set(courses.filter(c=>c.sete!=null&&c.sete<4&&c.pass<TH.pass[0]).map(c=>c.col+':'+c.code));
+  const colrG=new Set(role.rollupBy==='col'?Object.entries(byGroup).filter(e=>hrRate(e[1])>TH.hr[1]).map(e=>e[0]):[]);
+  const cols=[...new Set(rows.map(d=>d.col))];
+  const declG=prevRows.length?new Set(cols.filter(c=>{const a=passOf(rows.filter(d=>d.col===c)),b=passOf(prevRows.filter(d=>d.col===c));return a!=null&&b!=null&&a<b-0.5})):null;
+  const grades=[];rows.forEach(d=>(ENR_BY_OID[d.id]||[]).forEach(e=>{if(e.grade!=null)grades.push(e.grade)}));
+  return{late,gsc:100-late,resp:respOf(rows),hr:hrRate(courses),sete,pass:passOf(rows),
+    imp:sete!=null&&prevSete?(sete-prevSete)/prevSete*100:null,load:loadOf(rows),
+    enr:100*sum(rows,d=>d.n)/(rows.length*CONFIG.capacity),cmp:completionOf(rows),criteria:crit,
+    drop:100*sum(rows,d=>d.dropped)/sum(rows,d=>d.n),fail:act?100*sum(rows,d=>d.failed)/act:null,
+    avgg:grades.length?sum(grades,g=>g)/grades.length:null,minc:crit?Math.min(...crit):null,
+    avgd:lateRows.length?sum(lateRows,d=>d.daysLate)/lateRows.length:0,
+    cov:100*rows.filter(d=>d.sete!=null).length/rows.length,
+    fbt:fbtF.size,rep:repF.size,lsp:lspC.size,colr:colrG.size,decl:declG?declG.size:null,
+    fbtF,repF,lspC,colrG,declG,rows,courses,byGroup}}
 function kpiStatus(key,value,semIdx){
   if(value==null)return'n';
-  if(key==='late'){const repeat=rowsFor(semIdx).some(d=>d.late&&repeatedLate(semIdx,d.fac));return value>TH.late[1]||repeat?'r':value>TH.late[0]?'y':'g'}
-  const t=TH[key];
-  if(key==='hr')return value>t[1]?'r':value>t[0]?'y':'g';
-  return value<t[1]?'r':value<t[0]?'y':'g'}
+  if(key==='gsc')return kpiStatus('late',100-value,semIdx);
+  if(key==='late'){const rep=rowsFor(semIdx).some(d=>d.late&&repeatedLate(semIdx,d.fid));return value>TH.late[1]||rep?'r':value>TH.late[0]?'y':'g'}
+  const hi=(w,c)=>value>c?'r':value>w?'y':'g',lo=(w,c)=>value<c?'r':value<w?'y':'g',cnt=(w,c)=>value>=c?'r':value>=w?'y':'g';
+  switch(key){
+    case'sete':case'minc':return lo(4,3.5);
+    case'hr':return hi(TH.hr[0],TH.hr[1]);
+    case'drop':return hi(10,15);
+    case'fail':return hi(10,20);
+    case'avgg':return hi(2.5,3);
+    case'avgd':return value>3?'r':value>0?'y':'g';
+    case'cov':return lo(90,70);
+    case'fbt':case'decl':return cnt(1,3);
+    case'lsp':case'rep':return cnt(1,2);
+    case'colr':return value>0?'r':'g'}
+  const t=TH[key];return value<t[1]?'r':value<t[0]?'y':'g'}
 /* clicking a KPI filters the list panel to the rows behind it */
-const DRILL={late:d=>d.late,resp:d=>d.resp<80,pass:d=>100-d.fd<85,imp:d=>d.sete<4,load:d=>!d.done};
+const DRILL={late:d=>d.late,gsc:d=>d.late,resp:d=>d.resp<80,cmp:d=>d.resp<80,pass:d=>100-d.fd<85,imp:d=>d.sete!=null&&d.sete<4,sete:d=>d.sete!=null&&d.sete<4,
+  load:d=>!d.done,enr:d=>d.n<CONFIG.capacity*TH.enr[0]/100,drop:d=>100*d.dropped/d.n>10,fail:d=>d.active>0&&100*d.failed/d.active>10,
+  avgg:d=>d.avgG!=null&&d.avgG>2.5,minc:d=>!!d.criteria&&Math.min(...d.criteria)<4,avgd:d=>d.late,cov:d=>d.sete==null};
 function drillRows(cur){
-  if(!state.drill)return cur.rows;
-  if(state.drill==='hr'){const keys=new Set(cur.courses.filter(c=>c.hr).map(c=>c.col+':'+c.code));return cur.rows.filter(d=>keys.has(d.col+':'+d.code))}
-  return cur.rows.filter(DRILL[state.drill])}
-/* alerts: l = 'r' critical | 'y' warning · go = click target · a = recommended action */
+  const k=state.drill;if(!k)return cur.rows;
+  if(k==='hr'){const st=new Set(cur.courses.filter(c=>c.hr).map(c=>c.col+':'+c.code));return cur.rows.filter(d=>st.has(d.col+':'+d.code))}
+  if(k==='fbt')return cur.rows.filter(d=>cur.fbtF.has(d.fid));
+  if(k==='rep')return cur.rows.filter(d=>cur.repF.has(d.fid)&&d.late);
+  if(k==='lsp')return cur.rows.filter(d=>cur.lspC.has(d.col+':'+d.code));
+  if(k==='colr')return cur.rows.filter(d=>cur.colrG.has(d.col));
+  if(k==='decl')return cur.rows.filter(d=>cur.declG&&cur.declG.has(d.col));
+  return cur.rows.filter(DRILL[k])}
+/* alerts follow the role's own KPIs; actions come from Part II */
 function buildAlerts(cur){
-  const list=[],watches=k=>role.kpis.includes(k);
+  const list=[],has=k=>role.kpis.includes(k)||(role.ex||[]).includes(k),fac=state.roleKey==='faculty';
   cur.rows.forEach(d=>{
-    const who=`${d.lbl} (${d.fac})`,go=`d|${d.id}`;
-    if(watches('late')&&d.late){const rep=repeatedLate(state.sem,d.fac);
-      list.push({l:rep?'r':'y',go,t:`Late grades · ${who}${rep?' · 2 semesters in a row':''}`,a:rep?'Escalate to Dean/VCAA and review the faculty’s compliance.':'Program Chair sends deadline reminders and follows up with the faculty.'})}
-    if(watches('resp')&&d.resp<80)
-      list.push({l:d.resp<60?'r':'y',go,t:`SETE response ${d.resp}% · ${who}`,a:d.resp<60?'Do not use this section’s results for faculty evaluation until the response rate improves.':'Extend the SETE period and remind students in class.'});
-    if(watches('load')&&!d.done)
-      list.push({l:'y',go,t:`Teaching load incomplete · ${who}`,a:'Review faculty assignment, resolve scheduling conflicts, and adjust teaching load when necessary.'})});
-  if(watches('hr'))cur.courses.filter(c=>c.hr).forEach(c=>list.push({l:'r',go:'s|'+c.code,
+    const who=`${d.lbl} (${fx(d)})`,go=`d|${d.id}`,rep=d.late&&repeatedLate(state.sem,d.fid);
+    if(d.late&&(has('late')||has('avgd')||(has('rep')&&rep)))
+      list.push({l:rep?'r':'y',go,t:`Late grades (${d.daysLate} day${d.daysLate>1?'s':''}) · ${who}${rep?' · 2 semesters in a row':''}`,
+        a:rep?'Escalate to Dean/VCAA and review the faculty’s compliance.':fac?'Submit the grades now and coordinate with the Program Chair.':'Program Chair sends deadline reminders and follows up with the faculty.'});
+    if(has('resp')&&d.resp<80)
+      list.push({l:d.resp<60?'r':'y',go,t:`SETE response ${d.resp.toFixed(0)}% (${d.respondents} of ${d.eligible} students)${d.sete==null?' · rating withheld':''} · ${who}`,
+        a:d.resp<60?'Do not use this section’s results for faculty evaluation until the response rate improves.':'Extend the SETE period and remind students in class.'});
+    if(has('load')&&!d.done)
+      list.push({l:'y',go,t:`Teaching load incomplete · ${who}`,a:'Review faculty assignment, resolve scheduling conflicts, and adjust teaching load when necessary.'});
+    if(has('enr')&&d.n<CONFIG.capacity*TH.enr[1]/100)
+      list.push({l:'y',go,t:`Low enrollment (${d.n} of ${CONFIG.capacity} seats) · ${who}`,a:'Review the section offering: merge, close, or promote the section.'})});
+  if(has('hr'))cur.courses.filter(c=>c.hr).forEach(c=>list.push({l:'r',go:'s|'+c.code,
     t:`High-risk course · ${c.lbl} ${c.name} (SETE ${c.sete.toFixed(2)}, F+D ${c.fd.toFixed(0)}%)`,a:'Review curriculum and course delivery; fund tutoring and faculty development.'}));
-  if(watches('hr')&&role.rollupBy)Object.entries(cur.byGroup).forEach(([g,a])=>{const p=hrRate(a);
+  if(has('hr'))cur.courses.filter(c=>c.hrUnknown).forEach(c=>list.push({l:'y',go:'s|'+c.code,
+    t:`Possible high-risk · ${c.lbl} (F+D ${c.fd.toFixed(0)}%, SETE unavailable)`,a:'High failure/dropout but SETE has too few responses to classify. Improve SETE response before judging.'}));
+  if(has('hr')&&role.rollupBy)Object.entries(cur.byGroup).forEach(([g,a])=>{const p=hrRate(a);
     if(p>TH.hr[1])list.push({l:'r',t:`${g}: ${p.toFixed(0)}% of courses high-risk (above 15%)`,a:'Prioritize this group for curriculum review and faculty development.'})});
-  if(watches('pass'))cur.courses.filter(c=>c.pass<TH.pass[0]).forEach(c=>list.push({l:c.pass<TH.pass[1]?'r':'y',go:'s|'+c.code,
+  if(has('pass'))cur.courses.filter(c=>c.pass<TH.pass[0]&&!(has('hr')&&c.hr)).forEach(c=>list.push({l:c.pass<TH.pass[1]?'r':'y',go:'s|'+c.code,
     t:`Low passing rate · ${c.lbl} ${c.name} (${c.pass.toFixed(0)}%)`,a:'Recommend academic support, tutoring, or curriculum review for this subject.'}));
-  if(watches('imp')&&cur.imp!=null&&cur.imp<TH.imp[0])list.push({l:cur.imp<TH.imp[1]?'r':'y',
+  if(has('lsp')){const f=crossFlags(cur);
+    f.both.filter(c=>!c.hr).forEach(c=>list.push({l:'r',go:'s|'+c.code,t:`Low SETE and low passing · ${c.lbl} (SETE ${c.sete.toFixed(2)}, passing ${c.pass.toFixed(0)}%)`,a:'Review curriculum and course delivery together with faculty development support.'}));
+    f.hiLow.forEach(c=>list.push({l:'y',go:'s|'+c.code,t:`High SETE but low passing · ${c.lbl} (SETE ${c.sete.toFixed(2)}, passing ${c.pass.toFixed(0)}%)`,a:'Students rate teaching well yet many fail: review assessment difficulty, prerequisites, or grading alignment.'}))}
+  if(has('drop')){const m={};cur.rows.forEach(d=>{const k=d.col+':'+d.code;m[k]=m[k]||{code:d.code,lbl:d.col==='CICS'?d.code:`${d.code} (${d.col})`,name:d.name,dr:0,n:0};m[k].dr+=d.dropped;m[k].n+=d.n});
+    Object.values(m).forEach(x=>{const p=100*x.dr/x.n;if(p>10)list.push({l:p>15?'r':'y',go:'s|'+x.code,t:`High dropout · ${x.lbl} ${x.name} (${p.toFixed(0)}%)`,a:'Provide retention support: advising, tutoring, and early-warning follow-up for enrolled students.'})})}
+  if(has('fbt'))[...cur.fbtF].forEach(f=>{const v=seteOf(cur.rows.filter(d=>d.fid===f));
+    list.push({l:v<3.5?'r':'y',t:`Faculty below SETE target · ${FAC[f].name} (${v.toFixed(2)})`,a:'Recommend faculty development activities, teaching workshops, and instructional improvement plans.'})});
+  if(has('cov')&&cur.cov<90)list.push({l:cur.cov<70?'r':'y',t:`SETE rating coverage ${cur.cov.toFixed(0)}% (target ≥ 90%)`,a:'Improve response in withheld classes so their ratings can be used for faculty evaluation.'});
+  if(has('cmp')&&cur.cmp!=null&&cur.cmp<80)list.push({l:cur.cmp<60?'r':'y',t:`Only ${cur.cmp.toFixed(0)}% of students evaluated all their subjects (target ≥ 80%)`,a:'Extend the SETE period and remind students through the portal.'});
+  if(has('sete')&&cur.sete!=null&&cur.sete<4)list.push({l:cur.sete<3.5?'r':'y',t:`Average SETE ${cur.sete.toFixed(2)} (target ≥ 4.0)`,a:'Direct faculty development support to the lowest-rated colleges.'});
+  if(has('decl')&&cur.declG){const pr=rowsFor(state.sem-1);cur.declG.forEach(c=>{const a=passOf(cur.rows.filter(d=>d.col===c)),b=passOf(pr.filter(d=>d.col===c));
+    list.push({l:'y',t:`${c}: passing rate fell from ${b.toFixed(0)}% to ${a.toFixed(0)}%`,a:'Ask the college to review academic support and curriculum delivery.'})})}
+  if(has('imp')&&cur.imp!=null&&cur.imp<TH.imp[0])list.push({l:cur.imp<TH.imp[1]?'r':'y',
     t:`SETE improvement ${signed(cur.imp)} (target ≥ 5%)`,a:'Recommend faculty development activities and instructional improvement plans.'});
+  if(has('minc')&&cur.minc!=null&&cur.minc<4)list.push({l:cur.minc<3.5?'r':'y',
+    t:`Weakest criterion: ${CRITERIA[cur.criteria.indexOf(cur.minc)]} (${cur.minc.toFixed(2)})`,a:'Review student feedback on this criterion and plan targeted improvement.'});
+  if(has('fail')&&cur.fail!=null&&cur.fail>10)list.push({l:cur.fail>20?'r':'y',
+    t:`Failure rate ${cur.fail.toFixed(0)}% in my classes (target ≤ 10%)`,a:'Offer consultation or remedial activities and review assessment alignment.'});
   list.sort((a,b)=>(a.l==='r'?0:1)-(b.l==='r'?0:1));
   return list}
 
-/* 7. CHART LIBRARY: { label, title(), draw(cur) → caption } */
+/* 7. CHART LIBRARY: { title(), draw(cur) → caption } */
 const valueLabels={id:'valueLabels',afterDatasetsDraw(c){
   const x=c.ctx;x.save();x.font='10px system-ui,sans-serif';x.fillStyle='#1c2733';
   c.data.datasets.forEach((ds,i)=>{const pts=c.getDatasetMeta(i).data;
@@ -479,8 +722,8 @@ const valueLabels={id:'valueLabels',afterDatasetsDraw(c){
         x.fillStyle='#1c2733';x.textAlign='left';x.fillText(ds.fmt(ds.data[j]),p.x+10,p.y+3)})}
     else if(ds.endLabel){}
     else if(ds.targetLabel&&pts.length){const p=pts[pts.length-1];x.textAlign='right';x.fillStyle='#6b7685';x.fillText(ds.targetLabel,p.x,p.y-4)}
-    else if(!ds.noLabels&&ds.fmt){x.textAlign='center';pts.forEach((p,j)=>{const v=ds.data[j];if(v!=null)x.fillText(ds.fmt(v),p.x,p.y-6)})}
-    else if(ds.pointLabels){x.textAlign='left';pts.forEach((p,j)=>{if(ds.pointLabels[j])x.fillText(ds.pointLabels[j],p.x+10,p.y+3)})}});
+    else if(!ds.noLabels&&ds.fmt){x.textAlign='center';x.fillStyle='#1c2733';pts.forEach((p,j)=>{const v=ds.data[j];if(v!=null)x.fillText(ds.fmt(v),p.x,p.y-6)})}
+    else if(ds.pointLabels){x.textAlign='left';x.fillStyle='#1c2733';pts.forEach((p,j)=>{if(ds.pointLabels[j])x.fillText(ds.pointLabels[j],p.x+10,p.y+3)})}});
   x.restore()}};
 const refLines={id:'refLines',afterDatasetsDraw(c,_a,o){
   const lines=(o&&o.lines)||[],{ctx,chartArea:a,scales:{x,y}}=c;
@@ -497,29 +740,31 @@ const zone={id:'zone',beforeDatasetsDraw(c,_a,o){
 const axisTitle=t=>({display:true,text:t,font:{size:10}});
 const tickFont={font:{size:9}},gridStyle={color:'#eef2f7'};
 const baseOptions=(extra={})=>({animation:false,maintainAspectRatio:false,responsive:true,...extra,plugins:{legend:{display:false},...(extra.plugins||{})}});
-/* labels at the end of slope lines, pushed apart so they never overlap */
 const endLabels={id:'endLabels',afterDatasetsDraw(c){
   const items=[];c.data.datasets.forEach((ds,i)=>{if(!ds.endLabel)return;const pts=c.getDatasetMeta(i).data,p=pts[pts.length-1];if(p)items.push({x:p.x,y:p.y,t:ds.endLabel,col:ds.borderColor})});
   items.sort((a,b)=>a.y-b.y);for(let i=1;i<items.length;i++)if(items[i].y-items[i-1].y<11)items[i].y=items[i-1].y+11;
   const floor=c.chartArea.bottom+2,n=items.length;
   if(n&&items[n-1].y>floor){items[n-1].y=floor;for(let i=n-2;i>=0;i--)if(items[i+1].y-items[i].y<11)items[i].y=items[i+1].y-11}
   const x=c.ctx;x.save();x.font='10px system-ui,sans-serif';x.textAlign='left';items.forEach(it=>{x.fillStyle=it.col;x.fillText(it.t,it.x+8,it.y+3)});x.restore()}};
-/* big number in the middle of a doughnut */
 const centerText={id:'centerText',afterDraw(c,_a,o){
   if(!o||!o.big)return;const m=c.getDatasetMeta(0).data[0];if(!m)return;const x=c.ctx;
   x.save();x.textAlign='center';x.fillStyle='#22364f';x.font='700 20px system-ui,sans-serif';x.fillText(o.big,m.x,m.y+4);
   x.fillStyle='#6b7685';x.font='10px system-ui,sans-serif';x.fillText(o.small,m.x,m.y+19);x.restore()}};
-/* three chart slots per role: main, second, side. Each has its own canvas (xxxCanvas / xxxBox) and html area (xxxHtml). */
-function destroyCharts(){['main','second','side'].forEach(s=>{if(charts[s]){charts[s].destroy();charts[s]=null}});charts.extra.forEach(c=>c.destroy());charts.extra=[]}
+function destroyCharts(){SLOT_IDS.forEach(s=>{if(charts[s]){charts[s].destroy();charts[s]=null}});charts.extra.forEach(c=>c.destroy());charts.extra=[]}
 function drawCanvas(config){$(slot+'Box').style.display='block';$(slot+'Html').style.display='none';charts[slot]=new Chart($(slot+'Canvas'),config)}
 function drawHtml(html,auto){$(slot+'Box').style.display='none';const h=$(slot+'Html');h.style.display='block';h.className='html-box'+(auto?' auto':'');h.innerHTML=html}
-function drawLollipop({labels,values,colors,fmt,max,lines,xTitle}){
+const noData=t=>drawHtml(`<p class="none">${ico('info',14)} ${t}</p>`);
+function drawLollipop({labels,values,colors,fmt,max,min=0,lines,xTitle}){
   drawCanvas({type:'bar',data:{labels,datasets:[{data:values,backgroundColor:colors,barThickness:4,lollipop:true,fmt}]},
     options:baseOptions({indexAxis:'y',layout:{padding:{right:40}},plugins:{refLines:{lines}},
-      scales:{x:{min:0,max,title:axisTitle(xTitle),ticks:tickFont,grid:gridStyle},y:{ticks:{font:{size:10}},grid:{display:false}}}}),plugins:[valueLabels,refLines]})}
+      scales:{x:{min,max,title:axisTitle(xTitle),ticks:tickFont,grid:gridStyle},y:{ticks:{font:{size:10}},grid:{display:false}}}}),plugins:[valueLabels,refLines]})}
+const groupKey=()=>role.rollupBy||'yl';
+const groupName=k=>k==='col'?'College':k==='prog'?'Track':'Year Level';
+const groupLbl=(k,v)=>k==='yl'?'Year '+v:v;
+const groupList=k=>[...new Set(roleRows().map(d=>d[k]))].sort();
 
 const CHARTS={
-  heatmap:{label:'Subject heatmap',title:()=>'Passing Rate · Subject × Semester',
+  heatmap:{title:()=>'Passing Rate · Subject × Semester',
     draw(){
       const codes=[...new Set(SEM.flatMap((_,i)=>rowsFor(i).map(d=>d.code)))];
       const grid=codes.map(code=>({code,vals:SEM.map((_,i)=>passOf(rowsFor(i).filter(d=>d.code===code)))}));
@@ -529,10 +774,10 @@ const CHARTS={
       const repeat=grid.filter(g=>state.sem>0&&g.vals[state.sem]!=null&&g.vals[state.sem-1]!=null&&g.vals[state.sem]<85&&g.vals[state.sem-1]<85).length;
       drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${shortSem(s)}</th>`).join('')}</tr></thead><tbody>${
         grid.map(g=>`<tr><td class="lab" title="${COURSE_INFO[g.code].name}">${g.code}${state.roleKey==='admin'?` <span style="color:var(--mute);font-weight:500">${CODE_COL[g.code]}</span>`:''}</td>${g.vals.map(v=>`<td class="c ${cls(v)}">${v==null?'–':v.toFixed(0)}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        <p class="legend">Green ≥ 85% · Amber 75–84% · Red &lt; 75% · Lowest first</p>`,true);
+        <p class="legend">Green ≥ 85% · Amber 75–84% · Red &lt; 75% · Lowest first · Passed ÷ enrolled, from Student Portal grades</p>`,true);
       return `${below} of ${grid.length} ${subjWord()} are below the 85% target this semester; ${repeat} stayed below it two semesters in a row.`}},
 
-  yearLines:{label:'Year levels',title:()=>'Passing Rate by Year Level, per Track',
+  yearLines:{title:()=>'Passing Rate by Year Level, per Track',
     draw(cur){
       const tracks=[...new Set(cur.rows.map(d=>d.prog))],years=[1,2,3,4];
       const sets=tracks.map((t,i)=>({label:t,borderColor:PALETTE[i%4],backgroundColor:PALETTE[i%4],tension:.3,spanGaps:true,pointRadius:4,
@@ -542,41 +787,42 @@ const CHARTS={
       drawCanvas({type:'line',data:{labels:years.map(y=>'Year '+y),datasets:sets},
         options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10},filter:i=>i.text!=='Target 85%'}}},
           scales:{y:{min:50,max:100,title:axisTitle('Passing rate (%)'),ticks:tickFont,grid:gridStyle},x:{title:axisTitle('Year level'),ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
-      return `Lowest point: ${low.t}, Year ${low.y} at ${low.v.toFixed(0)}%. BA and NT tracks start in Year 3.`}},
+      return low.t?`Lowest point: ${low.t}, Year ${low.y} at ${low.v.toFixed(0)}%. BA and NT tracks start in Year 3.`:'No data.'}},
 
-  riskBubble:{label:'Risk map',title:()=>'SETE Rating vs Failure + Dropout',
+  riskBubble:{title:()=>'SETE Rating vs Failure + Dropout',
     draw(cur){
-      const pts=cur.courses.map(c=>({x:+c.sete.toFixed(2),y:+c.fd.toFixed(1),r:Math.max(6,Math.min(20,c.n/8))})),nHigh=cur.courses.filter(c=>c.hr).length;
-      drawCanvas({type:'bubble',data:{datasets:[{data:pts,backgroundColor:cur.courses.map(c=>c.hr?'rgba(198,43,48,.75)':'rgba(34,54,79,.6)'),pointLabels:cur.courses.map(c=>c.hr?c.lbl:null)}]},
+      const cs=cur.courses.filter(c=>c.sete!=null),nHigh=cur.courses.filter(c=>c.hr).length,miss=cur.courses.length-cs.length;
+      if(!cs.length){noData('No subject has a valid SETE rating for this filter.');return 'Ratings are withheld when response is too low.'}
+      drawCanvas({type:'bubble',data:{datasets:[{data:cs.map(c=>({x:+c.sete.toFixed(2),y:+c.fd.toFixed(1),r:Math.max(6,Math.min(20,c.n/8))})),backgroundColor:cs.map(c=>c.hr?'rgba(198,43,48,.75)':'rgba(34,54,79,.6)'),pointLabels:cs.map(c=>c.hr?c.lbl:null)}]},
         options:baseOptions({plugins:{zone:{xTo:TH.hrSete,yFrom:TH.hrFailDrop,label:'High-risk zone'},
-          tooltip:{callbacks:{label:p=>{const c=cur.courses[p.dataIndex];return `${c.lbl} – ${c.name} (SETE ${p.raw.x}, F+D ${p.raw.y}%, ${c.n} students)`}}}},
+          tooltip:{callbacks:{label:p=>{const c=cs[p.dataIndex];return `${c.lbl} – ${c.name} (SETE ${p.raw.x}, F+D ${p.raw.y}%, ${c.n} students)`}}}},
           scales:{x:{min:2.5,max:5,title:axisTitle('Average SETE rating (1–5)'),ticks:tickFont,grid:gridStyle},y:{min:0,max:40,title:axisTitle('Failure + dropout (% of students)'),ticks:tickFont,grid:gridStyle}}}),plugins:[zone,valueLabels]});
-      return `${nHigh} of ${cur.courses.length} subjects are in the high-risk zone. Bigger bubble = more students.`}},
+      return `${nHigh} of ${cur.courses.length} subjects are in the high-risk zone. Bigger bubble = more students.${miss?` ${miss} subject(s) not plotted (no valid SETE).`:''}`}},
 
-  respLollipop:{label:'SETE response',title:()=>'SETE Response Rate per Section (lowest 12)',
+  respLollipop:{title:()=>'SETE Response Rate per Section (lowest 12)',
     draw(cur){
       const all=[...cur.rows].sort((a,b)=>a.resp-b.resp),show=all.slice(0,12),below=all.filter(d=>d.resp<80).length;
-      drawLollipop({labels:show.map(d=>d.lbl),values:show.map(d=>d.resp),colors:show.map(d=>d.resp<60?'#c62b30':d.resp<80?'#e3a600':'#22364f'),fmt:v=>v+'%',max:100,
-        lines:[{axis:'x',value:80,label:'Target 80%'}],xTitle:'Response rate (%)'});
+      drawLollipop({labels:show.map(d=>d.lbl),values:show.map(d=>+d.resp.toFixed(0)),colors:show.map(d=>d.resp<60?'#c62b30':d.resp<80?'#e3a600':'#22364f'),fmt:v=>v+'%',max:100,
+        lines:[{axis:'x',value:80,label:'Target 80%'}],xTitle:'Response rate (%) = respondents ÷ eligible students'});
       return `${below} of ${all.length} section-subjects are below the 80% response target. Showing the 12 lowest.`}},
 
-  lateMatrix:{label:'Late-grade matrix',title:()=>'Grade Submission · Faculty × Semester',
+  lateMatrix:{title:()=>'Grade Submission · Faculty × Semester',
     draw(){
-      const facs=[...new Set(SEM.flatMap((_,i)=>rowsFor(i).map(d=>d.fac)))];
-      const cell=(f,i)=>{const r=rowsFor(i).filter(d=>d.fac===f);return r.length?(r.some(d=>d.late)?'late':'ok'):'none'};
+      const facs=[...new Set(SEM.flatMap((_,i)=>rowsFor(i).map(d=>d.fid)))];
+      const cell=(f,i)=>{const r=rowsFor(i).filter(d=>d.fid===f);return r.length?(r.some(d=>d.late)?'late':'ok'):'none'};
       const grid=facs.map(f=>{const cells=SEM.map((_,i)=>cell(f,i));
-        return{f,cells,total:cells.filter(c=>c==='late').length,repeat:state.sem>0&&cells[state.sem]==='late'&&cells[state.sem-1]==='late'}});
-      grid.sort((a,b)=>b.total-a.total||(a.f<b.f?-1:1));
+        return{f,name:FAC[f].name,cells,total:cells.filter(c=>c==='late').length,repeat:state.sem>0&&cells[state.sem]==='late'&&cells[state.sem-1]==='late'}});
+      grid.sort((a,b)=>b.total-a.total||(a.name<b.name?-1:1));
       const label={late:['r',ico('x',11)+' Late'],ok:['g',ico('tick',11)+' OK'],none:['n','–']};
       drawHtml(`<table class="hm"><thead><tr><th></th>${SEM.map((s,i)=>`<th class="${i===state.sem?'cur':''}">${shortSem(s)}</th>`).join('')}</tr></thead><tbody>${
-        grid.map(g=>`<tr><td class="lab">${g.f}${g.repeat?'<span class="flag">2 sems in a row</span>':''}</td>${g.cells.map(c=>`<td class="c ${label[c][0]}">${label[c][1]}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        <p class="legend">A cell is “Late” if any of the faculty’s sections submitted grades late that semester.</p>`,true);
+        grid.map(g=>`<tr><td class="lab" title="${g.f}">${g.name}${g.repeat?'<span class="flag">2 sems in a row</span>':''}</td>${g.cells.map(c=>`<td class="c ${label[c][0]}">${label[c][1]}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        <p class="legend">A cell is “Late” if any of the faculty’s sections submitted grades late that semester (Faculty Portal grade submissions).</p>`,true);
       const n=grid.filter(g=>g.repeat).length;
       return n?`${n} faculty member${n>1?'s were':' was'} late two semesters in a row: escalate to the Dean/VCAA.`:'No faculty member was late two semesters in a row.'}},
 
-  respQuad:{label:'Response vs SETE',title:()=>'SETE Response vs SETE Rating',
+  respQuad:{title:()=>'SETE Response vs SETE Rating',
     draw(cur){
-      const rows=cur.rows,hiR=d=>d.resp>=80,hiS=d=>d.sete>=4;
+      const rows=cur.rows,hiR=d=>d.resp>=80,rate=d=>d.sete==null?(d.seteRaw||0):d.sete,hiS=d=>rate(d)>=4;
       const q=[['Good response, good SETE',rows.filter(d=>hiR(d)&&hiS(d)).length,'#2e9e5b'],
         ['Good response, low SETE',rows.filter(d=>hiR(d)&&!hiS(d)).length,'#e3a600'],
         ['Low response, good SETE',rows.filter(d=>!hiR(d)&&hiS(d)).length,'#6b9ac4'],
@@ -588,42 +834,44 @@ const CHARTS={
           tooltip:{callbacks:{label:p=>`${p.label}: ${p.raw} section-subjects (${(100*p.raw/rows.length).toFixed(0)}%)`}}}}),plugins:[centerText]});
       return `${goodR} of ${rows.length} reach the 80% response target; ${q[3][1]} have low response and low SETE.`}},
 
-  radar:{label:'SETE criteria',title:()=>'My SETE per Criterion',
+  radar:{title:()=>'My SETE per Criterion',
     draw(cur){
       const prev=state.sem>0?computeKpis(state.sem-1):null;
-      const mine=CRITERIA.map((_,i)=>clamp15(cur.sete+CRITERIA_OFFSET[i]));
+      if(!cur.criteria){noData('SETE rating withheld: too few respondents to report criterion scores.');return 'Minimum: '+CONFIG.setMin.count+' respondents and '+CONFIG.setMin.rate+'% response (sample).'}
+      const mine=cur.criteria;
       const sets=[{label:SEM[state.sem],data:mine,borderColor:'#22364f',backgroundColor:'rgba(34,54,79,.18)',pointRadius:3}];
-      if(prev)sets.push({label:SEM[state.sem-1],data:CRITERIA.map((_,i)=>clamp15(prev.sete+CRITERIA_OFFSET[i])),borderColor:'#9aa4b2',borderDash:[4,3],backgroundColor:'rgba(0,0,0,0)',pointRadius:2});
+      if(prev&&prev.criteria)sets.push({label:SEM[state.sem-1],data:prev.criteria,borderColor:'#9aa4b2',borderDash:[4,3],backgroundColor:'rgba(0,0,0,0)',pointRadius:2});
       sets.push({label:'Target 4.0',data:CRITERIA.map(()=>4),borderColor:'#c62b30',borderDash:[6,4],backgroundColor:'rgba(0,0,0,0)',pointRadius:0});
       drawCanvas({type:'radar',data:{labels:CRITERIA.map(c=>c.split(' ')),datasets:sets},
         options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}}},scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:9},backdropColor:'rgba(0,0,0,0)'},pointLabels:{font:{size:10}}}}})});
       const lo=CRITERIA.map((c,i)=>[c,mine[i]]).sort((a,b)=>a[1]-b[1])[0];
-      return `Weakest criterion: ${lo[0]} at ${lo[1].toFixed(2)}.`+(prev?` Overall SETE moved ${(cur.sete-prev.sete>=0?'+':'')+(cur.sete-prev.sete).toFixed(2)} vs the previous semester.`:'')}},
+      return `Weakest criterion: ${lo[0]} at ${lo[1].toFixed(2)} (${sum(cur.rows.filter(d=>d.criteria),d=>d.respondents)} respondents).`+(prev&&prev.sete!=null&&cur.sete!=null?` Overall SETE moved ${(cur.sete-prev.sete>=0?'+':'')+(cur.sete-prev.sete).toFixed(2)} vs the previous semester.`:'')}},
 
-  seteTrend:{label:'SETE trend',title:()=>'My Average SETE per Semester',
+  seteTrend:{title:()=>'My Average SETE per Semester',
     draw(cur){
-      const vals=SEM.map((_,i)=>{const k=computeKpis(i);return k?+k.sete.toFixed(2):null});
+      const vals=SEM.map((_,i)=>{const k=computeKpis(i);return k&&k.sete!=null?+k.sete.toFixed(2):null});
       drawCanvas({type:'line',data:{labels:SEM.map(s=>s.replace(' Sem','')),datasets:[
-          {data:vals,borderColor:'#c62b30',backgroundColor:'#c62b30',tension:.35,pointRadius:5,fmt:v=>v.toFixed(2)},
+          {data:vals,borderColor:'#c62b30',backgroundColor:'#c62b30',tension:.35,pointRadius:5,spanGaps:true,fmt:v=>v.toFixed(2)},
           {data:SEM.map(()=>4),borderColor:'#2e9e5b',borderDash:[6,4],pointRadius:0,noLabels:true,targetLabel:'Target 4.0'}]},
         options:baseOptions({scales:{y:{min:2.5,max:5,title:axisTitle('Average SETE (1–5)'),ticks:tickFont,grid:gridStyle},x:{title:axisTitle('Semester'),ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
-      let t=`${cur.sete.toFixed(2)} in ${SEM[state.sem]}.`;
+      if(cur.sete==null)return `No valid SETE rating in ${SEM[state.sem]} (too few respondents).`;
+      let t=`${cur.sete.toFixed(2)} in ${SEM[state.sem]} (${catOf(cur.sete)}, sample bands).`;
       if(state.sem>0&&vals[state.sem-1]!=null){const df=cur.sete-vals[state.sem-1];t+=` ${df>=0?'Up':'Down'} ${Math.abs(df).toFixed(2)} from the previous semester.`}
       return t}},
 
-  classOutcome:{label:'Class outcomes',title:()=>'Passed / Failed / Dropped per Class',
+  classOutcome:{title:()=>'Passed / Failed / Dropped per Class',
     draw(cur){
-      const rows=[...cur.rows].sort(byCodeSec);
-      const failed=d=>d.fd*(1-DROP_SHARE),dropped=d=>d.fd*DROP_SHARE;
+      const rows=[...cur.rows].sort(byCodeSec),pc=(d,k)=>+(100*d[k]/d.n).toFixed(1);
       drawCanvas({type:'bar',data:{labels:rows.map(d=>d.lbl),datasets:[
-          {label:'Passed',data:rows.map(d=>100-d.fd),backgroundColor:'#22364f'},
-          {label:'Failed',data:rows.map(d=>+failed(d).toFixed(1)),backgroundColor:'#e3a600'},
-          {label:'Dropped',data:rows.map(d=>+dropped(d).toFixed(1)),backgroundColor:'#c62b30'}]},
+          {label:'Passed',data:rows.map(d=>pc(d,'passed')),backgroundColor:'#22364f'},
+          {label:'Failed',data:rows.map(d=>pc(d,'failed')),backgroundColor:'#e3a600'},
+          {label:'Dropped',data:rows.map(d=>pc(d,'dropped')),backgroundColor:'#c62b30'}]},
         options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}}},
-          datasets:{bar:{maxBarThickness:56,barPercentage:.7}},scales:{x:{stacked:true,title:axisTitle('Class (subject-section)'),ticks:{...tickFont,maxRotation:60},grid:{display:false}},y:{stacked:true,min:0,max:100,title:axisTitle('% of students'),ticks:tickFont,grid:gridStyle}}})});
-      return `On average ${rows.length?(sum(rows,failed)/rows.length).toFixed(0):0}% of students fail and ${rows.length?(sum(rows,dropped)/rows.length).toFixed(0):0}% drop. (Failed/dropped split is estimated in sample data.)`}},
+          datasets:{bar:{maxBarThickness:56,barPercentage:.7}},scales:{x:{stacked:true,title:axisTitle('Class (subject-section)'),ticks:{...tickFont,maxRotation:60},grid:{display:false}},y:{stacked:true,min:0,max:100,title:axisTitle('% of enrolled students'),ticks:tickFont,grid:gridStyle}}})});
+      const n=sum(rows,d=>d.n);
+      return `${sum(rows,d=>d.n)} enrollments across ${rows.length} classes: ${(100*sum(rows,d=>d.failed)/n).toFixed(0)}% failed and ${(100*sum(rows,d=>d.dropped)/n).toFixed(0)}% dropped (Student Portal grades and status).`}},
 
-  hrRanking:{label:'College ranking',title:()=>'High-Risk Course Rate per College',
+  hrRanking:{title:()=>'High-Risk Course Rate per College',
     draw(cur){
       const bars=Object.entries(cur.byGroup).map(([g,a])=>[g,hrRate(a)]).sort((a,b)=>b[1]-a[1]);
       const critical=bars.filter(b=>b[1]>TH.hr[1]).length,top=Math.max(30,Math.ceil((bars[0][1]+5)/5)*5);
@@ -631,10 +879,10 @@ const CHARTS={
         lines:[{axis:'x',value:10,label:'Target 10%'},{axis:'x',value:15,label:'Critical 15%'}],xTitle:'High-risk courses (%)'});
       return `${critical} of ${bars.length} colleges are above the 15% critical line. Highest: ${bars[0][0]} at ${bars[0][1].toFixed(0)}%.`}},
 
-  slope:{label:'Prev → now',title:()=>'High-Risk Rate: Previous vs Current Semester',
+  slope:{title:()=>'High-Risk Rate: Previous vs Current Semester',
     draw(cur){
       const prev=state.sem>0?computeKpis(state.sem-1):null;
-      if(!prev){drawHtml('<p class="none">No previous semester to compare with. Pick a later semester.</p>');return 'A slope chart needs two semesters.'}
+      if(!prev){noData('No previous semester to compare with. Pick a later semester.');return 'A slope chart needs two semesters.'}
       const cols=Object.keys(cur.byGroup).filter(c=>prev.byGroup[c]);let worse=0,better=0;
       const sets=cols.map(c=>{const a=hrRate(prev.byGroup[c]),b=hrRate(cur.byGroup[c]),df=b-a;
         if(df>0.5)worse++;else if(df<-0.5)better++;
@@ -644,7 +892,7 @@ const CHARTS={
         options:baseOptions({layout:{padding:{right:92}},scales:{y:{min:0,title:axisTitle('High-risk courses (%)'),ticks:tickFont,grid:gridStyle},x:{ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels,endLabels]});
       return `${worse} college${worse===1?'':'s'} got worse (red), ${better} improved (green) vs the previous semester. Grey = unchanged.`}},
 
-  collegeTrends:{label:'College trends',title:()=>'Passing Rate Trend per College',
+  collegeTrends:{title:()=>'Passing Rate Trend per College',
     draw(){
       const cols=Object.keys(COLLEGE_NAME);let below=0;
       drawHtml(`<div class="mini-grid">${cols.map(c=>`<div class="mini"><div class="mini-h"><b>${c}</b><span id="mv_${c}"></span></div><div class="mini-c" id="mw_${c}"><canvas id="mc_${c}" role="img" aria-label="${c} passing rate trend"></canvas></div></div>`).join('')}</div>`,true);
@@ -658,28 +906,152 @@ const CHARTS={
           {data:vals.map(v=>v==null?null:+v.toFixed(1)),borderColor:color,backgroundColor:color,tension:.3,pointRadius:3,spanGaps:true,fmt:v=>v.toFixed(0)},
           {data:SEM.map(()=>85),borderColor:'#9aa4b2',borderDash:[4,3],pointRadius:0,noLabels:true}]},
           options:baseOptions({layout:{padding:{top:12,right:8}},scales:{y:{min:60,max:100,ticks:{font:{size:8},stepSize:20},grid:gridStyle},x:{ticks:{font:{size:8},maxRotation:0,autoSkip:false},grid:{display:false}}}}),plugins:[valueLabels]}))});
-      return `${below} of ${cols.length} colleges are below the 85% passing target this semester (dashed line = target).`}}
+      return `${below} of ${cols.length} colleges are below the 85% passing target this semester (dashed line = target).`}},
+
+  /* ---------- integrated charts (use two or three sources together) ---------- */
+  criteriaBar:{title:()=>'SETE per Criterion · Current vs Previous Semester',
+    draw(cur){
+      const prev=state.sem>0?computeKpis(state.sem-1):null;
+      if(!cur.criteria){noData('No valid SETE ratings for this filter.');return 'Ratings are withheld when response is too low.'}
+      const sets=[{label:SEM[state.sem],data:cur.criteria.map(v=>+v.toFixed(2)),backgroundColor:'#22364f',fmt:v=>v.toFixed(2)}];
+      if(prev&&prev.criteria)sets.push({label:SEM[state.sem-1],data:prev.criteria.map(v=>+v.toFixed(2)),backgroundColor:'#9aa4b2',fmt:v=>v.toFixed(2)});
+      drawCanvas({type:'bar',data:{labels:CRITERIA.map(c=>c.split(' ')),datasets:sets},
+        options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}},refLines:{lines:[{axis:'y',value:4,label:'Target 4.0'}]}},
+          scales:{y:{min:2.5,max:5,title:axisTitle('Average rating (1–5)'),ticks:tickFont,grid:gridStyle},x:{ticks:{font:{size:9}},grid:{display:false}}}}),plugins:[valueLabels,refLines]});
+      const lo=CRITERIA.map((c,i)=>[c,cur.criteria[i]]).sort((a,b)=>a[1]-b[1])[0];
+      return `Lowest criterion: ${lo[0]} (${lo[1].toFixed(2)}). Based on ${sum(cur.rows.filter(d=>d.criteria),d=>d.respondents)} respondents in ${cur.rows.filter(d=>d.criteria).length} classes.`}},
+
+  seteVsPass:{title:()=>'SETE Rating vs Passing Rate (per subject)',
+    draw(cur){
+      const cs=cur.courses.filter(c=>c.sete!=null);
+      if(!cs.length){noData('No subject has a valid SETE rating for this filter.');return 'Ratings are withheld when response is too low.'}
+      const f=crossFlags(cur),COL0='rgba(34,54,79,.65)';
+      const col=c=>c.sete<4&&c.pass<85?'rgba(198,43,48,.8)':(c.sete>=4&&c.pass<85)||(c.sete<4&&c.pass>=85)?'rgba(227,166,0,.85)':COL0;
+      drawCanvas({type:'bubble',data:{datasets:[{data:cs.map(c=>({x:+c.sete.toFixed(2),y:+c.pass.toFixed(1),r:Math.max(5,Math.min(16,c.n/10))})),backgroundColor:cs.map(col),pointLabels:cs.map(c=>col(c)!==COL0?c.lbl:null)}]},
+        options:baseOptions({plugins:{refLines:{lines:[{axis:'x',value:4,label:'SETE 4.0'},{axis:'y',value:85,label:'Passing 85%'}]},
+          tooltip:{callbacks:{label:p=>{const c=cs[p.dataIndex];return `${c.lbl} – ${c.name} (SETE ${p.raw.x}, passing ${p.raw.y}%, ${c.n} students)`}}}},
+          scales:{x:{min:2.5,max:5,title:axisTitle('Average SETE rating (SETE)'),ticks:tickFont,grid:gridStyle},y:{min:40,max:100,title:axisTitle('Passing rate % (Student Portal)'),ticks:tickFont,grid:gridStyle}}}),plugins:[refLines,valueLabels]});
+      return `Red: ${f.both.length} low SETE + low passing (instructional support). Amber: ${f.hiLow.length} high SETE but low passing, ${f.loHigh.length} low SETE but passing (investigate; not conclusions).`}},
+
+  enrollTrend:{title:()=>'Enrollment and Passing Rate per Semester',
+    draw(cur){
+      const per=SEM.map((_,i)=>{const r=rowsFor(i);return r.length?{n:sum(r,d=>d.n),act:sum(r,d=>d.active),pass:passOf(r)}:null});
+      drawCanvas({type:'bar',data:{labels:SEM.map(shortSem),datasets:[
+          {type:'bar',label:'Enrollments',data:per.map(p=>p?p.n:null),backgroundColor:'#6b9ac4',yAxisID:'y'},
+          {type:'bar',label:'Active (not dropped)',data:per.map(p=>p?p.act:null),backgroundColor:'#22364f',yAxisID:'y'},
+          {type:'line',label:'Passing rate %',data:per.map(p=>p&&p.pass!=null?+p.pass.toFixed(1):null),borderColor:'#c62b30',backgroundColor:'#c62b30',tension:.3,pointRadius:4,spanGaps:true,yAxisID:'y1',fmt:v=>v.toFixed(0)+'%'}]},
+        options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}}},
+          scales:{y:{beginAtZero:true,title:axisTitle('Student-subject enrollments'),ticks:tickFont,grid:gridStyle},y1:{position:'right',min:50,max:100,title:axisTitle('Passing rate (%)'),ticks:tickFont,grid:{display:false}},x:{ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
+      const rows=cur.rows;
+      return `${SEM[state.sem]}: ${uniqueStudents(rows)} unique students, ${sum(rows,d=>d.n)} subject enrollments, ${sum(rows,d=>d.dropped)} dropped. Enrollment Rate ${cur.enr.toFixed(0)}% of seats (sample capacity ${CONFIG.capacity}).`}},
+
+  seteTrendGroup:{title:()=>`Faculty SETE Trend per ${groupName(groupKey())}`,
+    draw(cur){
+      const k=groupKey(),gs=groupList(k);
+      const sets=gs.map((g,i)=>({label:groupLbl(k,g),borderColor:PAL6[i%6],backgroundColor:PAL6[i%6],tension:.3,pointRadius:3,spanGaps:true,
+        data:SEM.map((_,s)=>{const v=seteOf(rowsFor(s).filter(d=>d[k]===g));return v==null?null:+v.toFixed(2)})}));
+      sets.push({label:'Target 4.0',data:SEM.map(()=>4),borderColor:'#9aa4b2',borderDash:[6,4],pointRadius:0,noLabels:true,targetLabel:'Target 4.0'});
+      drawCanvas({type:'line',data:{labels:SEM.map(shortSem),datasets:sets},
+        options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10},filter:i=>i.text!=='Target 4.0'}}},
+          scales:{y:{min:3,max:5,title:axisTitle('Average SETE (1–5)'),ticks:tickFont,grid:gridStyle},x:{ticks:tickFont,grid:{display:false}}}}),plugins:[valueLabels]});
+      const now=gs.map(g=>[g,seteOf(cur.rows.filter(d=>d[k]===g))]).filter(x=>x[1]!=null).sort((a,b)=>a[1]-b[1]);
+      return now.length?`Lowest this semester: ${groupLbl(k,now[0][0])} at ${now[0][1].toFixed(2)}. Averages are respondent-weighted and exclude withheld ratings.`:'No valid SETE ratings this semester.'}},
+
+  respGroup:{title:()=>`SETE Response Rate per ${groupName(groupKey())}`,
+    draw(cur){
+      const k=groupKey(),bars=groupList(k).map(g=>[g,respOf(cur.rows.filter(d=>d[k]===g))]).filter(b=>b[1]!=null).sort((a,b)=>a[1]-b[1]);
+      drawLollipop({labels:bars.map(b=>groupLbl(k,b[0])),values:bars.map(b=>+b[1].toFixed(1)),colors:bars.map(b=>b[1]<TH.resp[1]?'#c62b30':b[1]<TH.resp[0]?'#e3a600':'#22364f'),fmt:v=>v.toFixed(0)+'%',max:100,
+        lines:[{axis:'x',value:80,label:'Target 80%'}],xTitle:'Respondents ÷ eligible students (%)'});
+      return `${bars.filter(b=>b[1]<80).length} of ${bars.length} groups are below the 80% response target (${sum(cur.rows,d=>d.respondents)} of ${sum(cur.rows,d=>d.eligible)} eligible students responded).`}},
+
+  compliance:{title:()=>`Grade Submission & Teaching Load Compliance per ${groupName(groupKey())}`,
+    draw(cur){
+      const k=groupKey(),gs=groupList(k).filter(g=>cur.rows.some(d=>d[k]===g)),sub=g=>cur.rows.filter(d=>d[k]===g);
+      drawCanvas({type:'bar',data:{labels:gs.map(g=>groupLbl(k,g)),datasets:[
+          {label:'Grade submission compliance %',data:gs.map(g=>+(100-lateOf(sub(g))).toFixed(1)),backgroundColor:'#22364f',fmt:v=>v.toFixed(0)},
+          {label:'Teaching load compliance %',data:gs.map(g=>+loadOf(sub(g)).toFixed(1)),backgroundColor:'#6b9ac4',fmt:v=>v.toFixed(0)}]},
+        options:baseOptions({plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:10}}},refLines:{lines:[{axis:'y',value:95,label:'Grade target 95%'}]}},
+          scales:{y:{min:0,max:110,title:axisTitle('Compliance (%)'),ticks:{...tickFont,callback:v=>v>100?'':v},grid:gridStyle},x:{ticks:{font:{size:10}},grid:{display:false}}}}),plugins:[valueLabels,refLines]});
+      const lowG=gs.map(g=>[g,100-lateOf(sub(g))]).sort((a,b)=>a[1]-b[1])[0],lowL=gs.map(g=>[g,loadOf(sub(g))]).sort((a,b)=>a[1]-b[1])[0];
+      return `Lowest grade compliance: ${groupLbl(k,lowG[0])} (${lowG[1].toFixed(0)}%). Lowest load compliance: ${groupLbl(k,lowL[0])} (${lowL[1].toFixed(0)}%).`}},
+
+  sectionPerf:{title:()=>'Students’ Passing Rate per Section (lowest 12)',
+    draw(cur){
+      const m={};cur.rows.forEach(d=>(m[d.sec+'|'+d.col]=m[d.sec+'|'+d.col]||[]).push(d));
+      const list=Object.values(m).map(a=>({lbl:`Sec ${a[0].sec} · ${a[0].trk==='Core'?'Core':a[0].trk}`,pass:passOf(a),n:sum(a,d=>d.n)})).sort((a,b)=>a.pass-b.pass),show=list.slice(0,12);
+      drawLollipop({labels:show.map(x=>x.lbl),values:show.map(x=>+x.pass.toFixed(1)),colors:show.map(x=>x.pass<TH.pass[1]?'#c62b30':x.pass<TH.pass[0]?'#e3a600':'#22364f'),fmt:v=>v.toFixed(0)+'%',max:100,min:40,
+        lines:[{axis:'x',value:85,label:'Target 85%'}],xTitle:'Passing rate across all subjects of the section (%)'});
+      return `${list.filter(x=>x.pass<85).length} of ${list.length} sections are below the 85% passing target. Showing the 12 lowest (all subjects combined).`}},
+
+  facultyRank:{title:()=>'Faculty Average SETE (lowest 12)',
+    draw(cur){
+      const m={};cur.rows.forEach(d=>(m[d.fid]=m[d.fid]||[]).push(d));
+      const all=Object.entries(m).map(([f,a])=>[f,seteOf(a),sum(a,d=>d.respondents)]),list=all.filter(x=>x[1]!=null).sort((a,b)=>a[1]-b[1]),show=list.slice(0,12);
+      if(!list.length){noData('No faculty has a valid SETE rating for this filter.');return 'Ratings are withheld when response is too low.'}
+      drawLollipop({labels:show.map(x=>FAC[x[0]].name),values:show.map(x=>+x[1].toFixed(2)),colors:show.map(x=>x[1]<3.5?'#c62b30':x[1]<4?'#e3a600':'#22364f'),fmt:v=>v.toFixed(2),max:5,min:2.5,
+        lines:[{axis:'x',value:4,label:'Target 4.0'}],xTitle:'Respondent-weighted SETE rating (1–5)'});
+      const miss=all.length-list.length;
+      return `${list.filter(x=>x[1]<4).length} of ${list.length} faculty are below 4.0.${miss?` ${miss} faculty not ranked (SETE withheld).`:''} SETE is one input, not the sole measure of teaching.`}},
+
+  loadTable:{title:()=>'Faculty Teaching Load, Grade Submission & SETE',
+    draw(cur){
+      const m={};cur.rows.forEach(d=>(m[d.fid]=m[d.fid]||[]).push(d));
+      const list=Object.entries(m).map(([fid,a])=>({fid,name:a[0].fac,sec:a.length,units:sum(a,d=>d.units),n:sum(a,d=>d.n),inc:a.filter(d=>!d.done).length,late:a.filter(d=>d.late).length,sete:seteOf(a),resp:respOf(a)}))
+        .sort((x,y)=>(y.inc+y.late)-(x.inc+x.late)||x.name.localeCompare(y.name));
+      drawHtml(`<table class="dt"><thead><tr><th>Faculty</th><th>Classes</th><th>Units</th><th>Students</th><th>Teaching load</th><th>Grades</th><th>SETE</th><th>Resp.</th></tr></thead><tbody>${
+        list.map(x=>`<tr><td><b>${x.name}</b><br><span style="color:var(--mute)">${x.fid}</span></td><td>${x.sec}</td><td>${x.units}</td><td>${x.n}</td>
+          <td>${x.inc?`<span class="pill y">${x.inc} incomplete</span>`:'<span class="pill">Complete</span>'}</td>
+          <td>${x.late?`<span class="pill r">${x.late} late</span>`:'<span class="pill">On time</span>'}</td>
+          <td>${fmtS(x.sete)}</td><td>${x.resp==null?'–':x.resp.toFixed(0)+'%'}</td></tr>`).join('')}</tbody></table>`);
+      return `${list.filter(x=>x.inc).length} of ${list.length} faculty have an incomplete teaching load; ${list.filter(x=>x.late).length} submitted grades late (Faculty Portal), shown with their SETE.`}},
+
+  seteHistory:{title:()=>'My SETE Evaluation History',
+    draw(){
+      const rows=SEM.flatMap((_,i)=>rowsFor(i)).sort((a,b)=>b.sem-a.sem||byCodeSec(a,b));
+      drawHtml(`<table class="dt"><thead><tr><th>Term</th><th>Class</th><th>Enrolled</th><th>Respondents</th><th>Resp.</th><th>Overall</th><th>Category</th></tr></thead><tbody>${
+        rows.map(d=>`<tr class="clk" data-detail="${d.id}" title="Open class details"><td>${shortSem(SEM[d.sem])}</td><td><b>${d.lbl}</b></td><td>${d.n}</td><td>${d.respondents} / ${d.eligible}</td><td>${d.resp.toFixed(0)}%</td>
+          <td>${d.sete==null?'<span class="pill y">Withheld</span>':d.sete.toFixed(2)}</td><td>${d.sete==null?'–':catOf(d.sete)}</td></tr>`).join('')}</tbody></table>
+        <p class="legend">Rating categories use sample bands. Overall = weighted average of the five criteria. Withheld = response below the minimum.</p>`);
+      return `${rows.length} class evaluations across ${new Set(rows.map(d=>d.sem)).size} terms; each row links faculty, subject, section, enrolled students and respondents.`}},
+
+  comments:{title:()=>'Student Feedback (anonymous)',
+    draw(cur){
+      if(!role.access.comments){noData('Restricted: comments are visible only to the evaluated faculty and the program chair.');return 'Access limited by role.'}
+      const items=cur.rows.filter(d=>d.sete!=null).flatMap(d=>((DB.sete[d.id]||{}).comments||[]).map(c=>({d,c})));
+      if(!items.length){noData('No comments available for this filter.');return 'Comments are optional and are hidden when the response rate is too low.'}
+      drawHtml(items.map(x=>`<div class="cm"><b>${x.d.lbl} · ${x.c.c}</b><br>${x.c.t}</div>`).join(''));
+      return `${items.length} anonymous comment(s) from ${sum(cur.rows,d=>d.respondents)} respondents. Sample text only; comments never show student identity.`}}
 };
 
-/* 8. LIST PANELS (role-specific list under the chart) */
+/* 8. LIST PANELS (role-specific list under the charts) */
+const drillNote=()=>state.drill?` · Filtered by: ${role.kpiNames[state.drill]||KPI[state.drill].name} (click the KPI again to clear)`:'';
+function subjList(cur){
+  const keys=new Set(drillRows(cur).map(d=>d.col+':'+d.code));
+  return cur.courses.filter(c=>keys.has(c.col+':'+c.code)).map(c=>{const rs=cur.rows.filter(d=>d.col===c.col&&d.code===c.code);return{...c,drop:100*sum(rs,d=>d.dropped)/sum(rs,d=>d.n)}})
+    .sort((a,b)=>(b.hr-a.hr)||(a.pass-b.pass))}
 const PANELS={
-  groups:{title:()=>state.roleKey==='admin'?'College Ranking':'Track Overview',
-    hint:()=>state.roleKey==='admin'?'Ranked by high-risk course rate. Click a college to filter.':'Click a track to filter the whole dashboard.',
+  deanSubjects:{title:()=>'Subjects Needing Support',
+    hint:cur=>`Showing ${Math.min(8,subjList(cur).length)} of ${subjList(cur).length} subjects. Click one to filter the dashboard.${drillNote()}`,
+    html(cur){return subjList(cur).slice(0,8).map(c=>`<button class="item" data-subject="${c.code}"><div class="avatar">${c.code.slice(0,2)}</div><div class="txt"><b>${c.lbl} · ${c.name}</b><span class="sub">${c.prog} · ${c.n} students · Passing ${c.pass.toFixed(0)}% · Dropout ${c.drop.toFixed(0)}% · SETE ${fmtS(c.sete)}</span></div><span class="pill ${c.hr?'r':c.pass<85?'y':''}">${c.hr?'High-risk':c.pass<85?'Low passing':'Monitor'}</span></button>`).join('')}},
+  groups:{title:()=>'College Ranking',
+    hint:()=>'Ranked by high-risk course rate. Click a college to filter the dashboard.'+drillNote(),
     html(cur){
-      const groups=Object.entries(cur.byGroup).map(([g,a])=>({g,n:a.length,hr:hrRate(a),pass:sum(a,x=>x.pass)/a.length,sete:sum(a,x=>x.sete)/a.length}));
-      if(state.roleKey==='admin')groups.sort((a,b)=>b.hr-a.hr);else groups.sort((a,b)=>a.g<b.g?-1:1);
-      return groups.map(x=>{const c=x.hr>TH.hr[1]?'r':x.hr>TH.hr[0]?'y':'',name=COLLEGE_NAME[x.g]?COLLEGE_NAME[x.g]+' · ':'';
-        return`<button class="item" data-group="${x.g}" title="Average SETE ${x.sete.toFixed(2)}"><div class="avatar">${x.g.slice(0,2)}</div><div class="txt"><b>${x.g}</b><span class="sub">${name}${x.n} ${subjWord()} · Passing ${x.pass.toFixed(0)}%</span></div><span class="pill ${c}">${x.hr.toFixed(0)}% high-risk</span></button>`}).join('')}},
+      const k=role.rollupBy;
+      let g=Object.entries(cur.byGroup).map(([n,a])=>{const rs=cur.rows.filter(d=>d[k]===n);return{g:n,n:a.length,hr:hrRate(a),pass:passOf(rs),sete:seteOf(rs),cmp:completionOf(rs)}});
+      const f={hr:x=>x.hr>TH.hr[0],colr:x=>x.hr>TH.hr[1],decl:x=>!!cur.declG&&cur.declG.has(x.g),cmp:x=>x.cmp!=null&&x.cmp<80,sete:x=>x.sete!=null&&x.sete<4}[state.drill];
+      if(f)g=g.filter(f);
+      return g.sort((a,b)=>b.hr-a.hr).map(x=>{const c=x.hr>TH.hr[1]?'r':x.hr>TH.hr[0]?'y':'';
+        return`<button class="item" data-group="${x.g}"><div class="avatar">${x.g.slice(0,2)}</div><div class="txt"><b>${x.g}</b><span class="sub">${COLLEGE_NAME[x.g]||''} · ${x.n} subjects · Passing ${x.pass==null?'–':x.pass.toFixed(0)+'%'} · SETE ${fmtS(x.sete)} · Student SETE completion ${x.cmp==null?'–':x.cmp.toFixed(0)+'%'}</span></div><span class="pill ${c}">${x.hr.toFixed(0)}% high-risk</span></button>`}).join('')}},
   topSections:{title:()=>'Sections Needing Follow-up',
-    hint:cur=>`Top ${Math.min(5,drillRows(cur).length)} of ${drillRows(cur).length} section-subjects${state.drill?' · Filtered by: '+(role.kpiNames[state.drill]||KPI[state.drill].name)+' (click the KPI again to clear)':''}`,
+    hint:cur=>`Top ${Math.min(5,drillRows(cur).length)} of ${drillRows(cur).length} section-subjects${drillNote()}`,
     html(cur){
       return drillRows(cur).map(d=>({...d,pass:100-d.fd})).sort((a,b)=>riskScore(b)-riskScore(a)).slice(0,5).map(d=>{const i=mainIssue(d);
-        return`<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}"><div class="avatar">${d.fac.replace('Prof. ','').slice(0,2).toUpperCase()}</div><div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${d.fac} · ${decodeSection(d.sec)}</span></div><span class="pill ${i[1]}">${i[0]}</span></button>`}).join('')}},
+        return`<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}"><div class="avatar">${d.fac.replace('Prof. ','').slice(0,2).toUpperCase()}</div><div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${d.fac} (${d.fid}) · ${decodeSection(d.sec)} · ${d.n} enrolled · Passing ${d.pass.toFixed(0)}% · SETE ${fmtS(d.sete)}</span></div><span class="pill ${i[1]}">${i[0]}</span></button>`}).join('')}},
   myClasses:{title:()=>'My Classes',
-    hint:()=>'Click a class to see its SETE details.'+(state.drill?` Filtered by: ${role.kpiNames[state.drill]||KPI[state.drill].name} (click the KPI again to clear).`:''),
+    hint:cur=>'Click a class to see its roster, SETE details, and grade submission.'+drillNote(),
     html(cur){
       return drillRows(cur).map(d=>({...d,pass:100-d.fd})).sort(byCodeSec).map(d=>{const i=mainIssue(d);
-        return`<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}"><div class="avatar">${d.sec.slice(2)}</div><div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${decodeSection(d.sec)} · SETE ${d.sete.toFixed(2)} · Response ${d.resp}% · Passing ${d.pass}%</span></div><span class="pill ${i[1]}">${i[0]}</span></button>`}).join('')}}
+        return`<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}"><div class="avatar">${d.sec.slice(2)}</div><div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${decodeSection(d.sec)} · ${d.n} enrolled · SETE ${fmtS(d.sete)} (${d.respondents}/${d.eligible} responded) · Passing ${d.pass.toFixed(0)}%</span></div><span class="pill ${i[1]}">${i[0]}</span></button>`}).join('')}}
 };
 
 /* 9. RENDER */
@@ -692,9 +1064,9 @@ function render(){
   destroyCharts();
   if(!cur){
     $('kpiRow').innerHTML='<p class="card" style="grid-column:1/-1;color:var(--mute)">No data for this filter combination. Press Reset.</p>';
-    ['alertList','panelBody','panelHint','mainCaption','secondCaption','sideCaption','mainHtml','secondHtml','sideHtml'].forEach(id=>$(id).innerHTML='');
+    ['alertList','panelBody','panelHint','integLeft','integRight',...SLOT_IDS.flatMap(s=>[s+'Caption',s+'Html'])].forEach(id=>$(id).innerHTML='');
     alertsList=[];$('alertCount').style.display='none';return}
-  renderKpiCards(cur,prev);renderSlots(cur);renderPanel(cur);
+  renderKpiCards(cur,prev);renderSlots(cur);renderPanel(cur);renderInteg(cur);
   alertsList=buildAlerts(cur);renderAlerts()}
 
 function renderKpiCards(cur,prev){
@@ -702,14 +1074,13 @@ function renderKpiCards(cur,prev){
     const v=cur[key],st=kpiStatus(key,v,state.sem),def=KPI[key],name=role.kpiNames[key]||def.name;
     let trend='';
     if(prev&&v!=null&&prev[key]!=null){const df=v-prev[key],good=def.lowerIsBetter?df<=0:df>=0;
-      trend=`<p><u>Vs previous sem:</u> ${Math.abs(df)<0.05?'No change':`${ico(df>=0?'up':'down',11)} ${Math.abs(df).toFixed(1)} (${good?'improving':'worsening'})`}</p>`}
-    kpiTips[key]=`<b>${name}</b><p>${def.objective}</p><p><u>Formula:</u> ${def.formula}</p><p><u>Target:</u> ${def.targetText}</p>${trend}<p style="color:#9fb3cf">Click to list the sections behind this KPI.</p>`;
+      trend=`<p><u>Vs previous sem:</u> ${Math.abs(df)<0.05?'No change':`${ico(df>=0?'up':'down',11)} ${Math.abs(df).toFixed(key==='sete'?2:1)} (${good?'improving':'worsening'})`}</p>`}
+    kpiTips[key]=`<b>${name}</b><p>${def.objective}</p><p><u>Formula:</u> ${def.formula}</p><p><u>Target:</u> ${def.targetText} <span style="color:#9fb3cf">(sample threshold, configurable)</span></p><p><u>Data:</u> ${def.src}</p>${trend}<p style="color:#9fb3cf">Click to list the classes behind this KPI.</p>`;
     return`<button class="kpi ${st}${state.drill===key?' on':''}" data-kpi="${key}" aria-pressed="${state.drill===key}">
       <div class="ic">${ico(def.icon,17)}</div><h3>${name}</h3><div class="v">${v==null?'N/A':def.fmt(v)}</div><div class="st">${STATUS_TEXT[st]}</div></button>`}).join('')}
 
-/* draws the 3 visualizations of the current role: main, second, side */
 function renderSlots(cur){
-  ['main','second','side'].forEach(s=>{
+  SLOT_IDS.forEach(s=>{
     slot=s;const def=CHARTS[role.slots[s]],caption=def.draw(cur);
     $(s+'Title').textContent=def.title(cur);$(s+'Caption').textContent=caption;
     $(s+'Canvas').setAttribute('aria-label',def.title(cur)+'. '+caption)});
@@ -719,7 +1090,24 @@ function renderPanel(cur){
   $('panelTitle').textContent=p.title();$('panelHint').textContent=p.hint(cur);
   $('panelBody').innerHTML=p.html(cur)||'<p class="none">Nothing matches this filter.</p>'}
 
-/* notifications: each alert can be marked as read; the bell only counts the unread ones */
+/* integration card: what each source contributes to the current view + integrity checks */
+function integSummary(cur){
+  const rows=cur.rows,t=TERMS[state.sem],graded=sum(rows,d=>(ENR_BY_OID[d.id]||[]).filter(e=>e.grade!=null).length);
+  const rated=rows.filter(d=>d.sete!=null).length,withheld=rows.filter(d=>d.seteStatus!=='Valid').length;
+  const cm=role.access.comments?sum(rows.filter(d=>d.sete!=null),d=>((DB.sete[d.id]||{}).comments||[]).length):null;
+  return[
+    ['Student Portal',`${uniqueStudents(rows)} students · ${sum(rows,d=>d.n)} enrollments · ${graded} grades`,'Student ID → Subject Code + Section + Term'],
+    ['Faculty Portal',`${new Set(rows.map(d=>d.fid)).size} faculty · ${rows.length} class assignments · ${rows.length} grade submissions (${rows.filter(d=>d.late).length} late)`,'Faculty ID → Subject Code + Section + Term'],
+    ['SETE',`${sum(rows,d=>d.eligible)} eligible students · ${sum(rows,d=>d.respondents)} respondents · ${rated} classes rated, ${withheld} withheld/none${cm==null?' · comments restricted':` · ${cm} comments`}`,`Evaluation period ${t.eval[0]} to ${t.eval[1]} · AY ${t.ay}, ${t.sem} Sem`]]}
+function renderInteg(cur){
+  const sm=integSummary(cur),ok=CHECKS.filter(c=>!c[1]).length;
+  $('integPill').textContent=`${ok} / ${CHECKS.length} checks passed`;$('integPill').className='pill'+(ok<CHECKS.length?' r':'');
+  $('integLeft').innerHTML=`<table class="dt"><thead><tr><th>Source</th><th>Records in the current view</th><th>Linked by</th></tr></thead><tbody>${sm.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table>
+    <p class="integ-keys"><b>Join path:</b> Student ID ⟷ enrollment ⟷ class (Subject Code · Section · Term/AY) ⟷ Faculty ID ⟷ SETE result. SETE respondents are derived from student enrollment records, so response rate always uses the real enrolled/eligible count.</p>`;
+  $('integRight').innerHTML=CHECKS.map(c=>`<div class="chk"><span class="pill ${c[1]?'r':''}">${c[1]?c[1]+' '+c[2]:'OK'}</span><span>${c[0]}</span></div>`).join('')+
+    `<p class="legend" style="margin-top:6px">${SAMPLE_MODE?'Sample records: no live Student Portal, Faculty Portal or SETE database/API is connected. Swap DataAdapters.sample() for an API adapter with the same six collections.':'Live records.'}</p>`}
+
+/* notifications */
 const READ_KEY='spartheon-read-alerts';
 const readSet=new Set((()=>{try{return JSON.parse(localStorage.getItem(READ_KEY)||'[]')}catch(e){return[]}})());
 const saveRead=()=>{try{localStorage.setItem(READ_KEY,JSON.stringify([...readSet]))}catch(e){}};
@@ -758,117 +1146,171 @@ function renderAlertModal(){
   openModal();
   $('allAlerts').onclick=alertClick}
 function openAlerts(){modalMode='alerts';renderAlertModal()}
-/* REPORT: per-role insights summary (preview, then print or save as PDF) */
+/* REPORT: per-role insights summary (preview, then print or save as PDF). Aggregates only: no student-level data. */
 const listOf=(a,n=5)=>a.length?a.slice(0,n).join(', ')+(a.length>n?` +${a.length-n} more`:''):'none';
 function buildInsights(cur,prev){
   const R=state.roleKey,out=[];
-  const subj=[...new Set(cur.rows.map(d=>d.code))].map(c=>({c,p:passOf(cur.rows.filter(d=>d.code===c))})).sort((a,b)=>a.p-b.p);
-  const lowS=subj[0],hrList=cur.courses.filter(c=>c.hr).map(c=>c.lbl);
-  const lateRows=cur.rows.filter(d=>d.late),repeat=[...new Set(lateRows.filter(d=>repeatedLate(state.sem,d.fac)).map(d=>d.fac))];
   const lowResp=cur.rows.filter(d=>d.resp<80).sort((a,b)=>a.resp-b.resp);
-  const groups=Object.entries(cur.byGroup).map(([g,a])=>[g,hrRate(a)]).sort((a,b)=>b[1]-a[1]);
+  const subj=[...new Set(cur.rows.map(d=>d.code))].map(c=>({c,p:passOf(cur.rows.filter(d=>d.code===c))})).sort((a,b)=>a.p-b.p),lowS=subj[0];
+  const hrList=cur.courses.filter(c=>c.hr).map(c=>c.lbl),cf=crossFlags(cur),wh=cur.rows.filter(d=>d.seteStatus!=='Valid').length;
   const subjLine=`Lowest passing rate: ${lowS.c} ${COURSE_INFO[lowS.c].name} at ${lowS.p.toFixed(0)}%${lowS.p<TH.pass[0]?' (below the 85% target)':''}.`;
-  const impLine=cur.imp==null?'No previous semester is available for a SETE comparison.':`Average SETE moved ${signed(cur.imp)} vs the previous semester (target ≥ 5%).`;
-  const lateLine=`${lateRows.length} of ${cur.rows.length} section-subjects submitted grades late`+(repeat.length?`; late two semesters in a row: ${listOf(repeat)}.`:'.');
-  if(R==='dean'){
-    out.push(`${hrList.length} of ${cur.courses.length} IT subjects are high-risk (failure + dropout ≥ 20% and SETE < 3.5): ${listOf(hrList)}.`);
-    if(groups.length)out.push(`Highest high-risk rate by track: ${groups[0][0]} at ${groups[0][1].toFixed(0)}%.`);
-    out.push(subjLine,lateLine,impLine)}
-  else if(R==='chair'){
-    out.push(lateLine);
-    out.push(`${lowResp.length} section-subjects are below the 80% SETE response target`+(lowResp.length?`; lowest: ${listOf(lowResp.map(d=>`${d.lbl} (${d.resp}%)`),3)}.`:'.'));
+  if(R==='chair'){
+    out.push(`${cur.rows.filter(d=>d.late).length} of ${cur.rows.length} section-subjects submitted grades late (${cur.late.toFixed(1)}%; target ≤ 5%).`);
+    out.push(`${lowResp.length} section-subjects are below the 80% SETE response target`+(lowResp.length?`; lowest: ${listOf(lowResp.map(d=>`${d.lbl} (${d.resp.toFixed(0)}%)`),3)}.`:'.'));
+    out.push(`${cur.cov.toFixed(0)}% of classes have a reportable SETE rating (target ≥ 90%).`,subjLine,`Sections are ${cur.enr.toFixed(0)}% full (sample capacity ${CONFIG.capacity} seats).`);
     const top=[...cur.rows].sort((a,b)=>riskScore(b)-riskScore(a)).slice(0,3).filter(d=>mainIssue(d)[0]!=='On track');
-    if(top.length)out.push(`Follow up first: ${top.map(d=>`${d.lbl} (${d.fac}, ${mainIssue(d)[0].toLowerCase()})`).join('; ')}.`);
-    out.push(subjLine,impLine)}
+    if(top.length)out.push(`Follow up first: ${top.map(d=>`${d.lbl} (${d.fac}, ${mainIssue(d)[0].toLowerCase()})`).join('; ')}.`)}
+  else if(R==='dean'){
+    out.push(`${cur.lsp} subject(s) combine low SETE and low passing${cf.both.length?': '+listOf(cf.both.map(c=>c.lbl),4):''}.`);
+    out.push(`Dropout rate is ${cur.drop.toFixed(1)}% (target ≤ 10%).`);
+    out.push(`${cur.fbt} faculty are below the 4.0 SETE target${cur.fbt?': '+listOf([...cur.fbtF].map(f=>FAC[f].name),4):''}.`);
+    out.push(`Teaching load compliance is ${cur.load.toFixed(0)}%; ${cur.rep} faculty were late with grades two semesters in a row.`);
+    out.push(`${hrList.length} high-risk subject(s): ${listOf(hrList)}.`)}
   else if(R==='faculty'){
-    const mine=CRITERIA.map((c,i)=>[c,clamp15(cur.sete+CRITERIA_OFFSET[i])]).sort((a,b)=>a[1]-b[1]),hi=mine[mine.length-1];
-    out.push(`My average SETE is ${cur.sete.toFixed(2)} / 5`+(prev?` (${cur.sete-prev.sete>=0?'+':'−'}${Math.abs(cur.sete-prev.sete).toFixed(2)} vs the previous semester).`:'.'));
-    out.push(`Weakest criterion: ${mine[0][0]} (${mine[0][1].toFixed(2)}). Strongest: ${hi[0]} (${hi[1].toFixed(2)}).`);
-    out.push(`Average SETE response across my sections is ${cur.resp.toFixed(0)}%; average passing rate is ${cur.pass.toFixed(0)}%.`);
+    out.push(cur.sete==null?'My SETE rating is withheld this semester (too few respondents).':`My average SETE is ${cur.sete.toFixed(2)} / 5 (${catOf(cur.sete)}, sample bands)`+(cur.imp!=null?`; ${signed(cur.imp)} vs the previous semester.`:'.'));
+    if(cur.criteria)out.push(`Weakest criterion: ${CRITERIA[cur.criteria.indexOf(cur.minc)]} (${cur.minc.toFixed(2)}).`);
+    out.push(`Failure rate is ${cur.fail.toFixed(1)}% and the average grade is ${cur.avgg==null?'N/A':cur.avgg.toFixed(2)} across ${sum(cur.rows,d=>d.n)} enrollments.`);
+    out.push(cur.avgd>0?`Grades were submitted late by ${cur.avgd.toFixed(1)} day(s) on average.`:'All grades were submitted on time.');
     const need=cur.rows.filter(d=>mainIssue(d)[0]!=='On track');
     out.push(need.length?`Classes needing attention: ${listOf(need.map(d=>`${d.lbl} (${mainIssue(d)[0].toLowerCase()})`))}.`:'All my classes are on track.')}
   else{
-    const above=groups.filter(g=>g[1]>TH.hr[1]).map(g=>`${g[0]} (${g[1].toFixed(0)}%)`);
-    out.push(`${above.length} of ${groups.length} colleges are above the 15% high-risk critical line: ${listOf(above)}.`);
-    out.push(`${hrList.length} high-risk courses campus-wide: ${listOf(hrList,6)}.`);
-    if(prev)out.push(`Campus high-risk rate is ${cur.hr.toFixed(0)}% vs ${prev.hr.toFixed(0)}% in the previous semester.`);
-    out.push(subjLine,lateLine,impLine)}
+    const gr=Object.entries(cur.byGroup).map(([g,a])=>[g,hrRate(a)]).sort((a,b)=>b[1]-a[1]),above=gr.filter(g=>g[1]>TH.hr[1]).map(g=>`${g[0]} (${g[1].toFixed(0)}%)`);
+    out.push(`${above.length} of ${gr.length} colleges are above the 15% high-risk critical line: ${listOf(above)}.`);
+    out.push(`Campus high-risk rate is ${cur.hr.toFixed(0)}%`+(prev?` vs ${prev.hr.toFixed(0)}% in the previous semester.`:'.'));
+    out.push(`${cur.cmp==null?'N/A':cur.cmp.toFixed(0)+'%'} of students evaluated all their subjects (target ≥ 80%); campus average SETE is ${fmtS(cur.sete)}.`);
+    out.push(cur.declG?`${cur.declG.size} college(s) had a falling passing rate: ${listOf([...cur.declG])}.`:'No previous semester to compare passing rates.')}
+  if(wh)out.push(`${wh} class(es) have no reportable SETE rating (response below ${CONFIG.setMin.rate}% or fewer than ${CONFIG.setMin.count} respondents); they are excluded from SETE averages.`);
   return out}
 
 function openReport(){
   if(!current)return;
-  const cur=current,prev=state.sem>0?computeKpis(state.sem-1):null;
+  const cur=current,prev=state.sem>0?computeKpis(state.sem-1):null,t=TERMS[state.sem];
   const date=new Date().toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
-  const filters=[SEM[state.sem],state.group!=='all'?state.group:null,state.subject!=='all'?state.subject:null].filter(Boolean).join(' · ');
+  const fl=FKEYS.filter(k=>state.f[k]!=='all'&&role.filters.includes(k)).map(k=>FDEF[k].txt(state.f[k]));
+  const filters=[`AY ${t.ay}`,t.sem+' Semester',...fl].join(' · ');
   const onT=role.kpis.filter(k=>kpiStatus(k,cur[k],state.sem)==='g').length;
   const crit=alertsList.filter(a=>a.l==='r').length,warn=alertsList.length-crit;
   const pillCls={g:'',y:'y',r:'r',n:'n'};
   const kpiRows=role.kpis.map(k=>{
     const v=cur[k],st=kpiStatus(k,v,state.sem),def=KPI[k];let tr='–';
-    if(prev&&v!=null&&prev[k]!=null){const df=v-prev[k],good=def.lowerIsBetter?df<=0:df>=0;tr=Math.abs(df)<0.05?'No change':`${df>=0?'+':'−'}${Math.abs(df).toFixed(1)} (${good?'improving':'worsening'})`}
-    return`<tr><td>${role.kpiNames[k]||def.name}</td><td><b>${v==null?'N/A':def.fmt(v)}</b></td><td>${def.targetText}</td><td><span class="pill ${pillCls[st]}">${STATUS_TEXT[st]}</span></td><td>${tr}</td></tr>`}).join('');
+    if(prev&&v!=null&&prev[k]!=null){const df=v-prev[k],good=def.lowerIsBetter?df<=0:df>=0;tr=Math.abs(df)<0.05?'No change':`${df>=0?'+':'−'}${Math.abs(df).toFixed(k==='sete'?2:1)} (${good?'improving':'worsening'})`}
+    return`<tr><td>${role.kpiNames[k]||def.name}<br><span style="color:var(--mute);font-size:.68rem">${def.src}</span></td><td><b>${v==null?'N/A':def.fmt(v)}</b></td><td>${def.targetText}</td><td><span class="pill ${pillCls[st]}">${STATUS_TEXT[st]}</span></td><td>${tr}</td></tr>`}).join('');
   const byAction={};
   alertsList.forEach(a=>{const g=byAction[a.a]=byAction[a.a]||{a:a.a,l:'y',n:0,ex:a.t};g.n++;if(a.l==='r')g.l='r'});
   const acts=Object.values(byAction).sort((x,y)=>(x.l==='r'?0:1)-(y.l==='r'?0:1)||y.n-x.n).slice(0,5);
   $('modalBox').innerHTML=`<div class="rep">
-    <div class="rep-head"><div><h3>${role.title} · Insights Summary</h3><p>${role.type} · ${filters}</p><p>Decision supported: ${role.decision}</p></div>
-      <div class="rep-brand">SPARTHEON<small>Generated ${date}</small></div></div>
+    <div class="rep-head"><div><h3>${role.title} · Insights Summary</h3><p>${role.type} · ${filters}</p><p>Scope: ${role.access.scope}</p><p>Decision supported: ${role.decision}</p></div>
+      <div class="rep-brand">SPARTHEON<small>Generated ${date}${SAMPLE_MODE?' · SAMPLE DATA':''}</small></div></div>
     <div class="rep-health">
       <div><b>${onT} / ${role.kpis.length}</b>KPIs on target</div>
       <div><b>${crit}</b>Critical alerts</div>
       <div><b>${warn}</b>Warning alerts</div>
       <div><b>${cur.rows.length}</b>Section-subjects in view</div></div>
     <h5>Key Performance Indicators</h5>
-    <table><thead><tr><th>KPI</th><th>Value</th><th>Target</th><th>Status</th><th>Vs previous sem</th></tr></thead><tbody>${kpiRows}</tbody></table>
+    <table><thead><tr><th>KPI · data source</th><th>Value</th><th>Target (sample)</th><th>Status</th><th>Vs previous sem</th></tr></thead><tbody>${kpiRows}</tbody></table>
     <h5>Key Insights</h5>
-    <ul>${buildInsights(cur,prev).map(t=>`<li>${t}</li>`).join('')}</ul>
+    <ul>${buildInsights(cur,prev).map(x=>`<li>${x}</li>`).join('')}</ul>
     <h5>Recommended Actions</h5>
     ${acts.length?`<ul>${acts.map(g=>`<li><span class="pill ${g.l==='r'?'r':'y'}">${g.l==='r'?'Critical':'Warning'}</span> ${g.a} <span style="color:var(--mute)">(${g.n} alert${g.n>1?'s':''}, e.g. ${g.ex})</span></li>`).join('')}</ul>`
       :'<p class="none">No actions needed. All monitored measures are within thresholds.</p>'}
-    <p class="foot">Sample data only; Portal–SETE integration is a proposed enhancement. SETE results should not be the sole measure of teaching effectiveness. Consider response rates, context, and other evidence.</p></div>
+    <h5>Integrated Data Summary</h5>
+    <table><thead><tr><th>Source</th><th>Records in this report</th><th>Linked by</th></tr></thead><tbody>${integSummary(cur).map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table>
+    <p class="foot">${SAMPLE_MODE?'Sample data only: no live Student Portal, Faculty Portal or SETE connection. ':''}Thresholds are sample values, configurable. Report contains aggregated figures only; student-level records and individual SETE comments are not included. SETE results should not be the sole measure of teaching effectiveness. Consider response rates, context, and other evidence.</p></div>
     <div class="actions noprint"><button class="btn" onclick="window.print()">${ico('print')} Print / Save as PDF</button>${closeButton}</div>`;
   openModal(true)}
 
+/* class detail: faculty assignment (Faculty Portal) + enrollment/grades (Student Portal) + SETE, all linked by this class's ID */
 function openDetail(id){
-  const d=DATA.find(x=>x.sem===state.sem&&x.id===id);if(!d)return;
-  const others=DATA.filter(x=>x.sem===state.sem&&x.fac===d.fac&&x.id!==d.id).map(x=>x.lbl).join(', ')||'None';
-  $('modalBox').innerHTML=`<h3>${d.code} – ${d.name}</h3><p class="crumb">SPARTHEON › ${role.title} › ${d.lbl}</p>
+  const d=DATA.find(x=>x.id===id&&role.filter(x));if(!d)return;
+  lastDetail=id;
+  const acc=role.access,sr=DB.sete[d.id],en=ENR_BY_OID[d.id]||[],t=TERMS[d.sem];
+  const others=acc.scope.startsWith('Campus')?null:DATA.filter(x=>x.sem===d.sem&&x.fid===d.fid&&x.id!==d.id&&role.filter(x)).map(x=>x.lbl).join(', ')||'None';
+  const showRoster=acc.students!=='none';
+  const roster=showRoster?[...en].sort((a,b)=>a.sid<b.sid?-1:1):[];
+  $('modalBox').innerHTML=`<h3>${d.code} – ${d.name}</h3><p class="crumb">SPARTHEON › ${role.title} › ${d.lbl} · AY ${d.ay}, ${t.sem} Sem</p>
+    <p class="sec-h">Class record <small>· Faculty Portal</small></p>
     <div class="rows">
       <div><span>College</span><i>${d.col} – ${COLLEGE_NAME[d.col]}</i></div>
       <div><span>Section</span><i>${d.sec} (${decodeSection(d.sec)})</i></div>
       <div><span>Section track</span><i>${TRACK_TEXT[d.trk]}</i></div>
-      <div><span>Faculty · students</span><i>${d.fac} · ${d.n}</i></div>
-      <div><span>SETE rating</span><i>${d.sete.toFixed(2)} / 5 (${vsTarget(d.sete,4,2)})</i></div>
-      <div><span>SETE response</span><i>${d.resp}% (${vsTarget(d.resp,80,0)}%)</i></div>
-      <div><span>Passing rate</span><i>${100-d.fd}% (${vsTarget(100-d.fd,85,0)}%)</i></div>
-      <div><span>Grade submission</span><i>${d.late?'Late':'On time'}</i></div>
+      <div><span>Faculty</span><i>${acc.maskFaculty?d.fid:`${d.fac} · ${d.fid}`}</i></div>
+      <div><span>Schedule · room · units</span><i>${d.sched} · ${d.room} · ${d.units} units</i></div>
       <div><span>Teaching load</span><i>${d.done?'Completed':'Incomplete'}</i></div>
-      <div><span>${d.fac} also handles</span><i>${others}</i></div></div>
-    ${CRITERIA.map((c,i)=>{const v=clamp15(d.sete+CRITERIA_OFFSET[i]);return`<div class="crit">${c}: <b>${v.toFixed(2)}</b><div class="bar"><div style="width:${v*20}%"></div></div></div>`}).join('')}
-    ${d.resp<80?'<div class="warn">Low response rate – interpret with caution.</div>':''}
+      <div><span>Grade submission</span><i>${d.late?`Late (${d.daysLate} day${d.daysLate>1?'s':''} after deadline)`:'On time'}</i></div>
+      ${others==null?'':`<div><span>${acc.maskFaculty?'Faculty':d.fac} also handles</span><i>${others}</i></div>`}</div>
+    <p class="sec-h">Enrollment and grades <small>· Student Portal</small></p>
+    <div class="rows">
+      <div><span>Enrolled · dropped · active</span><i>${d.n} · ${d.dropped} · ${d.active}</i></div>
+      <div><span>Passed · failed</span><i>${d.passed} · ${d.failed}</i></div>
+      <div><span>Passing rate</span><i>${(100-d.fd).toFixed(0)}% (${vsTarget(100-d.fd,85,0)}%)</i></div></div>
+    <p class="sec-h">SETE <small>· evaluation period ${t.eval[0]} to ${t.eval[1]}</small></p>
+    <div class="rows">
+      <div><span>Respondents ÷ eligible</span><i>${d.respondents} ÷ ${d.eligible} = ${d.resp.toFixed(0)}% (${vsTarget(d.resp,80,0)}%)</i></div>
+      <div><span>Overall rating</span><i>${d.sete==null?'Withheld ('+d.seteStatus.toLowerCase()+')':`${d.sete.toFixed(2)} / 5 · ${catOf(d.sete)} (${vsTarget(d.sete,4,2)})`}</i></div></div>
+    ${d.criteria?CRITERIA.map((c,i)=>{const v=d.criteria[i];return`<div class="crit">${c}: <b>${v.toFixed(2)}</b><div class="bar"><div style="width:${v*20}%"></div></div></div>`}).join(''):''}
+    ${d.sete==null?`<div class="warn">${d.seteStatus==='No responses'?'No SETE responses recorded yet.':`Response too low: a rating needs at least ${CONFIG.setMin.rate}% response and ${CONFIG.setMin.count} respondents (sample rule).`} Do not use this class for faculty evaluation.</div>`:d.resp<80?'<div class="warn">Low response rate – interpret with caution.</div>':''}
+    ${acc.comments&&d.sete!=null&&sr&&sr.comments.length?`<p class="sec-h">Anonymous comments</p>${sr.comments.map(c=>`<div class="cm"><b>${c.c}</b><br>${c.t}</div>`).join('')}`:''}
+    ${showRoster?`<p class="sec-h">Class list <small>· ${acc.students==='names'?'click a student for the full record':'IDs are masked for this role'}</small></p>
+      <div style="max-height:220px;overflow:auto"><table class="dt"><thead><tr><th>Student ID</th>${acc.students==='names'?'<th>Name</th>':''}<th>Status</th><th>Grade</th><th>SETE</th></tr></thead><tbody>${
+        roster.map(e=>`<tr ${acc.students==='names'?`class="clk" data-sid="${e.sid}"`:''}><td>${acc.students==='names'?e.sid:maskSid(e.sid)}</td>${acc.students==='names'?`<td>${DB.students[e.sid].name}</td>`:''}<td>${e.status}</td><td>${e.grade==null?'–':e.grade.toFixed(2)}</td><td>${e.status==='Dropped'?'n/a':e.evalDone?'Done':'Pending'}</td></tr>`).join('')}</tbody></table></div>`:''}
     <div class="warn n">SETE is not the sole measure of teaching effectiveness. Consider response rates, context, and other evidence.</div>
     <p style="margin-top:14px">${closeButton} <button class="btn alt" onclick="closeModal();filterSubject('${d.code}')">Show this subject only</button></p>`;
-  openModal()}
+  openModal(showRoster);
+  const tb=$('modalBox').querySelector('[data-sid]');
+  if(tb)$('modalBox').onclick=e=>{const r=e.target.closest('[data-sid]');if(r)openStudent(r.dataset.sid)}}
+
+/* student record: faculty only, and only for classes the faculty member teaches (role-based access) */
+function openStudent(sid){
+  if(role.access.students!=='names')return;
+  const s=DB.students[sid],visible=new Set(roleRows().map(d=>d.id));
+  const en=(ENR_BY_SID[sid]||[]).filter(e=>visible.has(e.oid)).sort((a,b)=>OFF[a.oid].term-OFF[b.oid].term);
+  const cur=en.filter(e=>OFF[e.oid].term===state.sem),graded=cur.filter(e=>e.grade!=null);
+  const gwa=graded.length?graded.reduce((x,e)=>x+e.grade,0)/graded.length:null;
+  const done=cur.filter(e=>e.status==='Enrolled'),sete=done.filter(e=>e.evalDone).length;
+  const passed=new Set((ENR_BY_SID[sid]||[]).filter(e=>e.grade!=null&&e.grade<=CONFIG.passGrade).map(e=>OFF[e.oid].code));
+  const todo=Object.values(DB.subjects).filter(x=>x.col===s.col&&!passed.has(x.code)).map(x=>x.code);
+  $('modalBox').innerHTML=`<h3>${s.name}</h3><p class="crumb">Student Portal record · ${s.sid} · confidential: shown only for classes you teach</p>
+    <div class="rows"><div><span>Program</span><i>${s.program} (${s.col})</i></div><div><span>Entry year</span><i>${s.entry}</i></div>
+      <div><span>${SEM[state.sem]}: GWA from your classes (sample 1.0–5.0 scale)</span><i>${gwa==null?'N/A':gwa.toFixed(2)}</i></div>
+      <div><span>SETE completion (your classes)</span><i>${done.length?`${sete} of ${done.length} done`:'n/a'}</i></div></div>
+    <p class="sec-h">Your classes with this student</p>
+    <table class="dt"><thead><tr><th>Term</th><th>Class</th><th>Status</th><th>Grade</th><th>SETE</th></tr></thead><tbody>${en.map(e=>{const o=OFF[e.oid];
+      return`<tr><td>${shortSem(SEM[o.term])}</td><td>${o.code}-${o.sec}</td><td>${e.status}</td><td>${e.grade==null?'–':e.grade.toFixed(2)}</td><td>${e.status==='Dropped'?'n/a':e.evalDone?'Done '+e.evalDate:'Pending'}</td></tr>`}).join('')}</tbody></table>
+    <p class="sec-h">Subjects still to complete <small>· sample curriculum, not yet passed in any record</small></p>
+    <p style="font-size:.78rem">${todo.length?todo.join(', '):'None'}</p>
+    <p style="margin-top:14px">${closeButton} <button class="btn alt" onclick="openDetail('${lastDetail}')">Back to class</button></p>`;
+  openModal(true)}
 
 /* 11. EVENTS + NAV */
 function resetFilters(){
-  Object.assign(state,{group:'all',subject:'all',drill:null,sem:3});
-  $('selSem').value=3;if(role.groupFilter)$('selGroup').value='all';fillSubjects();render()}
+  Object.assign(state,{sem:3,drill:null});FKEYS.forEach(k=>state.f[k]='all');
+  fillSem();fillFilters();render()}
 const subjWord=()=>state.roleKey==='admin'?'subjects':'IT subjects';
-/* subject dropdown only lists the subjects of the selected college / track, so nothing is mixed */
-function fillSubjects(){
-  const rows=roleRows().filter(d=>state.group==='all'||!role.groupFilter||d[role.groupFilter]===state.group);
-  const codes=[...new Set(rows.map(d=>d.code))];
-  if(state.subject!=='all'&&!codes.includes(state.subject))state.subject='all';
-  $('selSubject').innerHTML=`<option value="all">All ${state.roleKey==='admin'?'Subjects':'IT Subjects'}</option>`+codes.map(c=>`<option value="${c}">${c} – ${COURSE_INFO[c].name}</option>`).join('');
-  $('selSubject').value=state.subject}
-function filterSubject(code){state.subject=code;$('selSubject').value=code;render()}
+function fillSem(){
+  const ay=TERMS[state.sem].ay;
+  $('selAY').innerHTML=AYS.map(a=>`<option value="${a}" ${a===ay?'selected':''}>AY ${a}</option>`).join('');
+  $('selSem').innerHTML=TERMS.map((t,i)=>[t,i]).filter(p=>p[0].ay===ay).map(([t,i])=>`<option value="${i}" ${i===state.sem?'selected':''}>${t.sem} Semester</option>`).join('')}
+/* each filter lists only values that exist given the other selections, so nothing mixed or empty can be chosen */
+function fillFilters(){
+  for(let pass=0;pass<2;pass++)FKEYS.forEach(k=>{
+    const rows=roleRows().filter(d=>matchF(d,k)),def=FDEF[k];
+    const vals=[...new Set(rows.map(d=>String(def.val(d))))].sort();
+    if(state.f[k]!=='all'&&!vals.includes(state.f[k]))state.f[k]='all';
+    $('f_'+k).innerHTML=`<option value="all">${def.all}</option>`+vals.map(v=>`<option value="${v}">${def.txt(v)}</option>`).join('');
+    $('f_'+k).value=state.f[k]})}
+function filterSubject(code){state.f.subject=code;fillFilters();render()}
+$('fSelects').innerHTML=FKEYS.map(k=>`<select id="f_${k}" data-f="${k}" aria-label="${FDEF[k].all}"></select>`).join('');
+FKEYS.forEach(k=>$('f_'+k).onchange=e=>{state.f[k]=e.target.value;fillFilters();render()});
+SLOT_IDS.forEach(s=>$(s+'Html').onclick=e=>{const r=e.target.closest('[data-detail]');if(r)openDetail(r.dataset.detail)});
+$('selAY').onchange=e=>{const idx=TERMS.map((t,i)=>t.ay===e.target.value?i:-1).filter(i=>i>=0);state.sem=idx[idx.length-1];fillSem();render()};
+$('selSem').onchange=e=>{state.sem=+e.target.value;render()};
 $('kpiRow').onclick=e=>{const b=e.target.closest('.kpi');if(!b)return;
   const key=b.dataset.kpi;state.drill=state.drill===key?null:key;render();
   const again=$('kpiRow').querySelector(`[data-kpi="${key}"]`);again&&again.focus({preventScroll:true})};
 $('panelBody').onclick=e=>{
   const g=e.target.closest('[data-group]');
-  if(g){state.group=g.dataset.group;$('selGroup').value=state.group;fillSubjects();render();return}
+  if(g&&role.groupFilter){state.f[role.groupFilter]=g.dataset.group;fillFilters();render();return}
+  const u=e.target.closest('[data-subject]');if(u){filterSubject(u.dataset.subject);return}
   const s=e.target.closest('[data-section]');if(s)openDetail(s.dataset.section)};
 $('alertList').onclick=alertClick;
 /* floating KPI tooltip */
@@ -888,23 +1330,20 @@ addEventListener('scroll',hideTip,{passive:true});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeModal();
   if(e.key==='Enter'&&e.target.matches('[data-section],[data-alert]'))e.target.click()});
-$('selSem').onchange=e=>{state.sem=+e.target.value;render()};
-$('selGroup').onchange=e=>{state.group=e.target.value;fillSubjects();render()};
-$('selSubject').onchange=e=>{state.subject=e.target.value;render()};
 $('roleList').innerHTML=Object.entries(ROLES).map(([k,r])=>`<button class="role" onclick="enterRole('${k}')"><b>${r.title}</b><span>${r.blurb}</span></button>`).join('');
-
+$('landFoot').textContent=(SAMPLE_MODE?'Sample data only: Student Portal, Faculty Portal and SETE records are generated sample records linked by ID. ':'')+'Live Portal–SETE integration is a proposed enhancement; the data layer is ready for it.';
+$('modeBadge').title=SAMPLE_MODE?'No live database or API is connected. All Student Portal, Faculty Portal and SETE records are sample data.':'Live records';
+$('modeBadge').style.display=SAMPLE_MODE?'':'none';
 document.querySelectorAll('[data-ico]').forEach(e=>e.insertAdjacentHTML('afterbegin',ico(e.dataset.ico,e.dataset.ico==='bell'?18:15)));
 
 function enterRole(key){
   role=ROLES[key];
-  Object.assign(state,{roleKey:key,sem:3,group:'all',subject:'all',drill:null});
+  Object.assign(state,{roleKey:key,sem:3,drill:null});FKEYS.forEach(k=>state.f[k]='all');
   $('roleTitle').textContent=role.title;$('roleType').textContent=role.type;
-  $('selSem').innerHTML=SEM.map((s,i)=>`<option value="${i}" ${i==3?'selected':''}>${s}</option>`).join('');
-  $('selGroup').style.display=role.groupFilter?'':'none';
-  if(role.groupFilter){
-    const text=c=>role.groupFilter==='col'?`${c} – ${COLLEGE_NAME[c]}`:c;
-    $('selGroup').innerHTML=`<option value="all">${role.groupLabel}</option>`+[...new Set(roleRows().map(d=>d[role.groupFilter]))].map(c=>`<option value="${c}">${text(c)}</option>`).join('')}
-  fillSubjects();
+  const a=role.access;
+  $('roleAccess').textContent=`Scope: ${a.scope} · Student records: ${a.students==='names'?'own classes':a.students==='masked'?'masked IDs':'aggregate only'} · SETE comments: ${a.comments?'visible':'hidden'}`;
+  FKEYS.forEach(k=>$('f_'+k).style.display=role.filters.includes(k)?'':'none');
+  fillSem();fillFilters();
   $('land').style.display='none';$('dash').style.display='block';scrollTo(0,0);render()}
 function backToRoles(){destroyCharts();$('dash').style.display='none';$('land').style.display='flex'}
 </script>
