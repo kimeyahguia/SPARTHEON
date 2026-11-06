@@ -1,49 +1,35 @@
 # SPARTHEON – Central Intelligence Hub
 
-**Empowering Spartans Through Intelligence.**
-
-SPARTHEON is a centralized university analytics dashboard. It turns institutional data, such as grades, SETE results, and teaching loads, into insights that help academic leaders monitor performance, spot trends, and make informed decisions.
+A role-based academic analytics dashboard that turns institutional data into insights for monitoring performance, spotting trends, and making decisions. Built as a single HTML file (HTML, CSS, vanilla JavaScript, Chart.js).
 
 > Sample data only. Portal–SETE integration is a proposed enhancement.
 
-## Purpose
+## How to run
 
-- Show the status of key academic measures in one place instead of scattered reports.
-- Flag problems early (late grades, low SETE response, low passing rates, high-risk courses).
-- Give each role only the information it needs to act.
+1. Put `spartheon-dashboard.html` and `spartheonLogo.jpg` in the same folder.
+2. Open `spartheon-dashboard.html` in a browser (internet needed once for the Chart.js CDN).
+3. Pick a role on the landing page.
 
-## Users and the decisions they support
+If the logo is missing, the text "SPARTHEON" is shown instead.
 
-| Role | Decision supported | Main visualizations |
+## Roles
+
+| Role | Focus | Main visualizations |
 |---|---|---|
-| Dean | Which tracks and subjects need curriculum or faculty support | Passing rate by year level, risk map, subject heatmap |
-| Program Chair | Which sections and subjects need follow-up now | SETE response, late-grade matrix, response vs SETE |
-| Faculty Member | How my classes stand and what to improve | Class outcomes, SETE trend, SETE per criterion |
-| Academic Administrator (VCAA) | Which colleges need curriculum review, tutoring funds, and faculty development | College ranking, passing-rate trend per college, previous vs current high-risk rate |
+| Dean | College-wide risk and compliance | Passing rate by year level, risk map, subject heatmap |
+| Program Chair | Sections and subjects needing follow-up | SETE response, late-grade matrix, response vs SETE doughnut |
+| Faculty Member | My classes and SETE | Class outcomes, SETE trend, SETE per criterion |
+| Academic Administrator (VCAA) | Campus-wide quality assurance | College ranking, passing-rate trend per college (2x3), previous vs current high-risk rate |
 
-## Key features
+## Requirements covered
 
-- **5 KPI cards per role** with objective, formula, target, and trend vs the previous semester.
-- **3 visualizations per role**, chosen for the decisions that role makes.
-- **Filters** by semester, track or college, and subject.
-- **Drill-down:** selecting a KPI lists the sections behind it; selecting a section opens its details.
-- **Alerts:** critical and warning alerts, each with a recommended action. A notification bell counts unread alerts, and alerts can be marked as read.
-- **Insights report:** a summary per role that can be previewed, printed, or saved as PDF.
+- **5 KPI cards** per role (e.g. Late Grade Rate, SETE Response Rate, High-Risk Course Rate, Passing Rate, SETE Improvement, Teaching Load Compliance). Hover for objective, formula, target, and trend; click to filter the list below.
+- **3 visualizations** per role (see table above).
+- **Interactive features:** semester / track-or-college / subject filters with Reset, KPI click drill-down, clickable lists and alerts, section detail popup.
+- **Alerts:** critical and warning alerts with recommended actions, a notification bell with unread count, and mark as read / mark all as read.
+- **Report:** a per-role insights summary with preview and Print / Save as PDF.
 
-## Key performance indicators
-
-| KPI | Target |
-|---|---|
-| Late Grade Submission Rate | ≤ 5% |
-| SETE Response Rate per Section | ≥ 80% |
-| High-Risk Course Rate | ≤ 10% |
-| Student Passing Rate per Subject | ≥ 85% |
-| Faculty SETE Improvement Rate | ≥ 5% |
-| Teaching Load Compliance Rate | 100% |
-
-A course is **high-risk** when failure + dropout is at least 20% and its average SETE is below 3.5.
-
-## Alert rules
+## Alert thresholds
 
 | Measure | Warning | Critical |
 |---|---|---|
@@ -54,10 +40,13 @@ A course is **high-risk** when failure + dropout is at least 20% and its average
 | SETE improvement | < 5% | < 0% |
 | Teaching load | < 100% | < 90% |
 
-## Data coverage
+A course is high-risk when failure + dropout is at least 20% and its average SETE is below 3.5.
 
-Four semesters of sample data. Each record is one subject in one section in one semester. CICS has 10 IT subjects (core, Business Analytics, and Networking tracks); CCJE, CTE, CAS, CHS, and CABEIHM each have 5 subjects of their own.
+## Data
 
-## Responsible use
+Generated in the script (seeded, so it is the same on every load). One row is one subject in one section in one semester. Section code `1106` means Year 1, 1st Sem, Section 06. CICS has 10 IT subjects; the other five colleges (CCJE, CTE, CAS, CHS, CABEIHM) each have their own 5 subjects. To use real data, replace the generator with rows that have the same fields.
 
-SETE results should not be the sole measure of teaching effectiveness. Response rate, context, and other evidence should be considered. Sections with low response rates are flagged for cautious interpretation.
+## Notes
+
+- SETE results should not be the sole measure of teaching effectiveness; consider response rate, context, and other evidence.
+- Read/unread alert status is saved in the browser (localStorage).
