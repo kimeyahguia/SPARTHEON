@@ -1950,7 +1950,7 @@ const CHARTS = {
         values: bars.map(b => +b[1].toFixed(1)),
         colors: bars.map(([g, a]) => ({
           'CICS': '#43A58B',  // Verdigris
-          'CABEHM': '#e3a600', // Yellow
+          'CABEIHM': '#FFD700', // Bright Yellow // Yellow
           'CAS': '#C62B30',   // Red
           'CTE': '#3978B8',   // Blue
           'CCJE': '#7B8490',  // Gray
@@ -1983,7 +1983,7 @@ const CHARTS = {
         const now = vals[state.sem];
         const color = ({
           'CICS': '#43A58B',   // Verdigris
-          'CABEHM': '#e3a600', // Yellow
+          'CABEIHM': '#FFD700', // Bright Yellow
           'CAS': '#C62B30',    // Red
           'CTE': '#3978B8',    // Blue
           'CCJE': '#7B8490',   // Gray
@@ -2024,7 +2024,7 @@ const CHARTS = {
         label: groupLbl(k, g),
        borderColor: ({
           'CICS': '#43A58B',   // Verdigris
-          'CABEHM': '#e3a600', // Yellow
+          'CABEIHM': '#FFD700', // Bright Yellow
           'CAS': '#C62B30',    // Red
           'CTE': '#3978B8',    // Blue
           'CCJE': '#7B8490',   // Gray
@@ -2032,7 +2032,7 @@ const CHARTS = {
         }[g] || PAL6[i % 6]),
         backgroundColor: ({
           'CICS': '#43A58B',
-          'CABEHM': '#e3a600',
+          'CABEIHM': '#FFD700', // Bright Yellow
           'CAS': '#C62B30',
           'CTE': '#3978B8',
           'CCJE': '#7B8490',
