@@ -10,6 +10,7 @@
    STYLES: 1 Tokens · 2 Base · 3 Buttons & pills · 4 Landing · 5 Layout & top bar
    6 Filters · 7 KPI cards · 8 Cards & lists · 9 Heatmap & mini charts
    10 Modal & report · 11 Print · 12 Responsive
+   Visual hierarchy: Hero → KPIs → Primary chart (largest) → Secondary / Alerts → Detail list
    ===================================================================== */
 
 /* 1. TOKENS */
@@ -24,10 +25,11 @@
   --g: #2e9e5b;
   --y: #e3a600;
   --rad: 18px;
-  --gap: 14px;
+  --gap: 16px;
   --h-main: 420px;
-  --h-trend: 320px;
+  --h-trend: 380px;
   --shadow: 0 6px 24px rgba(34, 54, 79, .07);
+  --shadow-lg: 0 10px 30px rgba(34, 54, 79, .12);
 }
 
 /* 2. BASE */
@@ -108,7 +110,7 @@ select { max-width: 240px; }
   box-shadow: var(--shadow);
 }
 
-.role:hover { transform: translateY(-3px); }
+.role:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .role b { display: flex; justify-content: space-between; font-size: .98rem; color: var(--navy); }
 .role b:after { content: "→"; color: var(--red); }
 .role span { display: block; margin-top: 6px; font-size: .78rem; color: var(--mute); }
@@ -117,7 +119,7 @@ select { max-width: 240px; }
 /* 5. LAYOUT & TOP BAR */
 #dash { display: none; max-width: 1400px; margin: 0 auto; padding: var(--gap); }
 
-.layout { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); align-items: start; }
+.layout { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); align-items: stretch; }
 .full { grid-column: 1 / -1; }
 .s4 { grid-column: span 4; }
 .s8 { grid-column: span 8; }
@@ -127,7 +129,7 @@ select { max-width: 240px; }
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  background: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .92);
   border-radius: 20px;
   padding: 8px 16px;
   box-shadow: var(--shadow);
@@ -154,10 +156,10 @@ select { max-width: 240px; }
   line-height: 18px;
 }
 
-.hero { border-radius: var(--rad); padding: 12px 18px; background: linear-gradient(120deg, #dbe7f7 0%, #eaf1fb 55%, #f9e4e5 100%); box-shadow: var(--shadow); }
-.hero h1 { font-size: 1.15rem; color: var(--navy); }
+.hero { border-radius: var(--rad); padding: 16px 22px; background: linear-gradient(120deg, #dbe7f7 0%, #eaf1fb 55%, #f9e4e5 100%); box-shadow: var(--shadow); border-left: 5px solid var(--red); }
+.hero h1 { font-size: 1.35rem; color: var(--navy); }
 .hero h1 em { font-style: normal; color: var(--red); }
-.hero p { font-size: .78rem; color: #44566d; margin-top: 2px; }
+.hero p { font-size: .8rem; color: #44566d; margin-top: 3px; }
 
 /* 6. FILTERS */
 #filterRow {
@@ -165,7 +167,7 @@ select { max-width: 240px; }
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-  background: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .92);
   border-radius: 16px;
   padding: 9px 14px;
   box-shadow: var(--shadow);
@@ -174,32 +176,37 @@ select { max-width: 240px; }
 .f-label { font-size: .7rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: .05em; margin-right: 4px; }
 #filterRow .btn { margin-left: auto; }
 
-/* 7. KPI CARDS */
+/* 7. KPI CARDS (clickable: opens a list) */
 .kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--gap); }
 
 .kpi {
   position: relative;
   text-align: left;
   border: 0;
-  background: rgba(255, 255, 255, .92);
+  border-top: 4px solid var(--g);
+  background: rgba(255, 255, 255, .95);
   border-radius: var(--rad);
-  padding: 12px 14px;
+  padding: 14px 16px 12px;
   box-shadow: var(--shadow);
   transition: .18s;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
+.kpi.y { border-top-color: var(--y); }
+.kpi.r { border-top-color: var(--red); }
+.kpi.n { border-top-color: #9aa4b2; }
 
 .kpi:hover,
-.kpi:focus-visible { transform: translateY(-3px); }
-.kpi.on { outline: 2px solid var(--navy); outline-offset: 2px; }
+.kpi:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
 .kpi .ic { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; font-size: .9rem; margin-bottom: 6px; background: #e4f4ea; color: var(--g); }
 .kpi.y .ic { background: #fff3cf; color: #9a6f00; }
 .kpi.r .ic { background: #fbe4e4; color: var(--red); }
 .kpi.n .ic { background: #eceff3; color: var(--mute); }
 
-.kpi h3 { font-size: .72rem; color: var(--mute); font-weight: 600; min-height: 28px; }
-.kpi .v { font-size: 1.55rem; font-weight: 700; color: var(--navy); margin: 1px 0; }
+.kpi h3 { font-size: .72rem; color: var(--mute); font-weight: 600; min-height: 30px; }
+.kpi .v { font-size: 1.8rem; font-weight: 800; color: var(--navy); margin: 2px 0 4px; line-height: 1.1; }
 .kpi .st { font-size: .7rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 .kpi .st:before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--g); }
 .kpi.g .st { color: var(--g); }
@@ -208,6 +215,9 @@ select { max-width: 240px; }
 .kpi.y .st:before { background: var(--y); }
 .kpi.r .st:before { background: var(--red); }
 .kpi.n .st:before { background: #9aa4b2; }
+.kpi .go { margin-top: 8px; font-size: .66rem; font-weight: 600; color: var(--mute); transition: .15s; }
+.kpi:hover .go,
+.kpi:focus-visible .go { color: var(--red); }
 
 #tipBox {
   position: fixed;
@@ -233,12 +243,18 @@ select { max-width: 240px; }
 #tipBox u { text-decoration: none; color: #fff; font-weight: 600; }
 
 /* 8. CARDS, CHART SLOTS, LISTS, ALERTS */
-.card { background: rgba(255, 255, 255, .92); border-radius: var(--rad); padding: 14px 16px; min-width: 0; box-shadow: var(--shadow); }
+.card { background: rgba(255, 255, 255, .95); border-radius: var(--rad); padding: 16px 18px; min-width: 0; box-shadow: var(--shadow); }
 .card h4 { font-size: .92rem; color: var(--navy); font-weight: 700; }
 .card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
 .head-links { display: flex; gap: 12px; }
 .link { background: none; border: 0; color: var(--red); font-size: .78rem; font-weight: 600; }
-.caption { font-size: .76rem; color: var(--mute); margin-bottom: 6px; min-height: 2.4em; }
+.link:hover { text-decoration: underline; }
+.caption { font-size: .76rem; color: var(--mute); margin-bottom: 8px; min-height: 2.4em; }
+
+/* hierarchy: primary chart is biggest, supporting cards step down */
+.viz.main.s8 h4 { font-size: 1.05rem; }
+.viz.main.s4 h4,
+.viz.trend h4 { font-size: .92rem; }
 
 .viz { display: flex; flex-direction: column; }
 .viz.main { height: var(--h-main); }
@@ -254,13 +270,13 @@ select { max-width: 240px; }
 .list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 6px; }
 .list > .none { grid-column: 1 / -1; }
 
-.item { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 14px; background: var(--soft); cursor: pointer; border: 0; text-align: left; width: 100%; }
-.item:hover { background: #e9eff8; }
+.item { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 14px; background: var(--soft); cursor: pointer; border: 0; text-align: left; width: 100%; transition: .15s; }
+.item:hover { background: #e9eff8; transform: translateX(2px); }
 .item .txt { flex: 1; min-width: 0; }
 .item b { display: block; font-size: .83rem; color: var(--navy); }
 .item span.sub { font-size: .72rem; color: var(--mute); }
 
-.avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--navy2)); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .7rem; flex: none; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--navy2)); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: .68rem; flex: none; }
 
 .viz #alertList { flex: 1; min-height: 0; overflow: auto; padding-right: 2px; }
 .al { border-radius: 14px; background: var(--soft); padding: 8px 12px; margin-top: 7px; font-size: .76rem; border-left: 4px solid var(--y); cursor: pointer; }
@@ -284,8 +300,14 @@ select { max-width: 240px; }
 .hm th.cur { color: var(--navy); }
 .hm td { border: 0; padding: 0; }
 .hm td.lab { text-align: left; font-weight: 600; color: var(--navy); white-space: nowrap; padding-right: 8px; }
-.hm td.c { text-align: center; border-radius: 8px; padding: 2px; font-weight: 600; }
+.hm td.c { text-align: center; border-radius: 8px; padding: 3px 2px; font-weight: 600; }
 .hm td.c .ic-svg { vertical-align: -2px; margin-right: 2px; }
+.hm td[data-hm],
+.hm td[data-fac] { cursor: pointer; transition: .12s; }
+.hm td.c[data-hm]:hover,
+.hm td.c[data-fac]:hover { filter: brightness(.94); box-shadow: inset 0 0 0 1.5px var(--navy); }
+.hm td.lab[data-hm]:hover,
+.hm td.lab[data-fac]:hover { color: var(--red); text-decoration: underline; }
 .c.g { background: #e4f4ea; color: var(--g); }
 .c.y { background: #fff3cf; color: #9a6f00; }
 .c.r { background: #fbe4e4; color: var(--red); }
@@ -294,7 +316,8 @@ select { max-width: 240px; }
 .flag { font-size: .64rem; background: #fbe4e4; color: var(--red); border-radius: 8px; padding: 1px 7px; margin-left: 6px; font-weight: 600; }
 
 .mini-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 10px; height: 100%; }
-.mini { background: var(--soft); border-radius: 14px; padding: 6px 10px 4px; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.mini { background: var(--soft); border-radius: 14px; padding: 6px 10px 4px; min-width: 0; min-height: 0; display: flex; flex-direction: column; cursor: pointer; border-left: 4px solid var(--line); transition: .15s; }
+.mini:hover { background: #e9eff8; }
 .mini-h { display: flex; justify-content: space-between; align-items: center; font-size: .78rem; color: var(--navy); margin-bottom: 2px; }
 .mini-c { position: relative; flex: 1; min-height: 60px; }
 
@@ -312,6 +335,11 @@ select { max-width: 240px; }
 #modal .box { background: #fff; border-radius: 22px; padding: 24px; width: min(520px, 100%); max-height: 92vh; overflow: auto; }
 #modal .box.wide { width: min(900px, 100%); }
 #modal h3 { color: var(--navy); font-size: 1.1rem; }
+
+.mlist { display: grid; gap: 8px; max-height: 56vh; overflow: auto; padding-right: 4px; margin-top: 6px; }
+.msum { font-size: .78rem; color: var(--ink); background: var(--soft); border-radius: 12px; padding: 9px 12px; margin: 6px 0 4px; }
+.msum small { display: block; color: var(--mute); margin-top: 3px; font-size: .72rem; }
+.mfoot { font-size: .7rem; color: var(--mute); margin-top: 8px; }
 
 .crumb { font-size: .7rem; color: var(--mute); margin: 2px 0 8px; }
 .rows div { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .8rem; }
@@ -415,7 +443,7 @@ select { max-width: 240px; }
 
     <div class="kpis full" id="kpiRow"></div>
 
-    <!-- Row 1: main chart + side chart -->
+    <!-- Row 1: PRIMARY chart (wide) + secondary chart -->
     <section class="card viz main s8">
       <div class="card-head"><h4 id="mainTitle"></h4></div>
       <p class="caption" id="mainCaption"></p>
@@ -430,7 +458,7 @@ select { max-width: 240px; }
       <div class="html-box" id="secondHtml"></div>
     </section>
 
-    <!-- Row 2: trend chart + alerts -->
+    <!-- Row 2: supporting chart + alerts -->
     <section class="card viz trend s8">
       <div class="card-head"><h4 id="sideTitle"></h4></div>
       <p class="caption" id="sideCaption"></p>
@@ -451,12 +479,15 @@ select { max-width: 240px; }
 
     <!-- Row 3: role list, full width -->
     <section class="card full">
-      <div class="card-head"><h4 id="panelTitle">Panel</h4></div>
+      <div class="card-head">
+        <h4 id="panelTitle">Panel</h4>
+        <div class="head-links"><button class="link" onclick="openPanelAll()">See full list</button></div>
+      </div>
       <p class="caption" id="panelHint"></p>
       <div class="list" id="panelBody"></div>
     </section>
 
-    <p class="note full" id="footNote">Hover a KPI for its objective, formula, threshold and data source; click it to filter the list below · Section code 1106 = Year 1 · 1st Sem · Section 06
+    <p class="note full" id="footNote">Hover a KPI for its objective, formula, threshold and data source; click it to open the list behind it · Click heatmap cells and college cards for their class lists · Section code 1106 = Year 1 · 1st Sem · Section 06
       <span title="SETE results should not be the sole measure of teaching effectiveness. Consider response rate, context, and other evidence." data-ico="info" style="cursor:help;color:var(--red);display:inline-flex;align-items:center;gap:4px"> SETE use note</span>
     </p>
   </main>
@@ -470,7 +501,7 @@ select { max-width: 240px; }
    SCRIPT MAP
    1 Config · 2 Icons · 3 Integrated data layer · 4 KPI definitions
    5 Roles & filters · 6 Data helpers · 7 KPI & alert logic · 8 Charts
-   9 List panels · 10 Render · 11 Modals · 12 Events & navigation
+   9 List panels · 10 Render · 11 Modals & lists · 12 Events & navigation
    ===================================================================== */
 
 /* =====================================================================
@@ -494,6 +525,7 @@ const COLLEGE_NAME = {
   CABEIHM: 'College of Accountancy, Business, Economics, and International Hospitality Management'
 };
 const COLS = Object.keys(COLLEGE_NAME);
+const COLLEGE_COLOR = { CICS: '#2a9d8f', CABEIHM: '#e3a600', CAS: '#c62b30', CTE: '#3978b8', CCJE: '#7b8490', CHS: '#398451' };
 const PROGRAM = {
   CICS: 'BS Information Technology',
   CCJE: 'BS Criminology',
@@ -504,12 +536,12 @@ const PROGRAM = {
 };
 
 const CONFIG = {
-  capacity: 45,                            /* seats per section-subject (sample) */
-  setMin: { rate: 50, count: 5 },          /* a SETE rating is withheld below this response (sample) */
-  weights: [.2, .2, .2, .2, .2],           /* weight per SETE criterion for the overall rating (sample: equal) */
+  capacity: 45,
+  setMin: { rate: 50, count: 5 },
+  weights: [.2, .2, .2, .2, .2],
   units: 3,
-  bands: [[4.5, 'Outstanding'], [3.5, 'Very Satisfactory'], [2.5, 'Satisfactory'], [1.5, 'Fair'], [0, 'Poor']], /* sample categories */
-  passGrade: 3.0                           /* sample 1.0–5.0 scale: grade ≤ 3.0 = passed */
+  bands: [[4.5, 'Outstanding'], [3.5, 'Very Satisfactory'], [2.5, 'Satisfactory'], [1.5, 'Fair'], [0, 'Poor']],
+  passGrade: 3.0
 };
 
 const SECTION_PLAN = { 1: { Core: 8 }, 2: { Core: 7 }, 3: { BA: 4, NT: 3 }, 4: { BA: 3, NT: 2 } };
@@ -526,7 +558,6 @@ const CRITERIA_OFFSET = [.1, -.05, .05, .12, -.12];
 const DROP_SHARE = .4;
 
 const PALETTE = ['#22364f', '#c62b30', '#6b9ac4', '#e3a600'];
-const PAL6 = ['#22364f', '#c62b30', '#6b9ac4', '#e3a600', '#2e9e5b', '#8e5ea2'];
 
 /* thresholds [warning, critical]. late/hr: higher is worse; others: lower is worse */
 const TH = {
@@ -584,12 +615,10 @@ const ico = (name, size = 15) =>
    One centralized structure DB = the three source systems, linked ONLY by identifiers:
      Student Portal : DB.students {sid}, DB.enrollments {sid + oid, status, grade, evalDone, evalDate}
      Faculty Portal : DB.faculty {fid}, DB.subjects {code}, DB.offerings {oid = term + college + subject + section, fid, load, daysLate}
-     SETE           : DB.sete {oid → criterion ratings + anonymous comments}; respondents are NOT stored twice:
-                      they are derived from enrollments.evalDone, so response rate = completed ÷ eligible students.
-   Joins:  enrollment.sid → student · enrollment.oid → offering · offering.fid → faculty · offering.code → subject · sete.oid → offering
-   FUTURE DB/API: replace DataAdapters.sample() with DataAdapters.api() returning the same six collections; nothing else changes.
+     SETE           : DB.sete {oid → criterion ratings + anonymous comments}
+   FUTURE DB/API: replace DataAdapters.sample() with DataAdapters.api() returning the same six collections.
    ===================================================================== */
-const SAMPLE_MODE = true; /* no database/API connection exists in this demo, so every record below is generated sample data */
+const SAMPLE_MODE = true;
 
 const COURSES = [
   ['IT 101', 'Introduction to Computing', 'IT Core'],
@@ -663,17 +692,14 @@ function buildSample() {
   };
   const db = { students: {}, faculty: [], subjects: {}, offerings: [], enrollments: [], sete: {} };
 
-  /* Faculty Portal: faculty */
   CICS_FACULTY.forEach((name, i) => db.faculty.push({ fid: 'F-10' + pad2(i + 1), name, col: 'CICS' }));
   Object.entries(COLLEGE_FACULTY).forEach(([col, list], ci) =>
     list.forEach((name, i) => db.faculty.push({ fid: `F-2${ci}${pad2(i + 1)}`, name, col })));
 
-  /* Curriculum: subjects */
   Object.entries(COURSE_INFO).forEach(([code, info]) => {
     db.subjects[code] = { code, name: info.name, prog: info.prog, col: info.col, yl: +code.match(/\d/)[0], units: CONFIG.units };
   });
 
-  /* Class offering parameters: the "plan" for each class; student-level records are generated from it */
   const plans = [];
   const addPlan = (sem, col, code, yl, sec, trk, fid) => plans.push({
     oid: `T${sem}:${col}:${code}:${sec}`, sem, col, code, yl, sec, trk, fid,
@@ -731,16 +757,14 @@ function buildSample() {
   patch(3, 'IT 303', sc(3, 3, 2), { done: false });
   patch(3, 'NET 401', sc(3, 4, 4), { late: true });
   patch(3, 'BAT 405', sc(3, 4, 1), { resp: 66 });
-  patch(3, 'IT 202', sc(3, 2, 1), { resp: 38 });                      /* response too low: SETE rating withheld */
-  patch(3, 'EDUC 101', sc(3, 1, 1), { noSete: true }, 'CTE');          /* no SETE responses yet: missing data case */
+  patch(3, 'IT 202', sc(3, 2, 1), { resp: 38 });
+  patch(3, 'EDUC 101', sc(3, 1, 1), { noSete: true }, 'CTE');
   patchCourse(3, 'BA 101', 'CABEIHM', { sete: 3.35, fd: 24 });
   patchCourse(2, 'BA 101', 'CABEIHM', { sete: 3.45, fd: 21 });
   patchCourse(3, 'CRIM 101', 'CCJE', { sete: 3.3, fd: 26 });
   patch(3, 'NURS 301', sc(3, 3, 1), { resp: 68 }, 'CHS');
   patch(3, 'GEC 104', sc(3, 1, 1), { late: true }, 'CAS');
 
-  /* Student Portal: rosters. Student ID = entry year + college index + section + seat,
-     so the same student is the same record across semesters */
   const cohort = {};
   const nameOf = sid => {
     let h = 7;
@@ -778,7 +802,6 @@ function buildSample() {
       evalDate: null
     }));
 
-    /* SETE completion is recorded on the student's enrollment record (eligible = students who did not drop) */
     const active = shuffle(records.filter(r => r.status === 'Enrolled'));
     const respondents = p.noSete ? 0 : Math.round(active.length * p.resp / 100);
     const [from, to] = TERMS[p.sem].eval;
@@ -990,10 +1013,8 @@ const STATUS_TEXT = { g: 'On target', y: 'Warning', r: 'Critical', n: 'No baseli
 
 /* =====================================================================
    5. ROLES & FILTERS
-   Each role = 5 KPIs + 3 visualizations + 1 list panel + a minimal set of filters + access rules.
-   Academic year and semester are always available; `filters` lists only the extra ones.
-   Slots: main = large chart (row 1, left) · second = side chart / heatmap (row 1, right)
-          side = trend chart (row 2, left)
+   Slots: main = PRIMARY chart (row 1, wide) · second = side chart / heatmap (row 1, narrow)
+          side = supporting chart (row 2, wide)
    ===================================================================== */
 const ROLES = {
   dean: {
@@ -1054,7 +1075,9 @@ const ROLES = {
       sete: 'Campus Average SETE Rating'
     },
     ex: [],
-    slots: { main: 'seteTrendGroup', second: 'hrRanking', side: 'collegeTrends' },
+    /* main = Passing Rate Trend, ALL colleges compared on ONE graph
+       side = SETE Trend, ONE small graph PER college */
+    slots: { main: 'passTrendGroup', second: 'hrRanking', side: 'seteByCollege' },
     panel: 'groups',
     access: { scope: 'Campus-wide, aggregated', students: 'none', comments: false, maskFaculty: true }
   }
@@ -1069,12 +1092,15 @@ const FDEF = {
   subject: { all: 'All Subjects', val: d => d.code, txt: v => `${v} – ${COURSE_INFO[v].name}` }
 };
 
-const state = { roleKey: '', sem: 3, f: { col: 'all', prog: 'all', yl: 'all', subject: 'all' }, drill: null };
+const state = { roleKey: '', sem: 3, f: { col: 'all', prog: 'all', yl: 'all', subject: 'all' } };
 let role = null;
 let current = null;
 let alertsList = [];
 let slot = 'main';
 let lastDetail = null;
+let backTo = null;     /* re-opens the list a class detail was opened from */
+let parentFn = null;   /* re-opens the parent list of a list (e.g. KPI list → college list) */
+let lastKpi = null;
 const charts = { extra: [] };
 const $ = id => document.getElementById(id);
 const sum = (a, f) => a.reduce((x, d) => x + f(d), 0);
@@ -1085,7 +1111,7 @@ const sum = (a, f) => a.reduce((x, d) => x + f(d), 0);
 const roleRows = () => DATA.filter(role.filter);
 const matchF = (d, skip) => FKEYS.every(k => k === skip || state.f[k] === 'all' || String(FDEF[k].val(d)) === state.f[k]);
 const rowsFor = semIdx => roleRows().filter(d => d.sem === semIdx && matchF(d));
-const fx = d => role.access.maskFaculty ? d.fid : d.fac;   /* faculty shown by name, or by ID only for the VCAA */
+const fx = d => role.access.maskFaculty ? d.fid : d.fac;
 const kpiLabel = k => role.kpiNames[k] || KPI[k].name;
 
 const passOf = rows => rows.length && sum(rows, d => d.n) ? 100 * sum(rows, d => d.passed) / sum(rows, d => d.n) : null;
@@ -1158,7 +1184,7 @@ const repeatedLate = (semIdx, fid) =>
   roleRows().some(d => d.fid === fid && d.late && d.sem === semIdx - 1);
 
 const riskScore = d =>
-  (4 - (d.sete == null ? 4 : d.sete)) * 20 + (85 - (100 - d.fd)) + (80 - d.resp) / 2 + (d.late ? 10 : 0) + (d.done ? 0 : 8);
+  (4 - (d.sete == null ? 4 : d.sete)) * 20 + (85 - (100 - d.fd)) + (80 - (d.resp == null ? 80 : d.resp)) / 2 + (d.late ? 10 : 0) + (d.done ? 0 : 8);
 
 const mainIssue = d =>
   d.late ? ['Late grades', 'r']
@@ -1168,8 +1194,6 @@ const mainIssue = d =>
     : d.sete != null && d.sete < 4 ? ['Low SETE', 'y']
     : ['On track', ''];
 
-/* SETE ↔ academic performance: where the two sources agree or disagree
-   (areas for further investigation, not conclusions) */
 function crossFlags(cur) {
   const rated = cur.courses.filter(c => c.sete != null);
   return {
@@ -1263,7 +1287,7 @@ function kpiStatus(key, value, semIdx) {
   return value < t[1] ? 'r' : value < t[0] ? 'y' : 'g';
 }
 
-/* clicking a KPI filters the list panel to the rows behind it */
+/* clicking a KPI opens the list of rows behind it */
 const DRILL = {
   late: d => d.late,
   resp: d => d.resp < 80,
@@ -1281,8 +1305,7 @@ const DRILL = {
   cov: d => d.sete == null
 };
 
-function drillRows(cur) {
-  const k = state.drill;
+function drillRows(cur, k) {
   if (!k) return cur.rows;
   if (k === 'hr') {
     const keys = new Set(cur.courses.filter(c => c.hr).map(c => c.col + ':' + c.code));
@@ -1296,7 +1319,6 @@ function drillRows(cur) {
   return cur.rows.filter(DRILL[k]);
 }
 
-/* alerts follow the role's own KPIs; recommended actions come from the Part II guidelines */
 function buildAlerts(cur) {
   const list = [];
   const has = k => role.kpis.includes(k) || (role.ex || []).includes(k);
@@ -1436,8 +1458,6 @@ function buildAlerts(cur) {
 /* =====================================================================
    8. CHART LIBRARY: each chart = { title(), draw(cur) → caption }
    ===================================================================== */
-
-/* Chart.js plugins */
 const valueLabels = {
   id: 'valueLabels',
   afterDatasetsDraw(c) {
@@ -1531,7 +1551,6 @@ const zone = {
   }
 };
 
-/* chart helpers */
 const axisTitle = t => ({ display: true, text: t, font: { size: 10 } });
 const tickFont = { font: { size: 9 } };
 const gridStyle = { color: '#eef2f7' };
@@ -1587,11 +1606,6 @@ function drawLollipop({ labels, values, colors, fmt, max, min = 0, lines, xTitle
   });
 }
 
-const groupKey = () => role.rollupBy || 'yl';
-const groupName = k => k === 'col' ? 'College' : k === 'prog' ? 'Track' : 'Year Level';
-const groupLbl = (k, v) => k === 'yl' ? 'Year ' + v : v;
-const groupList = k => [...new Set(roleRows().map(d => d[k]))].sort();
-
 const CHARTS = {
   /* ---------- Shared ---------- */
   heatmap: {
@@ -1613,9 +1627,9 @@ const CHARTS = {
       drawHtml(`<table class="hm">
         <thead><tr><th></th>${SEM.map((s, i) => `<th class="${i === state.sem ? 'cur' : ''}">${shortSem(s)}</th>`).join('')}</tr></thead>
         <tbody>${grid.map(g => `<tr>
-          <td class="lab" title="${COURSE_INFO[g.code].name}">${g.code}</td>
-          ${g.vals.map(v => `<td class="c ${cls(v)}">${v == null ? '–' : v.toFixed(0)}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        <p class="legend">Green ≥ 85% · Amber 75–84% · Red &lt; 75% · Lowest first</p>`);
+          <td class="lab" data-hm="${g.code}|${state.sem}" title="${COURSE_INFO[g.code].name} · click for class list">${g.code}</td>
+          ${g.vals.map((v, i) => `<td class="c ${cls(v)}"${v == null ? '' : ` data-hm="${g.code}|${i}" title="Click for class list"`}>${v == null ? '–' : v.toFixed(0)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        <p class="legend">Green ≥ 85% · Amber 75–84% · Red &lt; 75% · Lowest first · Click a cell or subject for its class list</p>`);
 
       return `${below} of ${grid.length} subjects are below the 85% target this semester; ${repeat} stayed below it two semesters in a row.`;
     }
@@ -1682,6 +1696,7 @@ const CHARTS = {
           }]
         },
         options: baseOptions({
+          onClick: (_e, els) => { if (els.length) openSubjectListAll(rated[els[0].index].code); },
           plugins: {
             zone: { xTo: TH.hrSete, yFrom: TH.hrFailDrop, label: 'High-risk zone' },
             tooltip: {
@@ -1700,49 +1715,19 @@ const CHARTS = {
         }),
         plugins: [zone, valueLabels]
       });
-      return `${nHigh} of ${cur.courses.length} subjects are in the high-risk zone. Bigger bubble = more students.${missing ? ` ${missing} subject(s) not plotted (no valid SETE).` : ''}`;
-    }
-  },
-
-  compliance: {
-    title: () => `Grade Submission & Teaching Load Compliance per ${groupName(groupKey())}`,
-    draw(cur) {
-      const k = groupKey();
-      const groups = groupList(k).filter(g => cur.rows.some(d => d[k] === g));
-      const rowsOf = g => cur.rows.filter(d => d[k] === g);
-      drawCanvas({
-        type: 'bar',
-        data: {
-          labels: groups.map(g => groupLbl(k, g)),
-          datasets: [
-            { label: 'Grade submission compliance %', data: groups.map(g => +(100 - lateOf(rowsOf(g))).toFixed(1)), backgroundColor: '#22364f', fmt: v => v.toFixed(0) },
-            { label: 'Teaching load compliance %', data: groups.map(g => +loadOf(rowsOf(g)).toFixed(1)), backgroundColor: '#6b9ac4', fmt: v => v.toFixed(0) }
-          ]
-        },
-        options: baseOptions({
-          plugins: { legend: legendOn(), refLines: { lines: [{ axis: 'y', value: 95, label: 'Grade target 95%' }] } },
-          scales: {
-            y: { min: 0, max: 110, title: axisTitle('Compliance (%)'), ticks: { ...tickFont, callback: v => v > 100 ? '' : v }, grid: gridStyle },
-            x: { ticks: { font: { size: 10 } }, grid: { display: false } }
-          }
-        }),
-        plugins: [valueLabels, refLines]
-      });
-      const lowGrade = groups.map(g => [g, 100 - lateOf(rowsOf(g))]).sort((a, b) => a[1] - b[1])[0];
-      const lowLoad = groups.map(g => [g, loadOf(rowsOf(g))]).sort((a, b) => a[1] - b[1])[0];
-      return `Lowest grade compliance: ${groupLbl(k, lowGrade[0])} (${lowGrade[1].toFixed(0)}%). Lowest load compliance: ${groupLbl(k, lowLoad[0])} (${lowLoad[1].toFixed(0)}%).`;
+      return `${nHigh} of ${cur.courses.length} subjects are in the high-risk zone. Bigger bubble = more students. Click a bubble for its classes.${missing ? ` ${missing} not plotted (no valid SETE).` : ''}`;
     }
   },
 
   /* ---------- Program Chair ---------- */
-    respPie: {
+  respPie: {
     title: () => 'SETE Response Rate per Section',
     draw(cur) {
       const rows = cur.rows;
       const bands = [
-        ['Met target (≥ 80%)', rows.filter(d => d.resp >= 80).length, '#22364f'],
-        ['Warning (60–79%)', rows.filter(d => d.resp >= 60 && d.resp < 80).length, '#e3a600'],
-        ['Critical (< 60%)', rows.filter(d => d.resp < 60).length, '#c62b30']
+        ['Met target (≥ 80%)', rows.filter(d => d.resp >= 80).length, '#22364f', d => d.resp >= 80],
+        ['Warning (60–79%)', rows.filter(d => d.resp >= 60 && d.resp < 80).length, '#e3a600', d => d.resp >= 60 && d.resp < 80],
+        ['Critical (< 60%)', rows.filter(d => d.resp < 60).length, '#c62b30', d => d.resp < 60]
       ];
       const lowest = [...rows].sort((a, b) => a.resp - b.resp).slice(0, 3);
 
@@ -1753,6 +1738,12 @@ const CHARTS = {
           datasets: [{ data: bands.map(b => b[1]), backgroundColor: bands.map(b => b[2]), borderColor: '#fff', borderWidth: 2 }]
         },
         options: baseOptions({
+          onClick: (_e, els) => {
+            if (!els.length) return;
+            const b = bands[els[0].index];
+            const list = rows.filter(b[3]);
+            openListModal(`SETE response · ${b[0]}`, 'SETE Response', classListHtml(list), null, null, `${list.length} of ${rows.length} section-subjects`);
+          },
           plugins: {
             legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } },
             tooltip: {
@@ -1782,7 +1773,7 @@ const CHARTS = {
       });
 
       const below = rows.length - bands[0][1];
-      return `${below} of ${rows.length} section-subjects are below the 80% target. Lowest: ${lowest.map(d => `${d.lbl} (${d.resp.toFixed(0)}%)`).join(', ')}.`;
+      return `${below} of ${rows.length} section-subjects are below the 80% target. Lowest: ${lowest.map(d => `${d.lbl} (${d.resp.toFixed(0)}%)`).join(', ')}. Click a slice for its list.`;
     }
   },
 
@@ -1810,9 +1801,9 @@ const CHARTS = {
       drawHtml(`<table class="hm">
         <thead><tr><th></th>${SEM.map((s, i) => `<th class="${i === state.sem ? 'cur' : ''}">${shortSem(s)}</th>`).join('')}</tr></thead>
         <tbody>${grid.map(g => `<tr>
-          <td class="lab" title="${g.f}">${g.name}${g.repeat ? '<span class="flag">2 sems in a row</span>' : ''}</td>
-          ${g.cells.map(c => `<td class="c ${label[c][0]}">${label[c][1]}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        <p class="legend">A cell is “Late” if any of the faculty’s sections submitted grades late that semester (Faculty Portal grade submissions).</p>`);
+          <td class="lab" data-fac="${g.f}|${state.sem}" title="${g.f} · click for sections">${g.name}${g.repeat ? '<span class="flag">2 sems in a row</span>' : ''}</td>
+          ${g.cells.map((c, i) => `<td class="c ${label[c][0]}"${c === 'none' ? '' : ` data-fac="${g.f}|${i}" title="Click for sections"`}>${label[c][1]}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        <p class="legend">A cell is “Late” if any of the faculty’s sections submitted grades late that semester. Click a name or cell to list the sections.</p>`);
 
       const n = grid.filter(g => g.repeat).length;
       return n ? `${n} faculty member${n > 1 ? 's were' : ' was'} late two semesters in a row: escalate to the Dean/VCAA.` : 'No faculty member was late two semesters in a row.';
@@ -1825,7 +1816,7 @@ const CHARTS = {
       const groups = {};
       cur.rows.forEach(d => (groups[d.sec + '|' + d.col] = groups[d.sec + '|' + d.col] || []).push(d));
       const list = Object.values(groups)
-        .map(a => ({ lbl: `Sec ${a[0].sec} · ${a[0].trk === 'Core' ? 'Core' : a[0].trk}`, pass: passOf(a), n: sum(a, d => d.n) }))
+        .map(a => ({ lbl: `Sec ${a[0].sec} · ${a[0].trk === 'Core' ? 'Core' : a[0].trk}`, sec: a[0].sec, pass: passOf(a), n: sum(a, d => d.n), rows: a }))
         .sort((a, b) => a.pass - b.pass);
       const show = list.slice(0, 12);
       drawLollipop({
@@ -1836,7 +1827,12 @@ const CHARTS = {
         lines: [{ axis: 'x', value: 85, label: 'Target 85%' }],
         xTitle: 'Passing rate across all subjects of the section (%)'
       });
-      return `${list.filter(x => x.pass < 85).length} of ${list.length} sections are below the 85% passing target. Showing the 12 lowest (all subjects combined).`;
+      charts[slot].options.onClick = (_e, els) => {
+        if (!els.length) return;
+        const x = show[els[0].index];
+        openListModal(`Section ${x.sec}`, 'Section', classListHtml(x.rows), null, null, `Passing rate ${x.pass.toFixed(0)}% across ${x.rows.length} subjects · ${x.n} enrollments`);
+      };
+      return `${list.filter(x => x.pass < 85).length} of ${list.length} sections are below the 85% passing target. Showing the 12 lowest. Click a row for its subjects.`;
     }
   },
 
@@ -1857,6 +1853,7 @@ const CHARTS = {
           ]
         },
         options: baseOptions({
+          onClick: (_e, els) => { if (els.length) openDetail(rows[els[0].index].id); },
           plugins: { legend: legendOn() },
           datasets: { bar: { maxBarThickness: 56, barPercentage: .7 } },
           scales: {
@@ -1866,41 +1863,7 @@ const CHARTS = {
         })
       });
       const n = sum(rows, d => d.n);
-      return `${n} enrollments across ${rows.length} classes: ${(100 * sum(rows, d => d.failed) / n).toFixed(0)}% failed and ${(100 * sum(rows, d => d.dropped) / n).toFixed(0)}% dropped (Student Portal grades and status).`;
-    }
-  },
-
-  radar: {
-    title: () => 'My SETE per Criterion',
-    draw(cur) {
-      const prev = state.sem > 0 ? computeKpis(state.sem - 1) : null;
-      if (!cur.criteria) {
-        noData('SETE rating withheld: too few respondents to report criterion scores.');
-        return `Minimum: ${CONFIG.setMin.count} respondents and ${CONFIG.setMin.rate}% response (sample).`;
-      }
-      const mine = cur.criteria;
-      const sets = [{ label: SEM[state.sem], data: mine, borderColor: '#22364f', backgroundColor: 'rgba(34,54,79,.18)', pointRadius: 3 }];
-      if (prev && prev.criteria) {
-        sets.push({ label: SEM[state.sem - 1], data: prev.criteria, borderColor: '#9aa4b2', borderDash: [4, 3], backgroundColor: 'rgba(0,0,0,0)', pointRadius: 2 });
-      }
-      sets.push({ label: 'Target 4.0', data: CRITERIA.map(() => 4), borderColor: '#c62b30', borderDash: [6, 4], backgroundColor: 'rgba(0,0,0,0)', pointRadius: 0 });
-
-      drawCanvas({
-        type: 'radar',
-        data: { labels: CRITERIA.map(c => c.split(' ')), datasets: sets },
-        options: baseOptions({
-          plugins: { legend: legendOn() },
-          scales: { r: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: 9 }, backdropColor: 'rgba(0,0,0,0)' }, pointLabels: { font: { size: 10 } } } }
-        })
-      });
-
-      const lowest = CRITERIA.map((c, i) => [c, mine[i]]).sort((a, b) => a[1] - b[1])[0];
-      let text = `Weakest criterion: ${lowest[0]} at ${lowest[1].toFixed(2)} (${sum(cur.rows.filter(d => d.criteria), d => d.respondents)} respondents).`;
-      if (prev && prev.sete != null && cur.sete != null) {
-        const df = cur.sete - prev.sete;
-        text += ` Overall SETE moved ${(df >= 0 ? '+' : '') + df.toFixed(2)} vs the previous semester.`;
-      }
-      return text;
+      return `${n} enrollments across ${rows.length} classes: ${(100 * sum(rows, d => d.failed) / n).toFixed(0)}% failed and ${(100 * sum(rows, d => d.dropped) / n).toFixed(0)}% dropped. Click a bar to open the class.`;
     }
   },
 
@@ -1940,144 +1903,179 @@ const CHARTS = {
 
   /* ---------- Academic Administrator ---------- */
   hrRanking: {
-    title: () => 'High-Risk Course Rate per College',
-    draw(cur) {
-      const bars = Object.entries(cur.byGroup).map(([g, a]) => [g, hrRate(a)]).sort((a, b) => b[1] - a[1]);
-      const critical = bars.filter(b => b[1] > TH.hr[1]).length;
-      const top = Math.max(30, Math.ceil((bars[0][1] + 5) / 5) * 5);
-      drawLollipop({
-        labels: bars.map(b => b[0]),
-        values: bars.map(b => +b[1].toFixed(1)),
-        colors: bars.map(([g, a]) => ({
-          'CICS': '#43A58B',  // Verdigris
-          'CABEIHM': '#FFD700', // Bright Yellow // Yellow
-          'CAS': '#C62B30',   // Red
-          'CTE': '#3978B8',   // Blue
-          'CCJE': '#7B8490',  // Gray
-          'CHS': '#398451'    // Green
-        }[g] || '#22364f')),
-        fmt: v => v.toFixed(0) + '%', max: top,
-        lines: [{ axis: 'x', value: 10, label: 'Target 10%' }, { axis: 'x', value: 15, label: 'Critical 15%' }],
-        xTitle: 'High-risk courses (%)'
-      });
-      return `${critical} of ${bars.length} colleges are above the 15% critical line. Highest: ${bars[0][0]} at ${bars[0][1].toFixed(0)}%.`;
-    }
-  },
+  title: () => 'High-Risk Course Rate per College',
+  draw(cur) {
+    const rows = Object.entries(cur.byGroup)
+      .map(([g, a]) => ({ g, rate: hrRate(a), hr: a.filter(c => c.hr).length, total: a.length }))
+      .sort((a, b) => b.rate - a.rate);
+    const totalHr = sum(rows, r => r.hr);
+    const critical = rows.filter(r => r.rate > TH.hr[1]).length;
 
-  collegeTrends: {
-    title: () => 'Passing Rate Trend per College',
+    if (!totalHr) {
+      noData('No high-risk courses in any college for this filter.');
+      return 'All colleges are within the high-risk threshold.';
+    }
+
+    const shown = rows.filter(r => r.hr > 0);
+    drawCanvas({
+      type: 'pie',
+      data: {
+        labels: shown.map(r => `${r.g} · ${r.rate.toFixed(0)}%`),
+        datasets: [{
+          data: shown.map(r => r.hr),
+          backgroundColor: shown.map(r => COLLEGE_COLOR[r.g] || '#22364f'),
+          borderColor: '#fff',
+          borderWidth: 2
+        }]
+      },
+      options: baseOptions({
+        onClick: (_e, els) => { if (els.length) openCollegeList(shown[els[0].index].g, null); },
+        plugins: {
+          legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } },
+          tooltip: {
+            callbacks: {
+              label: p => {
+                const r = shown[p.dataIndex];
+                return `${r.g}: ${r.hr} of ${r.total} courses high-risk (${r.rate.toFixed(0)}%)`;
+              }
+            }
+          }
+        }
+      }),
+      plugins: [{
+        id: 'sliceCounts',
+        afterDatasetsDraw(c) {
+          const { ctx } = c;
+          ctx.save();
+          ctx.font = '700 12px system-ui,sans-serif';
+          ctx.fillStyle = '#fff';
+          ctx.textAlign = 'center';
+          c.getDatasetMeta(0).data.forEach((arc, i) => {
+            const v = c.data.datasets[0].data[i];
+            if (!v) return;
+            const p = arc.tooltipPosition();
+            ctx.fillText(v, p.x, p.y + 4);
+          });
+          ctx.restore();
+        }
+      }]
+    });
+
+    return `${totalHr} high-risk course(s) in total. ${critical} of ${rows.length} colleges are above the 15% critical line; highest: ${rows[0].g} at ${rows[0].rate.toFixed(0)}%. Slice number = high-risk courses; legend % = the college's rate. Click a slice for its classes.`;
+  }
+},
+
+  /* PRIMARY: Passing Rate Trend, all colleges compared on ONE graph */
+  passTrendGroup: {
+  title: () => 'Passing Rate Trend · College Comparison',
+  draw(cur) {
+    const cols = COLS.filter(c => SEM.some((_, s) => rowsFor(s).some(d => d.col === c)));
+    const sets = cols.map(c => ({
+      label: c,
+      borderColor: COLLEGE_COLOR[c],
+      backgroundColor: COLLEGE_COLOR[c],
+      borderWidth: 2.5,
+      tension: .25,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      spanGaps: true,
+      noLabels: true,
+      data: SEM.map((_, s) => {
+        const v = passOf(rowsFor(s).filter(d => d.col === c));
+        return v == null ? null : +v.toFixed(1);
+      })
+    }));
+    sets.push({ label: 'Target 85%', data: SEM.map(() => 85), borderColor: '#9aa4b2', borderDash: [6, 4], pointRadius: 0, borderWidth: 1.5, noLabels: true, targetLabel: 'Target 85%' });
+
+    /* zoom the y-axis to the real data range so the gaps between colleges are visible */
+    const vals = sets.slice(0, cols.length).flatMap(s => s.data).filter(v => v != null);
+    const lo = Math.min(...vals, 85);
+    const hi = Math.max(...vals, 85);
+    const yMin = Math.max(0, Math.floor((lo - 3) / 2) * 2);
+    const yMax = Math.min(100, Math.ceil((hi + 3) / 2) * 2);
+
+    drawCanvas({
+      type: 'line',
+      data: { labels: SEM.map(shortSem), datasets: sets },
+      options: baseOptions({
+        interaction: { mode: 'index', intersect: false },
+        layout: { padding: { left: 6, right: 24, top: 8 } },
+        onClick: (_e, els) => {
+          const hit = els.find(x => x.datasetIndex < cols.length);
+          if (hit) openCollegeList(cols[hit.datasetIndex], null);
+        },
+        plugins: {
+          legend: legendOn({ filter: i => i.text !== 'Target 85%', usePointStyle: true }),
+          tooltip: { filter: i => i.dataset.label !== 'Target 85%', callbacks: { label: p => `${p.dataset.label}: ${p.parsed.y == null ? '–' : p.parsed.y.toFixed(1) + '%'}` } }
+        },
+        scales: {
+          y: { min: yMin, max: yMax, title: axisTitle('Passing rate (%)'), ticks: { ...tickFont, stepSize: 2, callback: v => v + '%' }, grid: gridStyle },
+          x: { offset: true, title: axisTitle('Semester'), ticks: { font: { size: 10 } }, grid: { display: false } }
+        }
+      }),
+      plugins: [valueLabels]
+    });
+
+    const now = sets.slice(0, cols.length).map(s => [s.label, s.data[state.sem]]).filter(x => x[1] != null).sort((a, b) => a[1] - b[1]);
+    if (!now.length) return 'No passing-rate data for this filter.';
+    const below = now.filter(x => x[1] < 85).length;
+    const fell = cur.declG ? `; ${cur.declG.size} fell vs the previous semester` : '';
+    return `Lowest: ${now[0][0]} at ${now[0][1].toFixed(0)}% · Highest: ${now[now.length - 1][0]} at ${now[now.length - 1][1].toFixed(0)}% this semester. ${below} of ${now.length} colleges are below the 85% target${fell}. Click a line for its classes.`;
+  }
+},
+
+  /* SUPPORTING: SETE Trend, ONE small graph PER college (click a card for its class list) */
+  seteByCollege: {
+    title: () => 'Faculty SETE Trend per College',
     draw() {
       let below = 0;
       drawHtml(`<div class="mini-grid">${COLS.map(c => `
-        <div class="mini">
+        <div class="mini" data-col="${c}" role="button" tabindex="0" style="border-left-color:${COLLEGE_COLOR[c]}" aria-label="${c} SETE trend, open class list" title="Click for ${c} classes">
           <div class="mini-h"><b>${c}</b><span id="mv_${c}"></span></div>
-          <div class="mini-c" id="mw_${c}"><canvas id="mc_${c}" role="img" aria-label="${c} passing rate trend"></canvas></div>
+          <div class="mini-c" id="mw_${c}"><canvas id="mc_${c}" role="img" aria-label="${c} SETE trend"></canvas></div>
         </div>`).join('')}</div>`);
 
       COLS.forEach(c => {
-        const vals = SEM.map((_, i) => passOf(rowsFor(i).filter(d => d.col === c)));
+        const vals = SEM.map((_, i) => seteOf(rowsFor(i).filter(d => d.col === c)));
         if (vals.every(v => v == null)) {
           $('mw_' + c).innerHTML = '<p class="none">No data for this filter</p>';
           return;
         }
         const now = vals[state.sem];
-        const color = ({
-          'CICS': '#43A58B',   // Verdigris
-          'CABEIHM': '#FFD700', // Bright Yellow
-          'CAS': '#C62B30',    // Red
-          'CTE': '#3978B8',    // Blue
-          'CCJE': '#7B8490',   // Gray
-          'CHS': '#398451'     // Green
-        }[c] || '#9aa4b2');
-        if (now != null && now < TH.pass[0]) below++;
-        $('mv_' + c).innerHTML = now == null ? '–' : `<span class="pill ${now < TH.pass[1] ? 'r' : now < TH.pass[0] ? 'y' : ''}">${now.toFixed(0)}%</span>`;
+        const color = COLLEGE_COLOR[c];
+        if (now != null && now < 4) below++;
+        $('mv_' + c).innerHTML = now == null ? '–' : `<span class="pill ${now < 3.5 ? 'r' : now < 4 ? 'y' : ''}">${now.toFixed(2)}</span>`;
 
         charts.extra.push(new Chart($('mc_' + c), {
           type: 'line',
           data: {
             labels: SEM.map(shortSem),
             datasets: [
-              { data: vals.map(v => v == null ? null : +v.toFixed(1)), borderColor: color, backgroundColor: color, tension: .3, pointRadius: 3, spanGaps: true, fmt: v => v.toFixed(0) },
-              { data: SEM.map(() => 85), borderColor: '#9aa4b2', borderDash: [4, 3], pointRadius: 0, noLabels: true }
+              { data: vals.map(v => v == null ? null : +v.toFixed(2)), borderColor: color, backgroundColor: color, tension: .3, pointRadius: 3, spanGaps: true, fmt: v => v.toFixed(2) },
+              { data: SEM.map(() => 4), borderColor: '#9aa4b2', borderDash: [4, 3], pointRadius: 0, noLabels: true }
             ]
           },
           options: baseOptions({
-            layout: { padding: { top: 12, right: 8 } },
+            events: [],
+            layout: { padding: { top: 12, right: 14, left: 2 } },
             scales: {
-              y: { min: 60, max: 100, ticks: { font: { size: 8 }, stepSize: 20 }, grid: gridStyle },
+              y: { min: 3, max: 5, ticks: { font: { size: 8 }, stepSize: 1 }, grid: gridStyle },
               x: { ticks: { font: { size: 8 }, maxRotation: 0, autoSkip: false }, grid: { display: false } }
             }
           }),
           plugins: [valueLabels]
         }));
       });
-      return `${below} of ${COLS.length} colleges are below the 85% passing target this semester (dashed line = target).`;
-    }
-  },
-
-  seteTrendGroup: {
-    title: () => `Faculty SETE Trend per ${groupName(groupKey())}`,
-    draw(cur) {
-      const k = groupKey();
-      const groups = groupList(k);
-      const sets = groups.map((g, i) => ({
-        label: groupLbl(k, g),
-       borderColor: ({
-          'CICS': '#43A58B',   // Verdigris
-          'CABEIHM': '#FFD700', // Bright Yellow
-          'CAS': '#C62B30',    // Red
-          'CTE': '#3978B8',    // Blue
-          'CCJE': '#7B8490',   // Gray
-          'CHS': '#398451'     // Green
-        }[g] || PAL6[i % 6]),
-        backgroundColor: ({
-          'CICS': '#43A58B',
-          'CABEIHM': '#FFD700', // Bright Yellow
-          'CAS': '#C62B30',
-          'CTE': '#3978B8',
-          'CCJE': '#7B8490',
-          'CHS': '#398451'
-        }[g] || PAL6[i % 6]),
-        tension: .3,
-        pointRadius: 3,
-        spanGaps: true,
-        data: SEM.map((_, s) => {
-          const v = seteOf(rowsFor(s).filter(d => d[k] === g));
-          return v == null ? null : +v.toFixed(2);
-        })
-      }));
-      sets.push({ label: 'Target 4.0', data: SEM.map(() => 4), borderColor: '#9aa4b2', borderDash: [6, 4], pointRadius: 0, noLabels: true, targetLabel: 'Target 4.0' });
-
-      drawCanvas({
-        type: 'line',
-        data: { labels: SEM.map(shortSem), datasets: sets },
-        options: baseOptions({
-          plugins: { legend: legendOn({ filter: i => i.text !== 'Target 4.0' }) },
-          scales: {
-            y: { min: 3, max: 5, title: axisTitle('Average SETE (1–5)'), ticks: tickFont, grid: gridStyle },
-            x: { ticks: tickFont, grid: { display: false } }
-          }
-        }),
-        plugins: [valueLabels]
-      });
-
-      const now = groups.map(g => [g, seteOf(cur.rows.filter(d => d[k] === g))]).filter(x => x[1] != null).sort((a, b) => a[1] - b[1]);
-      return now.length
-        ? `Lowest this semester: ${groupLbl(k, now[0][0])} at ${now[0][1].toFixed(2)}. Averages are respondent-weighted and exclude withheld ratings.`
-        : 'No valid SETE ratings this semester.';
+      return `${below} of ${COLS.length} colleges are below the 4.0 SETE target this semester (dashed line = target). Click a card for that college’s classes.`;
     }
   }
 };
 
 /* =====================================================================
-   9. LIST PANELS (role-specific list under the charts)
+   9. LIST PANELS (role-specific list under the charts; "See full list" opens it all in a window)
    ===================================================================== */
-const drillNote = () => state.drill ? ` · Filtered by: ${kpiLabel(state.drill)} (click the KPI again to clear)` : '';
-
 function subjList(cur) {
-  const keys = new Set(drillRows(cur).map(d => d.col + ':' + d.code));
   return cur.courses
-    .filter(c => keys.has(c.col + ':' + c.code))
     .map(c => {
       const rs = cur.rows.filter(d => d.col === c.col && d.code === c.code);
       return { ...c, drop: 100 * sum(rs, d => d.dropped) / sum(rs, d => d.n) };
@@ -2085,11 +2083,55 @@ function subjList(cur) {
     .sort((a, b) => (b.hr - a.hr) || (a.pass - b.pass));
 }
 
+function collegeGroups(cur, key) {
+  const k = role.rollupBy;
+  let groups = Object.entries(cur.byGroup).map(([name, courses]) => {
+    const rs = cur.rows.filter(d => d[k] === name);
+    return { g: name, n: courses.length, hr: hrRate(courses), pass: passOf(rs), sete: seteOf(rs), cmp: completionOf(rs) };
+  });
+  const f = {
+    hr: x => x.hr > TH.hr[0],
+    colr: x => x.hr > TH.hr[1],
+    decl: x => !!cur.declG && cur.declG.has(x.g),
+    cmp: x => x.cmp != null && x.cmp < 80,
+    sete: x => x.sete != null && x.sete < 4
+  }[key];
+  if (f) groups = groups.filter(f);
+  return groups.sort((a, b) => b.hr - a.hr);
+}
+
+const collegeItem = (x, attr) => {
+  const cls = x.hr > TH.hr[1] ? 'r' : x.hr > TH.hr[0] ? 'y' : '';
+  return `<button class="item" ${attr}="${x.g}">
+    <div class="avatar" style="background:${COLLEGE_COLOR[x.g] || ''}">${x.g.slice(0, 2)}</div>
+    <div class="txt"><b>${x.g}</b><span class="sub">${COLLEGE_NAME[x.g] || ''} · ${x.n} subjects · Passing ${x.pass == null ? '–' : x.pass.toFixed(0) + '%'} · SETE ${fmtS(x.sete)} · Student SETE completion ${x.cmp == null ? '–' : x.cmp.toFixed(0) + '%'}</span></div>
+    <span class="pill ${cls}">${x.hr.toFixed(0)}% high-risk</span>
+  </button>`;
+};
+
+const classItem = d => {
+  const pass = 100 - d.fd;
+  const issue = mainIssue(d);
+  return `<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}">
+    <div class="avatar">${d.code.slice(0, 2)}</div>
+    <div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${fx(d)} · ${decodeSection(d.sec)} · ${d.n} enrolled · Passing ${pass.toFixed(0)}% · SETE ${fmtS(d.sete)} · Response ${d.resp == null ? '–' : d.resp.toFixed(0) + '%'}</span></div>
+    <span class="pill ${issue[1]}">${issue[0]}</span>
+  </button>`;
+};
+
+const LIST_CAP = 40;
+const classListHtml = (rows, empty = 'Nothing is flagged here: every class is within the threshold.') => {
+  if (!rows.length) return `<p class="none">${ico('tick', 14)} ${empty}</p>`;
+  const sorted = [...rows].sort((a, b) => riskScore(b) - riskScore(a));
+  const more = sorted.length > LIST_CAP ? `<p class="mfoot">Showing the ${LIST_CAP} highest-priority of ${sorted.length}. Use the filters above to narrow down.</p>` : '';
+  return sorted.slice(0, LIST_CAP).map(classItem).join('') + more;
+};
+
 const PANELS = {
   deanSubjects: {
     title: () => 'Subjects Needing Support',
-    hint: cur => `Showing ${Math.min(8, subjList(cur).length)} of ${subjList(cur).length} subjects. Click one to filter the dashboard.${drillNote()}`,
-    html: cur => subjList(cur).slice(0, 8).map(c => `
+    hint: cur => `Showing ${Math.min(8, subjList(cur).length)} of ${subjList(cur).length} subjects. Click one to filter the dashboard, or open the full list.`,
+    html: (cur, all) => (all ? subjList(cur) : subjList(cur).slice(0, 8)).map(c => `
       <button class="item" data-subject="${c.code}">
         <div class="avatar">${c.code.slice(0, 2)}</div>
         <div class="txt"><b>${c.lbl} · ${c.name}</b><span class="sub">${c.prog} · ${c.n} students · Passing ${c.pass.toFixed(0)}% · Dropout ${c.drop.toFixed(0)}% · SETE ${fmtS(c.sete)}</span></div>
@@ -2099,64 +2141,23 @@ const PANELS = {
 
   groups: {
     title: () => 'College Ranking',
-    hint: () => 'Ranked by high-risk course rate. Click a college to filter the dashboard.' + drillNote(),
-    html(cur) {
-      const k = role.rollupBy;
-      let groups = Object.entries(cur.byGroup).map(([name, courses]) => {
-        const rs = cur.rows.filter(d => d[k] === name);
-        return { g: name, n: courses.length, hr: hrRate(courses), pass: passOf(rs), sete: seteOf(rs), cmp: completionOf(rs) };
-      });
-      const drillFilter = {
-        hr: x => x.hr > TH.hr[0],
-        colr: x => x.hr > TH.hr[1],
-        decl: x => !!cur.declG && cur.declG.has(x.g),
-        cmp: x => x.cmp != null && x.cmp < 80,
-        sete: x => x.sete != null && x.sete < 4
-      }[state.drill];
-      if (drillFilter) groups = groups.filter(drillFilter);
-
-      return groups.sort((a, b) => b.hr - a.hr).map(x => {
-        const cls = x.hr > TH.hr[1] ? 'r' : x.hr > TH.hr[0] ? 'y' : '';
-        return `<button class="item" data-group="${x.g}">
-          <div class="avatar">${x.g.slice(0, 2)}</div>
-          <div class="txt"><b>${x.g}</b><span class="sub">${COLLEGE_NAME[x.g] || ''} · ${x.n} subjects · Passing ${x.pass == null ? '–' : x.pass.toFixed(0) + '%'} · SETE ${fmtS(x.sete)} · Student SETE completion ${x.cmp == null ? '–' : x.cmp.toFixed(0) + '%'}</span></div>
-          <span class="pill ${cls}">${x.hr.toFixed(0)}% high-risk</span>
-        </button>`;
-      }).join('');
-    }
+    hint: () => 'Ranked by high-risk course rate. Click a college to filter the dashboard.',
+    html: cur => collegeGroups(cur).map(x => collegeItem(x, 'data-group')).join('')
   },
 
   topSections: {
     title: () => 'Sections Needing Follow-up',
-    hint: cur => `Top ${Math.min(5, drillRows(cur).length)} of ${drillRows(cur).length} section-subjects${drillNote()}`,
-    html: cur => drillRows(cur)
-      .map(d => ({ ...d, pass: 100 - d.fd }))
-      .sort((a, b) => riskScore(b) - riskScore(a))
-      .slice(0, 5)
-      .map(d => {
-        const issue = mainIssue(d);
-        return `<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}">
-          <div class="avatar">${d.fac.replace('Prof. ', '').slice(0, 2).toUpperCase()}</div>
-          <div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${d.fac} (${d.fid}) · ${decodeSection(d.sec)} · ${d.n} enrolled · Passing ${d.pass.toFixed(0)}% · SETE ${fmtS(d.sete)}</span></div>
-          <span class="pill ${issue[1]}">${issue[0]}</span>
-        </button>`;
-      }).join('')
+    hint: cur => `Top ${Math.min(5, cur.rows.length)} of ${cur.rows.length} section-subjects. Click one for details, or open the full list.`,
+    html: (cur, all) => {
+      const sorted = [...cur.rows].sort((a, b) => riskScore(b) - riskScore(a));
+      return (all ? sorted.slice(0, 60) : sorted.slice(0, 5)).map(classItem).join('');
+    }
   },
 
   myClasses: {
     title: () => 'My Classes',
-    hint: () => 'Click a class to see its roster, SETE details, and grade submission.' + drillNote(),
-    html: cur => drillRows(cur)
-      .map(d => ({ ...d, pass: 100 - d.fd }))
-      .sort(byCodeSec)
-      .map(d => {
-        const issue = mainIssue(d);
-        return `<button class="item" data-section="${d.id}" title="${decodeSection(d.sec)}">
-          <div class="avatar">${d.sec.slice(2)}</div>
-          <div class="txt"><b>${d.lbl} · ${d.name}</b><span class="sub">${decodeSection(d.sec)} · ${d.n} enrolled · SETE ${fmtS(d.sete)} (${d.respondents}/${d.eligible} responded) · Passing ${d.pass.toFixed(0)}%</span></div>
-          <span class="pill ${issue[1]}">${issue[0]}</span>
-        </button>`;
-      }).join('')
+    hint: () => 'Click a class to see its roster, SETE details, and grade submission.',
+    html: cur => [...cur.rows].sort(byCodeSec).map(classItem).join('')
   }
 };
 
@@ -2205,13 +2206,14 @@ function renderKpiCards(cur, prev) {
       const good = def.lowerIsBetter ? df <= 0 : df >= 0;
       trend = `<p><u>Vs previous sem:</u> ${Math.abs(df) < 0.05 ? 'No change' : `${ico(df >= 0 ? 'up' : 'down', 11)} ${Math.abs(df).toFixed(key === 'sete' ? 2 : 1)} (${good ? 'improving' : 'worsening'})`}</p>`;
     }
-    kpiTips[key] = `<b>${name}</b><p>${def.objective}</p><p><u>Formula:</u> ${def.formula}</p><p><u>Target:</u> ${def.targetText} <span style="color:#9fb3cf">(sample threshold, configurable)</span></p><p><u>Data:</u> ${def.src}</p>${trend}<p style="color:#9fb3cf">Click to list the classes behind this KPI.</p>`;
+    kpiTips[key] = `<b>${name}</b><p>${def.objective}</p><p><u>Formula:</u> ${def.formula}</p><p><u>Target:</u> ${def.targetText} <span style="color:#9fb3cf">(sample threshold, configurable)</span></p><p><u>Data:</u> ${def.src}</p>${trend}<p style="color:#9fb3cf">Click to open the list behind this KPI.</p>`;
 
-    return `<button class="kpi ${st}${state.drill === key ? ' on' : ''}" data-kpi="${key}" aria-pressed="${state.drill === key}">
+    return `<button class="kpi ${st}" data-kpi="${key}">
       <div class="ic">${ico(def.icon, 17)}</div>
       <h3>${name}</h3>
       <div class="v">${v == null ? 'N/A' : def.fmt(v)}</div>
       <div class="st">${STATUS_TEXT[st]}</div>
+      <div class="go">View list →</div>
     </button>`;
   }).join('');
 }
@@ -2232,7 +2234,7 @@ function renderPanel(cur) {
   const p = PANELS[role.panel];
   $('panelTitle').textContent = p.title();
   $('panelHint').textContent = p.hint(cur);
-  $('panelBody').innerHTML = p.html(cur) || '<p class="none">Nothing matches this filter.</p>';
+  $('panelBody').innerHTML = p.html(cur, false) || '<p class="none">Nothing matches this filter.</p>';
 }
 
 /* ---------- notifications ---------- */
@@ -2294,7 +2296,7 @@ function followAlert(i) {
   closeModal();
   renderAlerts();
   const [kind, target] = x.go.split('|');
-  kind === 'd' ? openDetail(target) : filterSubject(target);
+  kind === 'd' ? openDetail(target) : openSubjectListAll(target);
 }
 
 const alertClick = e => {
@@ -2308,9 +2310,10 @@ const alertClick = e => {
 };
 
 /* =====================================================================
-   11. MODALS
+   11. MODALS & LISTS
    ===================================================================== */
 const openModal = wide => {
+  hideTip();
   $('modalBox').className = 'box' + (wide ? ' wide' : '');
   $('modal').style.display = 'flex';
   const close = $('btnClose');
@@ -2318,9 +2321,86 @@ const openModal = wide => {
 };
 const closeModal = () => {
   modalMode = '';
+  backTo = null;
+  parentFn = null;
+  lastKpi = null;
   $('modal').style.display = 'none';
 };
 const closeButton = '<button class="btn navy" id="btnClose" onclick="closeModal()">Close</button>';
+
+/* generic list window. reopen = how to come back to THIS list from a class detail;
+   parent = how to go back to the list this one was opened from */
+function openListModal(title, crumb, html, reopen, parent, summary) {
+  modalMode = '';
+  backTo = reopen || null;
+  parentFn = parent || null;
+  $('modalBox').innerHTML = `<h3>${title}</h3>
+    <p class="crumb">SPARTHEON › ${role.title} › ${crumb}</p>
+    ${summary ? `<div class="msum">${summary}</div>` : ''}
+    <div class="mlist">${html || '<p class="none">Nothing to show.</p>'}</div>
+    <p style="margin-top:14px">${closeButton}${parent ? ' <button class="btn alt" data-parent>← Back</button>' : ''}</p>`;
+  openModal(true);
+}
+
+/* KPI click → list of what is behind that KPI */
+function openKpiList(key) {
+  const cur = current;
+  if (!cur) return;
+  const def = KPI[key];
+  const v = cur[key];
+  const st = kpiStatus(key, v, state.sem);
+  const summary = `<b>${kpiLabel(key)}: ${v == null ? 'N/A' : def.fmt(v)}</b> · Target ${def.targetText} · <span class="pill ${{ g: '', y: 'y', r: 'r', n: 'n' }[st]}">${STATUS_TEXT[st]}</span><small>${def.objective}</small>`;
+  const reopen = () => openKpiList(key);
+
+  if (role.rollupBy === 'col' && ['hr', 'colr', 'decl', 'cmp', 'sete'].includes(key)) {
+    const groups = collegeGroups(cur, key);
+    openListModal(kpiLabel(key), `KPI › ${kpiLabel(key)}`,
+      groups.length ? groups.map(x => collegeItem(x, 'data-mgroup')).join('') : `<p class="none">${ico('tick', 14)} No college breaches this KPI’s threshold.</p>`,
+      reopen, null, summary);
+  } else {
+    const rows = drillRows(cur, key);
+    openListModal(kpiLabel(key), `KPI › ${kpiLabel(key)}`,
+      classListHtml(rows), reopen, null,
+      summary + `<small>${rows.length} class section${rows.length === 1 ? '' : 's'} behind this KPI · click one for details.</small>`);
+  }
+  lastKpi = key;
+}
+
+function openSubjectList(code, semIdx) {
+  const rows = rowsFor(semIdx).filter(d => d.code === code);
+  const p = passOf(rows);
+  openListModal(`${code} – ${COURSE_INFO[code].name}`, TERMS[semIdx].label,
+    classListHtml(rows, 'No class sections for this selection.'),
+    () => openSubjectList(code, semIdx), null,
+    `${TERMS[semIdx].label} · Passing rate <b>${p == null ? 'N/A' : p.toFixed(0) + '%'}</b> · SETE <b>${fmtS(seteOf(rows))}</b> · ${rows.length} class section${rows.length === 1 ? '' : 's'}`);
+}
+
+const openSubjectListAll = code => openSubjectList(code, state.sem);
+
+function openFacultyList(fid, semIdx) {
+  const rows = rowsFor(semIdx).filter(d => d.fid === fid);
+  const name = role.access.maskFaculty ? fid : FAC[fid].name;
+  openListModal(`${name} · ${fid}`, TERMS[semIdx].label,
+    classListHtml(rows, 'No class sections for this selection.'),
+    () => openFacultyList(fid, semIdx), null,
+    `${TERMS[semIdx].label} · ${rows.filter(d => d.late).length} of ${rows.length} section${rows.length === 1 ? '' : 's'} submitted grades late · SETE <b>${fmtS(seteOf(rows))}</b>`);
+}
+
+function openCollegeList(col, parent) {
+  const rows = (current ? current.rows : rowsFor(state.sem)).filter(d => d.col === col);
+  const cur = current;
+  const courses = cur ? cur.courses.filter(c => c.col === col) : [];
+  openListModal(`${col} – ${COLLEGE_NAME[col]}`, `${TERMS[state.sem].label} › ${col}`,
+    classListHtml(rows, 'No class sections for this selection.'),
+    () => openCollegeList(col, parent), parent,
+    `${TERMS[state.sem].label} · Passing <b>${passOf(rows) == null ? 'N/A' : passOf(rows).toFixed(0) + '%'}</b> · SETE <b>${fmtS(seteOf(rows))}</b> · ${courses.filter(c => c.hr).length} high-risk course(s) · ${rows.length} class sections`);
+}
+
+function openPanelAll() {
+  if (!current) return;
+  const p = PANELS[role.panel];
+  openListModal(p.title(), p.title(), p.html(current, true), openPanelAll, null, p.hint(current));
+}
 
 function renderAlertModal() {
   const all = alertsList.map((x, i) => [x, i]);
@@ -2332,7 +2412,7 @@ function renderAlertModal() {
       <button class="btn alt" onclick="markAll(true)" ${unread.length ? '' : 'disabled'}>${ico('tick', 13)} Mark all as read</button>
       ${read.length ? '<button class="btn alt" onclick="markAll(false)">Mark all as unread</button>' : ''}
     </div>
-    <div id="allAlerts">
+    <div id="allAlerts" class="mlist">
       ${unread.length ? unread.map(p => alertHtml(p[0], p[1])).join('') : `<p class="none">${ico('tick', 14)} ${all.length ? 'No unread alerts.' : 'No active alerts.'}</p>`}
       ${read.length ? `<h5 style="margin:14px 0 2px;color:var(--mute);font-size:.78rem">Read (${read.length})</h5>` + read.map(p => alertHtml(p[0], p[1])).join('') : ''}
     </div>
@@ -2342,11 +2422,12 @@ function renderAlertModal() {
 }
 
 function openAlerts() {
-  modalMode = 'alerts';
+  backTo = null;
+  parentFn = null;
   renderAlertModal();
+  modalMode = 'alerts';
 }
 
-/* integrity summary of the three sources behind the current view (used by the report) */
 function integSummary(cur) {
   const rows = cur.rows;
   const term = TERMS[state.sem];
@@ -2361,8 +2442,7 @@ function integSummary(cur) {
   ];
 }
 
-/* ---------- REPORT: per-role insights summary (preview, then print or save as PDF).
-   Aggregates only: no student-level data. ---------- */
+/* ---------- REPORT: per-role insights summary (preview, then print or save as PDF). Aggregates only. ---------- */
 const listOf = (a, n = 5) => a.length ? a.slice(0, n).join(', ') + (a.length > n ? ` +${a.length - n} more` : '') : 'none';
 
 function buildInsights(cur, prev) {
@@ -2414,6 +2494,8 @@ function buildInsights(cur, prev) {
 
 function openReport() {
   if (!current) return;
+  backTo = null;
+  parentFn = null;
   const cur = current;
   const prev = state.sem > 0 ? computeKpis(state.sem - 1) : null;
   const term = TERMS[state.sem];
@@ -2492,8 +2574,7 @@ function openReport() {
   openModal(true);
 }
 
-/* class detail: faculty assignment (Faculty Portal) + enrollment/grades (Student Portal) + SETE,
-   all linked by this class's ID */
+/* class detail: faculty assignment + enrollment/grades + SETE, all linked by this class's ID */
 function openDetail(id) {
   const d = DATA.find(x => x.id === id && role.filter(x));
   if (!d) return;
@@ -2556,18 +2637,12 @@ function openDetail(id) {
       </table></div>` : ''}
 
     <div class="warn n">SETE is not the sole measure of teaching effectiveness. Consider response rates, context, and other evidence.</div>
-    <p style="margin-top:14px">${closeButton} <button class="btn alt" onclick="closeModal();filterSubject('${d.code}')">Show this subject only</button></p>`;
+    <p style="margin-top:14px">${closeButton}${backTo ? ' <button class="btn alt" data-back>← Back to list</button>' : ''} <button class="btn alt" data-subject-only="${d.code}">Show this subject only</button></p>`;
 
   openModal(showRoster);
-  if ($('modalBox').querySelector('[data-sid]')) {
-    $('modalBox').onclick = e => {
-      const row = e.target.closest('[data-sid]');
-      if (row) openStudent(row.dataset.sid);
-    };
-  }
 }
 
-/* student record: faculty only, and only for classes the faculty member teaches (role-based access) */
+/* student record: faculty only, and only for classes the faculty member teaches */
 function openStudent(sid) {
   if (role.access.students !== 'names') return;
   const s = DB.students[sid];
@@ -2603,11 +2678,37 @@ function openStudent(sid) {
   openModal(true);
 }
 
+/* one delegated handler for every list / detail window */
+$('modalBox').addEventListener('click', e => {
+  const t = e.target;
+  if (t.closest('[data-back]')) { const fn = backTo; if (fn) fn(); return; }
+  if (t.closest('[data-parent]')) { const fn = parentFn; if (fn) fn(); return; }
+  const only = t.closest('[data-subject-only]');
+  if (only) { closeModal(); filterSubject(only.dataset.subjectOnly); return; }
+  const sid = t.closest('[data-sid]');
+  if (sid) { openStudent(sid.dataset.sid); return; }
+  const sec = t.closest('[data-section]');
+  if (sec) { openDetail(sec.dataset.section); return; }
+  const sub = t.closest('[data-subject]');
+  if (sub) { closeModal(); filterSubject(sub.dataset.subject); return; }
+  const grp = t.closest('[data-group]');
+  if (grp && role.groupFilter) {
+    closeModal();
+    state.f[role.groupFilter] = grp.dataset.group;
+    fillFilters();
+    render();
+    return;
+  }
+  const mg = t.closest('[data-mgroup]');
+  if (mg) {
+    const k = lastKpi;
+    openCollegeList(mg.dataset.mgroup, k ? () => openKpiList(k) : null);
+  }
+});
+
 /* =====================================================================
    12. EVENTS & NAVIGATION
    ===================================================================== */
-
-/* filters: academic year + semester are always shown; each role adds only its essential filters */
 function fillSem() {
   const ay = TERMS[state.sem].ay;
   $('selAY').innerHTML = AYS.map(a => `<option value="${a}" ${a === ay ? 'selected' : ''}>AY ${a}</option>`).join('');
@@ -2618,7 +2719,6 @@ function fillSem() {
     .join('');
 }
 
-/* each filter lists only values that exist given the other selections, so nothing mixed or empty can be chosen */
 function fillFilters() {
   for (let pass = 0; pass < 2; pass++) {
     role.filters.forEach(k => {
@@ -2632,7 +2732,7 @@ function fillFilters() {
 }
 
 function resetFilters() {
-  Object.assign(state, { sem: 3, drill: null });
+  state.sem = 3;
   FKEYS.forEach(k => { state.f[k] = 'all'; });
   fillSem();
   fillFilters();
@@ -2664,21 +2764,30 @@ $('selSem').onchange = e => {
   render();
 };
 
+/* clickable heatmap cells, faculty cells and college cards inside the chart slots */
 SLOT_IDS.forEach(s => {
   $(s + 'Html').onclick = e => {
-    const row = e.target.closest('[data-detail]');
-    if (row) openDetail(row.dataset.detail);
+    const hm = e.target.closest('[data-hm]');
+    if (hm) {
+      const [code, i] = hm.dataset.hm.split('|');
+      openSubjectList(code, +i);
+      return;
+    }
+    const fc = e.target.closest('[data-fac]');
+    if (fc) {
+      const [fid, i] = fc.dataset.fac.split('|');
+      openFacultyList(fid, +i);
+      return;
+    }
+    const col = e.target.closest('[data-col]');
+    if (col) openCollegeList(col.dataset.col, null);
   };
 });
 
+/* KPI click → open the list behind that KPI */
 $('kpiRow').onclick = e => {
   const btn = e.target.closest('.kpi');
-  if (!btn) return;
-  const key = btn.dataset.kpi;
-  state.drill = state.drill === key ? null : key;
-  render();
-  const again = $('kpiRow').querySelector(`[data-kpi="${key}"]`);
-  if (again) again.focus({ preventScroll: true });
+  if (btn) openKpiList(btn.dataset.kpi);
 };
 
 $('panelBody').onclick = e => {
@@ -2695,7 +2804,11 @@ $('panelBody').onclick = e => {
     return;
   }
   const section = e.target.closest('[data-section]');
-  if (section) openDetail(section.dataset.section);
+  if (section) {
+    backTo = null;
+    parentFn = null;
+    openDetail(section.dataset.section);
+  }
 };
 
 $('alertList').onclick = alertClick;
@@ -2737,7 +2850,7 @@ addEventListener('scroll', hideTip, { passive: true });
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
-  if (e.key === 'Enter' && e.target.matches('[data-section],[data-alert]')) e.target.click();
+  if (e.key === 'Enter' && e.target.matches('[data-section],[data-alert],[data-col]')) e.target.click();
 });
 
 /* landing page + static labels */
@@ -2746,7 +2859,7 @@ $('roleList').innerHTML = Object.entries(ROLES)
   .join('');
 $('landFoot').textContent =
   (SAMPLE_MODE ? 'Sample data only: Student Portal, Faculty Portal and SETE records are generated sample records linked by ID. ' : '') +
-  'Live Portal–SETE integration is a proposed enhancement; the data layer is ready for it.';
+  'Live Portal–SETE integration is a proposed enhancement.';
 $('modeBadge').title = SAMPLE_MODE
   ? 'No live database or API is connected. All Student Portal, Faculty Portal and SETE records are sample data.'
   : 'Live records';
@@ -2756,7 +2869,8 @@ document.querySelectorAll('[data-ico]').forEach(el =>
 
 function enterRole(key) {
   role = ROLES[key];
-  Object.assign(state, { roleKey: key, sem: 3, drill: null });
+  state.roleKey = key;
+  state.sem = 3;
   FKEYS.forEach(k => { state.f[k] = 'all'; });
 
   const access = role.access;
@@ -2777,6 +2891,7 @@ function enterRole(key) {
 
 function backToRoles() {
   destroyCharts();
+  closeModal();
   $('dash').style.display = 'none';
   $('land').style.display = 'flex';
 }
